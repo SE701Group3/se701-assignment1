@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "v1",
   "version": "1.0.0",
   "description": "",
@@ -16,5 +17,26 @@
   "devDependencies": {
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.2"
+=======
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewh318/se701-assignment1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewh318/se701-assignment1/issues"
+  },
+  "homepage": "https://github.com/andrewh318/se701-assignment1#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+>>>>>>> 02a8bae157ca6d3a944b80a4bd362f8e8f74edc7
   }
 }
