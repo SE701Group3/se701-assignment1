@@ -1,20 +1,22 @@
 {
-  "name": "v1",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewh318/se701-assignment1.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.9.4"
+  "bugs": {
+    "url": "https://github.com/andrewh318/se701-assignment1/issues"
   },
-  "devDependencies": {
-    "dotenv": "^8.2.0",
-    "nodemon": "^2.0.2"
+  "homepage": "https://github.com/andrewh318/se701-assignment1#readme",
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
