@@ -1,13 +1,11 @@
-import React from 'react';
+import React from "react";
 
 export default () => {
   return (
     <div className="App">
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <p>
-          Edit testtesttest<code>src/App.js</code> and save to reload.
-        </p>
+        <p>This is page for create post.</p>
         <a
           className="App-link"
           href="https://reactjs.org"
