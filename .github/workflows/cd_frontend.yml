@@ -1,0 +1,24 @@
+name: CD_FRONTEND
+# Adapted from https://medium.com/@michaelekpang/creating-a-ci-cd-pipeline-using-github-actions-b65bb248edfe
+
+on: 
+  push:
+    branches:    
+      - master
+    paths:
+      - 'frontend/**'
+      - '!frontend/README.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1 # don't use v2 since it uses a shallow clone that heroku doesn't support
+    - name: Add remote origin
+      run: |
+        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/se701group6-assignment1.git
+    - name: Deploy to Heroku
+      run: |
+        git subtree push --prefix frontend heroku master
