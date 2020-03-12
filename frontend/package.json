@@ -20,7 +20,9 @@
     "start": "cross-env EXTEND_ESLINT=true react-scripts start",
     "build": "cross-env EXTEND_ESLINT=true react-scripts build",
     "test": "cross-env EXTEND_ESLINT=true react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
   },
   "browserslist": {
     "production": [
