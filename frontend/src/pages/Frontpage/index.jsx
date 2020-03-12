@@ -2,11 +2,10 @@ import React from "react";
 import Header from "../../common/Header/Header";
 import { Container } from "@material-ui/core";
 
-export default () => {
+const Index = ({ postsToDisplay }) => {
   return (
     <header className="App-header">
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      <Header />
+      <Header postsToDisplay={postsToDisplay} />
       <Container maxWidth="sm">
         <p>This is the front page</p>
         <a
@@ -21,3 +20,5 @@ export default () => {
     </header>
   );
 };
+
+export default Index;

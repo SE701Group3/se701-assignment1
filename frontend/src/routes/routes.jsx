@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Frontpage from "../pages/Frontpage";
+import Frontpage from "../pages/Frontpage/frontpage";
 import CreatePost from "../pages/CreatePost";
 import PostDetail from "../pages/PostDetail";
 
