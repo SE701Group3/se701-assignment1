@@ -1,14 +1,14 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Frontpage from "../pages/Frontpage";
-import CreatePost from "../pages/CreatePost";
-import PostDetail from "../pages/PostDetail";
+import Frontpage from '../pages/Frontpage';
+import CreatePost from '../pages/CreatePost';
+import PostDetail from '../pages/PostDetail';
 
 const paths = {
-  FRONTPAGE: "/",
-  CREATE_POST: "/new",
-  POST_DETAILS: "/post",
+  FRONTPAGE: '/',
+  CREATE_POST: '/new',
+  POST_DETAILS: '/post',
 };
 
 const routes = (
