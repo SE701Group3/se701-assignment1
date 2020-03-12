@@ -1,0 +1,41 @@
+.form-header {
+    width:100%;
+    box-shadow: 0 2px 4px 0 rgba(191, 191, 191, 0.5);
+    height: 88px;
+    text-align:left;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+  }
+  
+  .form-header-logo {
+    padding: 20px 44px 20px 160px;
+    padding-left: 8% !important;
+    padding-right: 3em !important;
+  }
+  
+  span{
+    color : black
+  }
+
+  .logo {
+      margin-left: 5%;
+  }
+  
+  .right-items{
+    margin-left: auto;
+    margin-right: 8%;
+  }
+  
+  #account-link{
+    margin-right: 3em;
+  }
+  
+  .current-link {
+    border-bottom: 2px solid #000000;
+    padding-bottom: 10px;
+  }
+  
+  
