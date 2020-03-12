@@ -5,7 +5,11 @@ import "./App.css";
 import routes from "./routes/routes";
 
 function App() {
-  return <Router>{routes}</Router>;
+  return (
+    <Router>
+      <div className="App">{routes}</div>
+    </Router>
+  );
 }
 
 export default App;

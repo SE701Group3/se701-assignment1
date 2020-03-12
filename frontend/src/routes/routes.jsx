@@ -8,7 +8,7 @@ import PostDetail from "../pages/PostDetail";
 const paths = {
   FRONTPAGE: "/",
   CREATE_POST: "/new",
-  POST_DETAILS: "/post"
+  POST_DETAILS: "/post",
 };
 
 const routes = (
