@@ -1,10 +1,13 @@
 import React from "react";
+import Header from "../../common/Header/Header";
+import { Container } from "@material-ui/core";
 
 export default () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+    <header className="App-header">
+      {/* <img src={logo} className="App-logo" alt="logo" /> */}
+      <Header />
+      <Container maxWidth="sm">
         <p>This is the front page</p>
         <a
           className="App-link"
@@ -14,7 +17,7 @@ export default () => {
         >
           Learn React
         </a>
-      </header>
-    </div>
+      </Container>
+    </header>
   );
 };
