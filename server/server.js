@@ -16,9 +16,11 @@ db.once("open", () => console.log("connected to database"));
 
 app.use(express.json());
 
-const postsRouter = require("./routes/posts");
+const postsRouter = require("./src/routes/posts");
 app.use("/posts", postsRouter);
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
+
+module.exports = app;
