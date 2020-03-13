@@ -1,0 +1,33 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests when there is a pull request
+# with changes within the "frontend" directory 
+
+name: CI_FRONTEND
+
+on:
+  pull_request:
+    branches: 
+    - master 
+    paths: 
+    - 'frontend/**'
+    - '!frontend/README.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}   
+    - run: npm --prefix ./frontend install
+    - run: npm --prefix ./frontend run build --if-present
+    - run: npm --prefix ./frontend test
+      env:
+        CI: true
