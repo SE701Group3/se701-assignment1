@@ -21,6 +21,7 @@ module.exports = {
         "ignoreTemplateLiterals": true,
         "ignoreRegExpLiterals": true
       }
-    ]
+    ],
+    "no-underscore-dangle": "off" // __MONGO_URI__, _id, etc.
   }
 }
