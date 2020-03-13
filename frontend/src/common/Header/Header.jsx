@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./Header.module.css";
 
-const Header = () => {
+const Header = ({ handleSearch }) => {
   return (
     <div className={styles["form-header"]}>
       <span className={styles.logo}>Not-Reddit</span>

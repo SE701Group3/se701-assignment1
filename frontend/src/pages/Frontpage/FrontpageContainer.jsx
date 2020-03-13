@@ -18,7 +18,13 @@ const FrontpageContainer = ({ children }) => {
     getPostsOnLoad();
   }, []);
 
-  const newProps = { postsToDisplay };
+  const handleSearch = event => {
+    setPostsToDisplay(
+      retrievedPosts.filter(post => post.title.includes(event.target.value))
+    );
+  };
+
+  const newProps = { postsToDisplay, handleSearch };
 
   /**
    * if this wraps one component than children prop is object
