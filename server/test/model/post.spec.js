@@ -1,20 +1,12 @@
 const mongoose = require("mongoose");
 const PostModel = require("../../src/models/post");
+const db = require("../../db");
 
 describe("Post Model", () => {
   beforeAll(async done => {
-    // Initialize test database
-    await mongoose.connect(
-      global.__MONGO_URI__,
-      { useNewUrlParser: true, useCreateIndex: true },
-      err => {
-        if (err) {
-          console.error(err);
-          process.exit(1);
-        }
-      }
-    );
-    done();
+    db.connect()
+      .then(() => done())
+      .catch(err => done(err));
   });
 
   beforeEach(async done => {
@@ -24,8 +16,9 @@ describe("Post Model", () => {
   });
 
   afterAll(async done => {
-    await mongoose.connection.close();
-    done();
+    db.close()
+      .then(() => done())
+      .catch(err => done(err));
   });
 
   it("create post and save successfully", async done => {

@@ -1,22 +1,16 @@
+// Environment variable used to set the in-memory database when the server is instantiated
+process.env.NODE_ENV = "test";
+
 const mongoose = require("mongoose");
-const PostModel = require("../../src/models/post");
 const supertest = require("supertest");
-const app = require("../../server");
+const app = require("../../app");
+const db = require("../../db");
 
 describe("Posts API", () => {
   beforeAll(async done => {
-    // Initialize test database
-    await mongoose.connect(
-      global.__MONGO_URI__,
-      { useNewUrlParser: true, useCreateIndex: true },
-      err => {
-        if (err) {
-          console.error(err);
-          process.exit(1);
-        }
-      }
-    );
-    done();
+    db.connect()
+      .then(() => done())
+      .catch(err => done(err));
   });
 
   beforeEach(async done => {
@@ -26,13 +20,14 @@ describe("Posts API", () => {
   });
 
   afterAll(async done => {
-    await mongoose.connection.close();
-    app.close(done);
+    db.close()
+      .then(() => done())
+      .catch(err => done(err));
   });
 
   it("tests the create post endpoint and returns as success message", async done => {
     const postData = {
-      name: "Test Post"
+      name: "Test post"
     };
 
     const response = await supertest(app)
