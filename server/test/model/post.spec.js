@@ -1,8 +1,8 @@
 process.env.NODE_ENV = "test";
 
 const mongoose = require("mongoose");
-const PostModel = require("../../src/models/post");
-const db = require("../../db");
+const PostModel = require("../../src/db/models/post");
+const db = require("../../src/db");
 
 describe("Post Model", () => {
   beforeAll(async done => {

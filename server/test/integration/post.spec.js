@@ -4,7 +4,7 @@ process.env.NODE_ENV = "test";
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../../app");
-const db = require("../../db");
+const db = require("../../src/db");
 
 describe("Posts API", () => {
   beforeAll(async done => {
