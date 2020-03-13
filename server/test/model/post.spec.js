@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "test";
+
 const mongoose = require("mongoose");
 const PostModel = require("../../src/models/post");
 const db = require("../../db");
@@ -23,7 +25,7 @@ describe("Post Model", () => {
 
   it("create post and save successfully", async done => {
     const postData = {
-      name: "Test post"
+      name: "Test postysdfdsfdsf"
     };
     const validPost = new PostModel(postData);
     const savedPost = await validPost.save();
