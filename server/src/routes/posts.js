@@ -1,9 +1,10 @@
-const express = require("express");
+const express = require('express');
+
 const router = express.Router();
-const Post = require("../db/models/post");
+const Post = require('../db/models/post');
 
 // Get all posts
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const posts = await Post.find();
     res.json(posts);
@@ -13,9 +14,9 @@ router.get("/", async (req, res) => {
 });
 
 // Create one post
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   const post = new Post({
-    name: req.body.name
+    name: req.body.name,
   });
 
   try {
@@ -27,9 +28,9 @@ router.post("/", async (req, res) => {
 });
 
 // Update one post
-router.patch("/:id", (req, res) => {});
+router.patch('/:id', (req, res) => {});
 
 // Deleting one post
-router.delete("/:id", (req, res) => {});
+router.delete('/:id', (req, res) => {});
 
 module.exports = router;

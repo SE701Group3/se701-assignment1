@@ -1,10 +1,10 @@
-process.env.NODE_ENV = "test";
+process.env.NODE_ENV = 'test';
 
-const mongoose = require("mongoose");
-const PostModel = require("../../src/db/models/post");
-const db = require("../../src/db");
+const mongoose = require('mongoose');
+const PostModel = require('../../src/db/models/post');
+const db = require('../../src/db');
 
-describe("Post Model", () => {
+describe('Post Model', () => {
   beforeAll(async done => {
     db.connect()
       .then(() => done())
@@ -24,9 +24,9 @@ describe("Post Model", () => {
       .catch(err => done(err));
   });
 
-  it("create post and save successfully", async done => {
+  it('create post and save successfully', async done => {
     const postData = {
-      name: "Test postysdfdsfdsf"
+      name: 'Test postysdfdsfdsf',
     };
     const validPost = new PostModel(postData);
     const savedPost = await validPost.save();
@@ -37,7 +37,7 @@ describe("Post Model", () => {
     done();
   });
 
-  it("create post without required fields should fail", async done => {
+  it('create post without required fields should fail', async done => {
     const postWithoutRequiredField = new PostModel({});
     let err;
     try {
