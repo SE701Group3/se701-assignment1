@@ -21,6 +21,8 @@ app.use("/posts", postsRouter);
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
-app.listen(port, () => console.log(`Listening on port ${port}!`));
+const server = app.listen(port, () =>
+  console.log(`Listening on port ${port}!`)
+);
 
-module.exports = app;
+module.exports = server;

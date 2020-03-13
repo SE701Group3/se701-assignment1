@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const PostModel = require("../src/models/post");
 const supertest = require("supertest");
 const app = require("../server");
 
@@ -19,14 +18,20 @@ describe("Testing the Posts API", () => {
     done();
   });
 
+  beforeEach(async done => {
+    // clear database after each test to remove any dependencies between tests
+    await mongoose.connection.dropDatabase();
+    done();
+  });
+
   afterAll(async done => {
     await mongoose.connection.close();
-    done();
+    app.close(done);
   });
 
   it("tests the create post endpoint and returns as success message", async done => {
     const postData = {
-      name: "Hello"
+      name: "Test Post"
     };
 
     const response = await supertest(app)
@@ -34,6 +39,22 @@ describe("Testing the Posts API", () => {
       .send(postData);
 
     expect(response.status).toBe(201);
+    done();
+  });
+
+  it("tests the get post endpoint and returns as success message", async done => {
+    const postData = {
+      name: "Test Get"
+    };
+
+    await supertest(app)
+      .post("/posts")
+      .send(postData);
+
+    const response = await supertest(app).get("/posts");
+    const body = response.body;
+
+    expect(body.length).toBe(1);
     done();
   });
 });
