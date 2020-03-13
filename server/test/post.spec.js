@@ -42,6 +42,17 @@ describe("Testing the Posts API", () => {
     done();
   });
 
+  it("tests the create post endpoint with no name and returns as error message", async done => {
+    const postData = {};
+
+    const response = await supertest(app)
+      .post("/posts")
+      .send(postData);
+
+    expect(response.status).toBe(400);
+    done();
+  });
+
   it("tests the get post endpoint and returns as success message", async done => {
     const postData = {
       name: "Test Get"
