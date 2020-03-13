@@ -28,9 +28,15 @@ router.post('/', async (req, res) => {
 });
 
 // Update one post
-router.patch('/:id', (req, res) => {});
+// eslint-disable-next-line no-unused-vars
+router.patch('/:id', (req, res) => {
+  // TODO
+});
 
 // Deleting one post
-router.delete('/:id', (req, res) => {});
+// eslint-disable-next-line no-unused-vars
+router.delete('/:id', (req, res) => {
+  // TODO
+});
 
 module.exports = router;
