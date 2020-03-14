@@ -6,11 +6,10 @@ const CreatePostContainer = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async postInfo => {
-    const response = await submitPost(postInfo);
-    if (!response.ok) {
-      setErrorMessage(response.body);
-    } else {
-      setErrorMessage('');
+    try {
+      await submitPost(postInfo);
+    } catch (error) {
+      setErrorMessage(error.message);
     }
   };
 

@@ -3,5 +3,9 @@ export default async postInfo => {
     ...postInfo,
     sender_created_at: new Date().toISOString(),
   };
-  return fetch('/api/post/create', { method: 'POST', body: parameters });
+  const response = await fetch('/api/post/create', { method: 'POST', body: parameters });
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message);
+  }
 };
