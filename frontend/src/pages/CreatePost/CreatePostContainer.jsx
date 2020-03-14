@@ -5,9 +5,9 @@ import submitPost from '../../services/createPostService';
 const CreatePostContainer = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleSubmit = async postInfo => {
+  const handleSubmit = async (title, body) => {
     try {
-      await submitPost(postInfo);
+      await submitPost(title, body);
       setErrorMessage(null);
     } catch (error) {
       setErrorMessage(error.message);
