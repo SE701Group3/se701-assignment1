@@ -21,8 +21,8 @@
     "build": "cross-env EXTEND_ESLINT=true react-scripts build",
     "test": "cross-env EXTEND_ESLINT=true react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .js,.jsx",
-    "lint-fix": "eslint --fix . --ext .js,.jsx"
+    "lint": "eslint ./src --ext .js,.jsx",
+    "lint-fix": "eslint --fix ./src --ext .js,.jsx"
   },
   "browserslist": {
     "production": [
