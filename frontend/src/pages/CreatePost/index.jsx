@@ -1,10 +1,4 @@
-import React from 'react';
-
-import CreatePostContainer from './CreatePostContainer';
+import withCreatePostService from './withCreatePostService';
 import CreatePost from './CreatePost';
 
-export default () => (
-  <CreatePostContainer>
-    <CreatePost />
-  </CreatePostContainer>
-);
+export default withCreatePostService(CreatePost);
