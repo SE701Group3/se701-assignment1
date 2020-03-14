@@ -1,4 +1,4 @@
-export default async (title, body) => {
+export const submitPost = fetch => async (title, body) => {
   const parameters = {
     title,
     body,
@@ -12,3 +12,5 @@ export default async (title, body) => {
     throw new Error(message);
   }
 };
+
+export default submitPost(fetch);
