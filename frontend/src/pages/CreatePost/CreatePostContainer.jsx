@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import submitPost from '../../services/createPostService';
 
 const CreatePostContainer = ({ children }) => {
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async postInfo => {
     try {
       await submitPost(postInfo);
+      setErrorMessage(null);
     } catch (error) {
       setErrorMessage(error.message);
     }
