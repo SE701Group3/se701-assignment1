@@ -3,14 +3,16 @@ import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import styles from './CreatePost.module.css';
 
 const CreatePostModal = () => {
   const [showModal, setModal] = useState(true);
   return (
     <Modal open={showModal} onClose={() => setModal(false)}>
-      <div>
+      <div className={styles.modal}>
         <Typography variant="h2">New Thread</Typography>
         <TextField
+          classname={styles.titleText}
           variant="outlined"
           margin="normal"
           required
@@ -19,6 +21,7 @@ const CreatePostModal = () => {
           name="title"
         />
         <TextField
+          className={styles.bodyText}
           variant="outlined"
           margin="normal"
           required
@@ -28,7 +31,7 @@ const CreatePostModal = () => {
           label="Thread Content"
           name="body"
         />
-        <div>
+        <div className={styles.modalButtons}>
           <Button color="secondary" onClick={() => setModal(false)}>
             Cancel
           </Button>
