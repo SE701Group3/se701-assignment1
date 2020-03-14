@@ -20,8 +20,12 @@ function connect() {
   }
 }
 
+function drop() {
+  return mongoose.connection.dropDatabase();
+}
+
 function close() {
   return mongoose.disconnect();
 }
 
-module.exports = { connect, close };
+module.exports = { connect, drop, close };

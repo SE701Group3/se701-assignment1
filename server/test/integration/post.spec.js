@@ -15,8 +15,9 @@ describe("Posts API", () => {
 
   beforeEach(async done => {
     // clear database after each test to remove any dependencies between tests
-    await mongoose.connection.dropDatabase();
-    done();
+    db.drop()
+      .then(() => done())
+      .catch(err => done(err));
   });
 
   afterAll(async done => {
