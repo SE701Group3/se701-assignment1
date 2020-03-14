@@ -1,7 +1,6 @@
 // Environment variable used to set the in-memory database when the server is instantiated
 process.env.NODE_ENV = 'test';
 
-const mongoose = require('mongoose');
 const supertest = require('supertest');
 const app = require('../../app');
 const db = require('../../src/db');
