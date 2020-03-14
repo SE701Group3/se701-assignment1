@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { submitPost } from '../../services/createPostService';
+import submitPost from '../../services/createPostService';
 
 const CreatePostContainer = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState('');

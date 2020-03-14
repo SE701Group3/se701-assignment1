@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const submitPost = async postInfo => {
+export default async postInfo => {
   const parameters = {
     ...postInfo,
     sender_created_at: new Date().toISOString(),
