@@ -1,8 +1,10 @@
 import { enableFetchMocks } from 'jest-fetch-mock';
 
+// Ensure that fetch() is mocked before we import the implementation-under-test.
 enableFetchMocks();
 
-import submitPost from './createPostService'; // eslint-disable-line import/first
+// eslint-disable-next-line import/first
+import submitPost from './createPostService';
 
 process.on('unhandledRejection', up => {
   throw up;
