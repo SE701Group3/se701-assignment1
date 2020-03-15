@@ -1,20 +1,13 @@
 module.exports = {
   "extends": [
-    "airbnb",
+    "airbnb-base",
     "plugin:prettier/recommended",
-    "prettier/react"
   ],
   "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
     "jest": true,
     "node": true
   },
   "rules": {
-    "jsx-a11y/href-no-hash": ["off"],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
-    "react/prop-types": ["off"],
     "max-len": [
       "warn",
       {
@@ -28,16 +21,7 @@ module.exports = {
         "ignoreTemplateLiterals": true,
         "ignoreRegExpLiterals": true
       }
-    ]
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "moduleDirectory": [
-          "node_modules",
-          "src"
-        ]
-      }
-    }
+    ],
+    "no-underscore-dangle": "off" // __MONGO_URI__, _id, etc.
   }
 }
