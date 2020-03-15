@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 import sinon from 'sinon';
 
-// Check for PropType errors that are printed to the console:
+// Check for errors that are printed to the console:
 beforeEach(() => {
   sinon.stub(console, 'error');
 });

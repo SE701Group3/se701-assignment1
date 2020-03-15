@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { render } from '@testing-library/react';
 import { createPostService } from './withCreatePostService';
 
@@ -8,13 +7,6 @@ const MockCreatePost = ({ errorMessage, onSubmit }) => {
     onSubmit();
   });
   return <p>{`MockCreatePost ${errorMessage}`}</p>;
-};
-MockCreatePost.propTypes = {
-  errorMessage: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired,
-};
-MockCreatePost.defaultProps = {
-  errorMessage: null,
 };
 
 describe('withCreatePostService', () => {
