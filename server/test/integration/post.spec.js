@@ -1,12 +1,11 @@
 // Environment variable used to set the in-memory database when the server is instantiated
-process.env.NODE_ENV = "test";
+process.env.NODE_ENV = 'test';
 
-const mongoose = require("mongoose");
-const supertest = require("supertest");
-const app = require("../../app");
-const db = require("../../src/db");
+const supertest = require('supertest');
+const app = require('../../app');
+const db = require('../../src/db');
 
-describe("Posts API", () => {
+describe('Posts API', () => {
   beforeAll(async done => {
     db.connect()
       .then(() => done())
@@ -26,13 +25,13 @@ describe("Posts API", () => {
       .catch(err => done(err));
   });
 
-  it("tests the create post endpoint and returns as success message", async done => {
+  it('tests the create post endpoint and returns as success message', async done => {
     const postData = {
-      name: "Test post"
+      name: 'Test post',
     };
 
     const response = await supertest(app)
-      .post("/posts")
+      .post('/posts')
       .send(postData);
 
     expect(response.status).toBe(201);
@@ -42,11 +41,11 @@ describe("Posts API", () => {
     done();
   });
 
-  it("tests the create post endpoint with no name and returns as error message", async done => {
+  it('tests the create post endpoint with no name and returns as error message', async done => {
     const postData = {};
 
     const response = await supertest(app)
-      .post("/posts")
+      .post('/posts')
       .send(postData);
 
     expect(response.status).toBe(400);
