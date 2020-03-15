@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { getPosts } from "../../services/frontpageService";
+import React, { useState, useEffect } from 'react';
+import { getPosts } from '../../services/frontpageService';
 
 const FrontpageContainer = ({ children }) => {
   const [retrievedPosts, setRetrievedPosts] = useState([]);
   const [postsToDisplay, setPostsToDisplay] = useState([]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     async function getPostsOnLoad() {
       const response = await getPosts();
-      if (response.response === "ok") {
+      if (response.response === 'ok') {
         setRetrievedPosts(response.posts);
         setPostsToDisplay(response.posts);
       }
@@ -19,9 +18,7 @@ const FrontpageContainer = ({ children }) => {
   }, []);
 
   const handleSearch = event => {
-    setPostsToDisplay(
-      retrievedPosts.filter(post => post.title.includes(event.target.value))
-    );
+    setPostsToDisplay(retrievedPosts.filter(post => post.title.includes(event.target.value)));
   };
 
   const newProps = { postsToDisplay, handleSearch };
