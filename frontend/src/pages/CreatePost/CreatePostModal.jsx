@@ -12,7 +12,7 @@ const CreatePostModal = () => {
       <div className={styles.modal}>
         <Typography variant="h2">New Thread</Typography>
         <TextField
-          classname={styles.titleText}
+          className={styles.titleText}
           variant="outlined"
           margin="normal"
           required
