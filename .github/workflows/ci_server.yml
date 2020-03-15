@@ -1,0 +1,33 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests when there is a pull request
+# with changes within the "server" directory 
+
+name: CI_SERVER
+
+on:
+  pull_request:
+    branches: 
+    - master 
+    paths: 
+    - 'server/**'
+    - '!server/README.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest   
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }} 
+    - run: npm --prefix ./server ci
+    - run: npm --prefix ./server run build --if-present
+    - run: npm --prefix ./server test
+      env:
+        CI: true
