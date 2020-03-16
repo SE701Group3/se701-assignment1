@@ -16,4 +16,4 @@ Before contributing to the repository, make sure to read the [license](https://g
 
 ## Further information
 
-For more information about the project, consult the [wiki](https://github.com/se701-group6/se701-assignment1/settings).
+For more information about the project, consult the [wiki](https://github.com/se701-group6/se701-assignment1/wiki).
