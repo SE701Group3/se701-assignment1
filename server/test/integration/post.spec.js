@@ -27,7 +27,8 @@ describe('Posts API', () => {
 
   it('tests the create post endpoint and returns as success message', async done => {
     const postData = {
-      name: 'Test post',
+      title: 'Test post',
+      body: 'This is the body for a test post',
     };
 
     const response = await supertest(app)
@@ -37,11 +38,18 @@ describe('Posts API', () => {
     expect(response.status).toBe(201);
 
     const createdPost = response.body;
-    expect(createdPost.name).toBe(postData.name);
+
+    expect(createdPost.title).toBe(postData.title);
+    expect(createdPost.body).toBe(postData.body);
+
+    expect(createdPost.upvotes_clap).toBe(0);
+    expect(createdPost.upvotes_laugh).toBe(0);
+    expect(createdPost.upvotes_sad).toBe(0);
+
     done();
   });
 
-  it('tests the create post endpoint with no name and returns as error message', async done => {
+  it('tests the create post endpoint with no title and returns as error message', async done => {
     const postData = {};
 
     const response = await supertest(app)
