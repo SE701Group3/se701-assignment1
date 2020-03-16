@@ -27,7 +27,10 @@
     align-items: center;
 }
 
+.post-button {
+    margin: 2em;
+}
+
 .post-icon {
-    padding-top: 33%;
     color: #5d5d5d;
 }  
