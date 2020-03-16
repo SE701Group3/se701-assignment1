@@ -20,14 +20,17 @@
 .post-leftbar {
     width: 5em;
     position: absolute;
-    height: 100%;
+    height: 15em;
     background-color: #e4e9ef;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.post-button {
+    margin: 2em;
+}
+
 .post-icon {
-    padding-top: 33%;
     color: #5d5d5d;
 }  
