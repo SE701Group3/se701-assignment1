@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Header from '../../common/Header/Header';
 import Post from './Post';
-
 import styles from './frontpageStyles.module.css';
+import CreatePostModal from '../CreatePost/CreatePostModal';
+import withCreatePostService from '../CreatePost/withCreatePostService';
+
+const CreatePostModalServiced = withCreatePostService(CreatePostModal);
 
 const Index = ({ postsToDisplay, handleSearch }) => {
+  const [showModal, setModal] = useState(false);
+
   return (
     <>
       <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
@@ -27,10 +32,13 @@ const Index = ({ postsToDisplay, handleSearch }) => {
         classes={{
           root: styles.addButton,
         }}
-        onClick={() => console.log('test')}
+        onClick={() => {
+          setModal(true);
+        }}
       >
         <AddIcon classes={{ root: styles.addIcon }} />
       </Fab>
+      <CreatePostModalServiced showModal={showModal} setModal={setModal} />
     </>
   );
 };

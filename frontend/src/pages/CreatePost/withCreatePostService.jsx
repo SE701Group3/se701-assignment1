@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 
 import submitPost, { SubmitPostError } from '../../services/createPostService';
 
-export const createPostService = submit => CreatePost => () => {
+export const createPostService = submit => CreatePost => ({ showModal, setModal }) => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [showModal, setModal] = useState(true);
 
   const handleSubmit = async (title, body) => {
     try {
