@@ -1,12 +1,15 @@
-import React from "react";
+import React from 'react';
+import { TextField } from '@material-ui/core';
 
-import styles from "./Header.module.css";
+import styles from './Header.module.css';
 
-const Header = () => {
+const Header = ({ handleSearch }) => {
   return (
-    <div className={styles["form-header"]}>
+    <div className={styles['form-header']}>
       <span className={styles.logo}>Not-Reddit</span>
-      <div className={styles["right-items"]}>
+      <TextField onChange={handleSearch} variant="outlined" />
+
+      <div className={styles['right-items']}>
         <span>Profile</span>
       </div>
     </div>

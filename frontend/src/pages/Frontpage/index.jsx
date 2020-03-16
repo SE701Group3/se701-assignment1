@@ -1,12 +1,15 @@
-import React from "react";
-import Header from "../../common/Header/Header";
-import { Container } from "@material-ui/core";
+import React from 'react';
+import { Container } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Header from '../../common/Header/Header';
 
-export default () => {
+import styles from './frontpageStyles.module.css';
+
+const Index = ({ postsToDisplay, handleSearch }) => {
   return (
-    <header className="App-header">
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      <Header />
+    <>
+      <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
       <Container maxWidth="sm">
         <p>This is the front page</p>
         <a
@@ -18,6 +21,16 @@ export default () => {
           Learn React
         </a>
       </Container>
-    </header>
+      <Fab
+        classes={{
+          root: styles.addButton,
+        }}
+        onClick={() => console.log('test')}
+      >
+        <AddIcon />
+      </Fab>
+    </>
   );
 };
+
+export default Index;

@@ -1,0 +1,27 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 600px;
+  position: fixed;
+  margin-top: 80px;
+  left: calc(50% - 300px);
+  background-color: white;
+  padding: 10px 10px 10px 10px;
+}
+
+.bodyText {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.titleText {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.modalButtons {
+  position: relative;
+  margin-left: auto;
+  margin-right: 0;
+}
