@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
+
 import ClapImg from '../../common/icons/clap.png';
 import SmileImg from '../../common/icons/emoji.png';
 import SadImg from '../../common/icons/sad.png';

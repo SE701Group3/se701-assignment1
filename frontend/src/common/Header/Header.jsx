@@ -9,9 +9,6 @@ const Header = ({ handleSearch }) => {
     <AppBar position="static" classes={{ root: styles.appBar }}>
       <Toolbar>
         <img src={LogoImage} alt="logo-img" className={styles.logo} />
-        {/* <Typography variant="h6" classes={{ root: styles.title }}>
-          Threader
-        </Typography> */}
         <TextField
           classes={{ root: styles.searchBar }}
           onChange={handleSearch}
