@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const postSchema = new mongoose.Schema({
+const commentsSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Post', commentsSchema);
