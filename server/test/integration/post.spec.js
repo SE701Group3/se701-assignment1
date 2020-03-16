@@ -101,7 +101,7 @@ describe('Posts API', () => {
 
     const url = '/posts/';
     const response2 = await supertest(app)
-      .patch(url.concat('100'))
+      .put(url.concat('100'))
       .send({ title: updatedPost.title, body: updatedPost.body });
     expect(response2.status).toBe(404);
     done();
