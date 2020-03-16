@@ -21,6 +21,14 @@ const getPostInformation = async postId => {
             id: 123,
             body: 'Child1',
             date_created: '2020-03-11T03:26:09.094Z',
+            children: [
+              {
+                id: 123,
+                body: 'Child2',
+                date_created: '2020-03-11T03:26:09.094Z',
+                children: [],
+              },
+            ],
           },
         ],
       },
@@ -28,7 +36,14 @@ const getPostInformation = async postId => {
         id: 781,
         body: 'I Agree!',
         date_created: '2020-03-11T03:26:09.094Z',
-        children: [],
+        children: [
+          {
+            id: 123,
+            body: 'Child1',
+            date_created: '2020-03-11T03:26:09.094Z',
+            children: [],
+          },
+        ],
       },
       {
         id: 523,

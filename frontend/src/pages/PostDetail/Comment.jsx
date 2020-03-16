@@ -14,7 +14,7 @@ const Comment = ({ body, dateCreated }) => {
         <CardContent>
           <div className={styles['comment-content']}>
             <Typography variant="body1">AnonUser</Typography>
-            <Typography variant="body1" color="textSecondary">
+            <Typography variant="caption" color="textSecondary">
               {dateCreated}
             </Typography>
             <Typography component="p" variant="body2" color="textSecondary">

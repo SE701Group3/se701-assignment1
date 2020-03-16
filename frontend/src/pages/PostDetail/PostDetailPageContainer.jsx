@@ -9,7 +9,6 @@ const PostDetailPageContainer = ({ children }) => {
       const response = await getPostInformation();
       setCommentsToDisplay(response.Comments);
     }
-
     getPostInformationOnLoad();
   }, []);
 
