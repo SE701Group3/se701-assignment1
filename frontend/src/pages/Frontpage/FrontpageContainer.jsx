@@ -21,11 +21,7 @@ const FrontpageContainer = ({ children }) => {
 
   const newProps = { postsToDisplay, handleSearch };
 
-  /**
-   * if this wraps one component than children prop is object
-   * otherwise array
-   */
-  return <>{React.cloneElement(children, { ...newProps })}</>;
+  return React.cloneElement(children, { ...newProps });
 };
 
 export default FrontpageContainer;
