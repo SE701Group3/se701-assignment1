@@ -10,7 +10,7 @@ import withCreatePostService from '../CreatePost/withCreatePostService';
 
 const CreatePostModalServiced = withCreatePostService(CreatePostModal);
 
-const Index = ({ postsToDisplay, handleSearch }) => {
+const Index = ({ postsToDisplay, handleSearch, handleVote }) => {
   const [showModal, setModal] = useState(false);
 
   return (
@@ -19,12 +19,14 @@ const Index = ({ postsToDisplay, handleSearch }) => {
       <Container maxWidth="sm">
         {postsToDisplay.map(post => (
           <Post
+            id={post.id}
             title={post.title}
             content={post.content}
             key={`${post.id}-key`}
             upvotes={post.upvotes_laugh}
             downvotes={post.upvotes_sad}
             claps={post.upvotes_clap}
+            handleVote={handleVote}
           />
         ))}
       </Container>
