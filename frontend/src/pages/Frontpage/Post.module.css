@@ -20,7 +20,7 @@
 .post-leftbar {
     width: 5em;
     position: absolute;
-    height: 100%;
+    height: 15em;
     background-color: #e4e9ef;
     display: flex;
     flex-direction: column;
