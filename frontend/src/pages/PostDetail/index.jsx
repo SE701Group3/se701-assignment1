@@ -1,13 +1,13 @@
 import React from 'react';
 import PostDetail from './PostDetail';
-import CommentsContainer from './CommentsContainer';
+import Comment from './Comment';
 import CreateCommentModal from './CreateCommentModal';
 
 export default () => {
   return (
     <div>
       <PostDetail />
-      <CommentsContainer />
+      <Comment />
       <CreateCommentModal />
     </div>
   );
