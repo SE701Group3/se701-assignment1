@@ -36,8 +36,15 @@ router.patch('/:id', (req, res) => {
 
 // Deleting one post
 // eslint-disable-next-line no-unused-vars
-router.delete('/:id', (req, res) => {
-  // TODO
+router.delete('/:id', async (req, res) => {
+  try {
+    await Post.findOneAndDelete({
+      _id: req.params.id,
+    });
+    res.status(200).json({ message: 'ok' });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
 });
 
 module.exports = router;
