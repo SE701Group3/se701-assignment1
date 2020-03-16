@@ -28,36 +28,3 @@ const Header = () => {
 };
 
 export default Header;
-
-/* import { makeStyles } from '@material-ui/core/styles';
-const useStyles = makeStyles({
-  appBar: { backgroundColor: 'white', height: '70px' },
-  logoText: { flex: 2, color: 'black', width: 'relative', fontSize: '28px' },
-  middleBar: {
-    flex: 14,
-  },
-  searchBar: {
-    width: '80%',
-    justifyContent: 'center',
-    position: 'relative',
-    backgroundColor: 'lightgrey',
-  },
-  profileName: {
-    flex: 1,
-    color: 'black',
-  },
-  accountIcon: {
-    flex: 1,
-  },
-});
-const classes = useStyles();
-*/
-/* <div className={styles["form-header"]}>
-<span className={styles.logo}>Not-Reddit</span>
-<form>
-  
-</form>
-<div className={styles["right-items"]}>
-  <span>Profile</span>
-</div>
-</div> */
