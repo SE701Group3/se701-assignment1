@@ -21,6 +21,7 @@ export const createPostService = submit => CreatePost => ({ showModal, setModal 
   };
 
   const handleClose = () => {
+    setErrorMessage('');
     setModal(false);
   };
 
