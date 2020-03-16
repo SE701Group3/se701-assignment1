@@ -10,14 +10,7 @@ const PostDetailPage = ({ commentsToDisplay }) => {
       <PostDetail />
       <Container maxWidth="sm">
         {commentsToDisplay.map(comment => (
-          <Comment
-            title={comment.title}
-            content={comment.content}
-            key={`${comment.id}-key`}
-            upvotes={comment.upvotes_laugh}
-            downvotes={comment.upvotes_sad}
-            claps={comment.upvotes_clap}
-          />
+          <Comment body={comment.body} dateCreated={comment.dateCreated} />
         ))}
       </Container>
       <CreateCommentModal />

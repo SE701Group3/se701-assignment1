@@ -7,7 +7,7 @@ import styles from './Comment.module.css';
 // {this.props.post.text.split("\n").map((i, key) => {
 //   return <p key={key}>{i}</p>;
 // })}
-const Comment = () => {
+const Comment = ({ body, dateCreated }) => {
   return (
     <Card className={styles.root}>
       <div className={styles['comment-box']}>
@@ -15,10 +15,10 @@ const Comment = () => {
           <div className={styles['comment-content']}>
             <Typography variant="body1">AnonUser</Typography>
             <Typography variant="body1" color="textSecondary">
-              8 Days Ago
+              {dateCreated}
             </Typography>
             <Typography component="p" variant="body2" color="textSecondary">
-              commentBodycommentBodycommentBodycommentBodycommentBodycommentBody
+              {body}
             </Typography>
           </div>
         </CardContent>
