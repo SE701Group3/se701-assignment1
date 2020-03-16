@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     await Post.update({ _id: req.params.id }, { title: req.body.title, body: req.body.body });
-    res.status(200).json({ message: 'ok' });
+    res.status(200).send();
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
