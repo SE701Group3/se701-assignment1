@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getPosts } from '../../services/frontpageService';
+import getPosts from '../../services/frontpageService';
 
 const FrontpageContainer = ({ children }) => {
   const [retrievedPosts, setRetrievedPosts] = useState([]);
