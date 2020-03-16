@@ -12,19 +12,19 @@
 }
 
 .heading {
-  margin-bottom: 20px !important;
+  margin-bottom: 15px !important;
 }
 
 .errorMessage {
   position: absolute;
   left: 15px;
-  bottom: 5px;
+  bottom: 15px;
   color: red;
 }
 
 .bodyText {
   background-color: #e4e9ef;
-  margin: 0 0 20px 0 !important;
+  margin: 0 0 15px 0 !important;
   padding: 2px 10px 2px 10px !important;
 }
 
