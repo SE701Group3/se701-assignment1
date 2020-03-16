@@ -33,4 +33,11 @@
 
 .post-icon {
     color: #5d5d5d;
+    width: 35px;
 }  
+
+.buttonGroup {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextField, AppBar, Typography, Toolbar } from '@material-ui/core';
+import { TextField, AppBar, Toolbar } from '@material-ui/core';
+import LogoImage from '../icons/logo.png';
 
 import styles from './Header.module.css';
 
@@ -7,9 +8,10 @@ const Header = ({ handleSearch }) => {
   return (
     <AppBar position="static" classes={{ root: styles.appBar }}>
       <Toolbar>
-        <Typography variant="h6" classes={{ root: styles.title }}>
+        <img src={LogoImage} alt="logo-img" className={styles.logo} />
+        {/* <Typography variant="h6" classes={{ root: styles.title }}>
           Threader
-        </Typography>
+        </Typography> */}
         <TextField
           classes={{ root: styles.searchBar }}
           onChange={handleSearch}

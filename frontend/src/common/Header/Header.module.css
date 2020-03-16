@@ -6,15 +6,16 @@
   }
   
   .searchBar{
-    margin-left: 18% !important;
+    margin-left: 11% !important;
     margin-right: 30% !important;
     width: 50%;
     background-color: #e4e9ef;
   }
 
   .logo {
-      margin-left: 5%;
-  }
+    margin-left: 5%;
+    height: 4em;  
+}
   
   .title {
     color: #000000;

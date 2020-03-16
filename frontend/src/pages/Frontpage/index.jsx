@@ -13,7 +13,14 @@ const Index = ({ postsToDisplay, handleSearch }) => {
       <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
       <Container maxWidth="sm">
         {postsToDisplay.map(post => (
-          <Post title={post.title} content={post.content} key={`${post.title}-key`} />
+          <Post
+            title={post.title}
+            content={post.content}
+            key={`${post.id}-key`}
+            upvotes={post.upvotes_laugh}
+            downvotes={post.upvotes_sad}
+            claps={post.upvotes_clap}
+          />
         ))}
       </Container>
       <Fab
@@ -22,7 +29,7 @@ const Index = ({ postsToDisplay, handleSearch }) => {
         }}
         onClick={() => console.log('test')}
       >
-        <AddIcon />
+        <AddIcon classes={{ root: styles.addIcon }} />
       </Fab>
     </>
   );
