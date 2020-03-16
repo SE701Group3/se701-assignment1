@@ -21,3 +21,12 @@
     color: #000000;
     width: 15%;
   }
+
+  .searchBox {
+    border-radius: 0px !important;
+  }
+
+  .searchText {
+    font-size: 30px !important;
+    padding: 8px 14px !important;
+  }

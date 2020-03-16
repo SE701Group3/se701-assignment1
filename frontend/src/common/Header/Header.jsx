@@ -17,6 +17,12 @@ const Header = ({ handleSearch }) => {
           onChange={handleSearch}
           variant="outlined"
           placeholder="Search"
+          InputProps={{
+            classes: {
+              root: styles.searchBox,
+              input: styles.searchText,
+            },
+          }}
         />
       </Toolbar>
     </AppBar>
