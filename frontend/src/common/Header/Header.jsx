@@ -3,7 +3,7 @@ import { TextField, AppBar, Toolbar } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import styles from './Header.module.css';
 
-const Header = ({ handleSearch }) => {
+const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar className={styles.appBar}>
