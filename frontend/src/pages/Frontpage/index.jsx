@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../../common/Header/Header';
 import { Container } from '@material-ui/core';
+import Header from '../../common/Header/Header';
 
 export default () => {
   return (
