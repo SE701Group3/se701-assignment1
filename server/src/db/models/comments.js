@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
 const commentsSchema = new mongoose.Schema({
-  name: {
+  parent_id: {
+    type: Number,
+    required: false,
+  },
+  body: {
     type: String,
     required: true,
   },
 });
 
-module.exports = mongoose.model('Post', commentsSchema);
+module.exports = mongoose.model('comment', commentsSchema);
