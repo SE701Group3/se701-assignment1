@@ -1,17 +1,12 @@
 import React from 'react';
-import { Container } from '@material-ui/core';
-import PostDetail from './PostDetail';
-import Comment from './Comment';
-import CreateCommentModal from './CreateCommentModal';
+import PostDetailPageContainer from './PostDetailPageContainer';
+// eslint-disable-next-line import/no-named-as-default
+import PostDetailPage from './PostDetailPage';
 
 export default () => {
   return (
-    <div>
-      <PostDetail />
-      <Container maxWidth="sm">
-        <Comment />
-      </Container>
-      <CreateCommentModal />
-    </div>
+    <PostDetailPageContainer>
+      <PostDetailPage />
+    </PostDetailPageContainer>
   );
 };
