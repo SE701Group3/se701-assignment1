@@ -1,20 +1,38 @@
 import React, { useState } from 'react';
 
-import submitPost from '../../services/createPostService';
+import submitPost, { SubmitPostError } from '../../services/createPostService';
 
 export const createPostService = submit => CreatePost => () => {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showModal, setModal] = useState(true);
 
   const handleSubmit = async (title, body) => {
     try {
       await submit(title, body);
       setErrorMessage(null);
+      setModal(false);
     } catch (error) {
-      setErrorMessage(error.message);
+      if (!(error instanceof SubmitPostError)) {
+        setErrorMessage('Could not submit post. Please try again.');
+        console.error(error);
+      } else {
+        setErrorMessage(error.message);
+      }
     }
   };
 
-  return <CreatePost errorMessage={errorMessage} onSubmit={handleSubmit} />;
+  const handleClose = () => {
+    setModal(false);
+  };
+
+  return (
+    <CreatePost
+      showModal={showModal}
+      errorMessage={errorMessage}
+      onSubmit={handleSubmit}
+      onClose={handleClose}
+    />
+  );
 };
 
 export default createPostService(submitPost);
