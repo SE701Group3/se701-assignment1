@@ -24,37 +24,37 @@ const CreatePostModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
   return (
     <Modal open={showModal} onClose={onClose}>
       <div className={styles.modal}>
-        <Typography variant="h2">New Thread</Typography>
-        <p>{errorMessage}</p>
+        <Typography variant="h2" className={styles.heading}>
+          New Thread
+        </Typography>
+        <p className={styles.errorMessage}>{errorMessage}</p>
+        <Typography>Thread Title</Typography>
         <TextField
-          className={styles.titleText}
-          variant="outlined"
+          classes={{ root: styles.titleText }}
+          InputProps={{ disableUnderline: true }}
           margin="normal"
-          required
           id="title"
-          label="Thread Title"
           name="title"
           value={title}
           onChange={handleTitleChange}
         />
+        <Typography>Thread Content</Typography>
         <TextField
           className={styles.bodyText}
-          variant="outlined"
+          InputProps={{ disableUnderline: true }}
           margin="normal"
-          required
           multiline
           rows={10}
           id="body"
-          label="Thread Content"
           name="body"
           value={body}
           onChange={handleBodyChange}
         />
         <div className={styles.modalButtons}>
-          <Button color="secondary" onClick={onClose}>
+          <Button classes={{ root: styles.cancelButton }} onClick={onClose}>
             Cancel
           </Button>
-          <Button color="primary" onClick={handleSubmit}>
+          <Button className={styles.submitButton} onClick={handleSubmit}>
             Submit
           </Button>
         </div>
