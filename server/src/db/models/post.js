@@ -23,7 +23,7 @@ const postSchema = new mongoose.Schema(
       default: 0,
     },
     comment_id: {
-      type: Number,
+      type: Array,
     },
   },
   {

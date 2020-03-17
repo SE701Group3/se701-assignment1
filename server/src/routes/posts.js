@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const Post = require('../db/models/post');
+const Comment = require('../db/models/comments');
 
 // Get all posts
 router.get('/', async (req, res) => {
@@ -54,8 +55,23 @@ router.delete('/:id', async (req, res) => {
 
 // Commenting once
 // eslint-disable-next-line no-unused-vars
-router.comment('/', async (req, res) => {
-  // TODO
+router.post('/:id/comment', async (req, res) => {
+  const comment = new Comment({
+    parent_id: req.body.parent_id,
+    body: req.body.body,
+  });
+  
+  try {
+    // TODO
+    const newComment = await comment.save();
+    res.status(201).json(newComment);
+
+    await Post.update({ _id: req.params.id }, {$push: { comment_id: newComment._id} });
+    res.status(200).send();
+    
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
 });
 
 module.exports = router;

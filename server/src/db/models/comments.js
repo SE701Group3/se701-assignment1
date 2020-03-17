@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const commentsSchema = new mongoose.Schema({
   parent_id: {
-    type: Number,
+    type: String,
     required: false,
   },
   body: {
@@ -11,4 +11,4 @@ const commentsSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('comment', commentsSchema);
+module.exports = mongoose.model('Comment', commentsSchema);
