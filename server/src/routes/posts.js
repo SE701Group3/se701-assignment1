@@ -46,7 +46,7 @@ router.delete('/:id', async (req, res) => {
     await Post.findOneAndDelete({
       _id: req.params.id,
     });
-    res.status(200).json({ message: 'ok' });
+    res.status(200).send();
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
