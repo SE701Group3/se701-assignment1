@@ -7,7 +7,7 @@ import styles from './Header.module.css';
 const Header = ({ handleSearch }) => {
   return (
     <AppBar position="static" classes={{ root: styles.appBar }}>
-      <Toolbar>
+      <Toolbar classes={{ root: styles.toolBar }}>
         <img src={LogoImage} alt="logo-img" className={styles.logo} />
         <TextField
           classes={{ root: styles.searchBar }}

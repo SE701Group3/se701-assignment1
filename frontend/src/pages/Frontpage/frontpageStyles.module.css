@@ -12,3 +12,8 @@
   color: #ffffff;
   font-size: 4rem;
 }
+
+.container {
+  max-width: 900px !important;
+  width: 50% !important;
+}

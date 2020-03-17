@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getPosts from '../../services/frontpageService';
+import { getPosts, handleVote } from '../../services/frontpageService';
 
 const FrontpageContainer = ({ children }) => {
   const [retrievedPosts, setRetrievedPosts] = useState([]);
@@ -8,8 +8,8 @@ const FrontpageContainer = ({ children }) => {
   useEffect(() => {
     async function getPostsOnLoad() {
       const response = await getPosts();
-      setRetrievedPosts(response.posts);
-      setPostsToDisplay(response.posts);
+      setRetrievedPosts(response);
+      setPostsToDisplay(response.reverse());
     }
 
     getPostsOnLoad();
@@ -19,7 +19,7 @@ const FrontpageContainer = ({ children }) => {
     setPostsToDisplay(retrievedPosts.filter(post => post.title.includes(event.target.value)));
   };
 
-  const newProps = { postsToDisplay, handleSearch };
+  const newProps = { postsToDisplay, handleSearch, handleVote };
 
   return React.cloneElement(children, { ...newProps });
 };

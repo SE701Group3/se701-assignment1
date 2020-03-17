@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import { Container } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
@@ -10,21 +11,23 @@ import withCreatePostService from '../CreatePost/withCreatePostService';
 
 const CreatePostModalServiced = withCreatePostService(CreatePostModal);
 
-const Index = ({ postsToDisplay, handleSearch }) => {
+const Index = ({ postsToDisplay, handleSearch, handleVote }) => {
   const [showModal, setModal] = useState(false);
 
   return (
     <>
       <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" classes={{ root: styles.container }}>
         {postsToDisplay.map(post => (
           <Post
+            id={post._id}
             title={post.title}
-            content={post.content}
-            key={`${post.id}-key`}
+            content={post.body}
+            key={`${post._id}-key`}
             upvotes={post.upvotes_laugh}
             downvotes={post.upvotes_sad}
             claps={post.upvotes_clap}
+            handleVote={handleVote}
           />
         ))}
       </Container>

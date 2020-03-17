@@ -27,6 +27,10 @@
     align-items: center;
 }
 
+.clicked {
+    color: rgb(201, 130, 0);
+}
+
 .post-button {
     margin: 2em;
 }
