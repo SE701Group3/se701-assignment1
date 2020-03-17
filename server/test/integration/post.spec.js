@@ -192,4 +192,19 @@ describe('Posts API', () => {
     expect(response1.status).toBe(404);
     done();
   });
+
+  it('tests the comment method and makes sure it appends to post schema ', async done => {
+    const commentData = {
+      title: 'Test comment',
+      body: 'Testing this comment is added to post schema',
+    };
+
+    const response = await supertest(app)
+      .post('/posts/:id/comments')
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+    done();
+  });
+
 });
