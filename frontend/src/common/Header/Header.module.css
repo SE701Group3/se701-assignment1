@@ -1,0 +1,32 @@
+.appBar {
+    box-shadow: 0 2px 4px 0 rgba(191, 191, 191, 0.5);
+    text-align:left;
+    background-color: #ffffff !important;
+    display: flex;
+  }
+  
+  .searchBar{
+    margin-left: 11% !important;
+    margin-right: 30% !important;
+    width: 50%;
+    background-color: #e4e9ef;
+  }
+
+  .logo {
+    margin-left: 5%;
+    height: 4em;  
+}
+  
+  .title {
+    color: #000000;
+    width: 15%;
+  }
+
+  .searchBox {
+    border-radius: 0px !important;
+  }
+
+  .searchText {
+    font-size: 30px !important;
+    padding: 8px 14px !important;
+  }

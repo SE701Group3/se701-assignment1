@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Container } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Header from '../../common/Header/Header';
+import Post from './Post';
+import styles from './frontpageStyles.module.css';
+import CreatePostModal from '../CreatePost/CreatePostModal';
+import withCreatePostService from '../CreatePost/withCreatePostService';
 
-export default () => {
+const CreatePostModalServiced = withCreatePostService(CreatePostModal);
+
+const Index = ({ postsToDisplay, handleSearch }) => {
+  const [showModal, setModal] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <p>This is the front page</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
+      <Container maxWidth="sm">
+        {postsToDisplay.map(post => (
+          <Post
+            title={post.title}
+            content={post.content}
+            key={`${post.id}-key`}
+            upvotes={post.upvotes_laugh}
+            downvotes={post.upvotes_sad}
+            claps={post.upvotes_clap}
+          />
+        ))}
+      </Container>
+      <Fab
+        classes={{
+          root: styles.addButton,
+        }}
+        onClick={() => {
+          setModal(true);
+        }}
+      >
+        <AddIcon classes={{ root: styles.addIcon }} />
+      </Fab>
+      <CreatePostModalServiced showModal={showModal} setModal={setModal} />
+    </>
   );
 };
+
+export default Index;
