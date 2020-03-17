@@ -1,31 +1,34 @@
-const getPosts = async () => {
-  // const response = await fetch('/api/post').then(respose => respose.json());
-
-  // return response;
-
-  return {
-    posts: [
-      {
-        id: 123,
-        title: 'title1',
-        content: 'contentcontentcontent',
-        date_created: '1556930832.311930',
-      },
-      {
-        id: 213,
-        title: 'title2',
-        content: 'contentcontentcontent2',
-        date_created: '1556940832.311930',
-      },
-      {
-        id: 312,
-        title: 'title3',
-        content: 'contentcontentcontent3',
-        date_created: '1556933832.311930',
-      },
-    ],
-    response: 'ok',
-  };
+export const getPosts = async () => {
+  const response = await fetch('/posts').then(respose => respose.json());
+  return response;
 };
 
-export default getPosts;
+// eslint-disable-next-line camelcase
+export const handleVote = async ({ id, upvote_type, upvote }) => {
+  const params = {
+    id,
+    upvote_type,
+    upvote,
+  };
+
+  const requestBody = JSON.stringify(params);
+
+  const response = await fetch(`/posts/${id}/upvote`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    method: 'PUT',
+    body: requestBody,
+  })
+    .then(responseBody => responseBody.json())
+    // eslint-disable-next-line no-unused-vars
+    .catch(error => {});
+
+  if (response) {
+    if (response.message) {
+      console.log(response.message);
+    }
+  }
+  // console.log(id, upvote_type, upvote);
+};

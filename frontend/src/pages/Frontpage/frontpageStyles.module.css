@@ -1,9 +1,19 @@
 .addButton {
-  background-color: Cyan !important;
+  background-color: #007ad7 !important;
   margin: 0px;
   top: auto;
   right: 20px;
   bottom: 20px;
   left: auto;
   position: fixed !important;
+}
+
+.addIcon {
+  color: #ffffff;
+  font-size: 4rem;
+}
+
+.container {
+  max-width: 900px !important;
+  width: 50% !important;
 }

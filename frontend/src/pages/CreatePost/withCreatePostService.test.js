@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { render } from '@testing-library/react';
 import { createPostService } from './withCreatePostService';
+import { SubmitPostError } from '../../services/createPostService';
 
 const MockCreatePost = ({ errorMessage, onSubmit }) => {
   useEffect(() => {
@@ -10,20 +11,20 @@ const MockCreatePost = ({ errorMessage, onSubmit }) => {
 };
 
 describe('withCreatePostService', () => {
-  it('renders the wrapped component', () => {
+  it('renders the wrapped component', async () => {
     const mockSubmitPost = () => {};
     const CreatePostServiced = createPostService(mockSubmitPost)(MockCreatePost);
-    const { getByText } = render(<CreatePostServiced />);
+    const { getByText } = render(<CreatePostServiced showModal setModal={() => {}} />);
     const child = getByText(/MockCreatePost/i);
     expect(child).toBeInTheDocument();
   });
 
-  it('supplies an error message when there is an error in submiting a post', () => {
+  it('supplies an error message when there is an error in submiting a post', async () => {
     const mockSubmitPost = jest.fn(() => {
-      throw new Error('an error message');
+      throw new SubmitPostError('an error message');
     });
     const CreatePostServiced = createPostService(mockSubmitPost)(MockCreatePost);
-    const { getByText } = render(<CreatePostServiced />);
+    const { getByText } = render(<CreatePostServiced showModal setModal={() => {}} />);
     const child = getByText(/an error message/i);
     expect(child).toBeInTheDocument();
   });

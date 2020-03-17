@@ -3,8 +3,6 @@ import { enableFetchMocks } from 'jest-fetch-mock';
 
 // Ensure that things are mocked before we import the implementation-under-test.
 enableFetchMocks();
-const CURRENT_ISO_TIME = '2020-03-14T11:01:03.915Z';
-sinon.useFakeTimers(new Date(CURRENT_ISO_TIME));
 
 // eslint-disable-next-line import/first
 import submitPost from './createPostService';
@@ -20,7 +18,7 @@ describe('submitPost', () => {
       statusText: 'OK',
     });
     await submitPost('title', 'body');
-    expect(fetch.mock.calls[0][0]).toEqual('/api/post/create');
+    expect(fetch.mock.calls[0][0]).toEqual('/posts');
     expect(fetch.mock.calls[0][1].method).toEqual('POST');
   });
 
@@ -30,11 +28,7 @@ describe('submitPost', () => {
       statusText: 'OK',
     });
     await submitPost('title', 'body');
-    expect(fetch.mock.calls[0][1].body.title).toEqual('title');
-    expect(fetch.mock.calls[0][1].body.body).toEqual('body');
-
-    // NOTE: There is discussion about removing this from the API.
-    expect(fetch.mock.calls[0][1].body.sender_created_at).toEqual(CURRENT_ISO_TIME);
+    expect(fetch.mock.calls[0][1].body).toEqual(`{"title":"title","body":"body"}`);
   });
 
   it('throws an error with the right message when the request fails', async () => {
