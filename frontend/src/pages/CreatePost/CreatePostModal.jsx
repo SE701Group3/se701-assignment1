@@ -5,37 +5,56 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import styles from './CreatePost.module.css';
 
-const CreatePostModal = () => {
-  const [showModal, setModal] = useState(true);
+const CreatePostModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+
+  const handleSubmit = () => {
+    onSubmit(title, body);
+  };
+
+  const handleTitleChange = event => {
+    setTitle(event.target.value);
+  };
+
+  const handleBodyChange = event => {
+    setBody(event.target.value);
+  };
+
   return (
-    <Modal open={showModal} onClose={() => setModal(false)}>
+    <Modal open={showModal} onClose={onClose}>
       <div className={styles.modal}>
-        <Typography variant="h2">New Thread</Typography>
+        <Typography variant="h2" className={styles.heading}>
+          New Thread
+        </Typography>
+        <p className={styles.errorMessage}>{errorMessage}</p>
+        <Typography>Thread Title</Typography>
         <TextField
-          className={styles.titleText}
-          variant="outlined"
+          classes={{ root: styles.titleText }}
+          InputProps={{ disableUnderline: true }}
           margin="normal"
-          required
           id="title"
-          label="Thread Title"
           name="title"
+          value={title}
+          onChange={handleTitleChange}
         />
+        <Typography>Thread Content</Typography>
         <TextField
           className={styles.bodyText}
-          variant="outlined"
+          InputProps={{ disableUnderline: true }}
           margin="normal"
-          required
           multiline
           rows={10}
           id="body"
-          label="Thread Content"
           name="body"
+          value={body}
+          onChange={handleBodyChange}
         />
         <div className={styles.modalButtons}>
-          <Button color="secondary" onClick={() => setModal(false)}>
+          <Button classes={{ root: styles.cancelButton }} onClick={onClose}>
             Cancel
           </Button>
-          <Button color="primary" onClick={() => setModal(false)}>
+          <Button className={styles.submitButton} onClick={handleSubmit}>
             Submit
           </Button>
         </div>

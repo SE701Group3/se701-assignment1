@@ -2,6 +2,7 @@
   "name": "se701-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5001",
   "dependencies": {
     "@babel/core": "^7.7.4",
     "@babel/runtime": "^7.7.2",

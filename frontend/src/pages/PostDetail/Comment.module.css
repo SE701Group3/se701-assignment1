@@ -1,0 +1,16 @@
+.comment-box {
+    width: 100%;
+    text-align:left;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+}
+
+.comment-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.reply {
+    width: 25px;
+}

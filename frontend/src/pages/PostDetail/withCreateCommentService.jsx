@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 
-import submitPost, { SubmitPostError } from '../../services/createPostService';
+import { SubmitCommentError, submitComment } from '../../services/PostDetailService';
 
-export const createPostService = submit => CreatePost => ({ showModal, setModal }) => {
+export const createCommentService = submit => CreateCommentModal => ({ showModal, setModal }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleSubmit = async (title, body) => {
+  const handleSubmit = async body => {
     try {
-      await submit(title, body);
+      await submit(body);
       setErrorMessage(null);
       setModal(false);
     } catch (error) {
-      if (!(error instanceof SubmitPostError)) {
+      if (!(error instanceof SubmitCommentError)) {
         setErrorMessage('Could not submit post. Please try again.');
         console.error(error);
       } else {
@@ -26,7 +26,7 @@ export const createPostService = submit => CreatePost => ({ showModal, setModal 
   };
 
   return (
-    <CreatePost
+    <CreateCommentModal
       showModal={showModal}
       errorMessage={errorMessage}
       onSubmit={handleSubmit}
@@ -35,4 +35,4 @@ export const createPostService = submit => CreatePost => ({ showModal, setModal 
   );
 };
 
-export default createPostService(submitPost);
+export default createCommentService(submitComment);

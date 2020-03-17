@@ -26,22 +26,47 @@ describe('Post Model', () => {
 
   it('create post and save successfully', async done => {
     const postData = {
-      name: 'Test postysdfdsfdsf',
+      title: 'Test Post',
+      body: 'Hello, this is the body for a test post',
     };
     const validPost = new PostModel(postData);
     const savedPost = await validPost.save();
 
     expect(savedPost._id).toBeDefined();
-    expect(savedPost.name).toBe(postData.name);
+    expect(savedPost.title).toBe(postData.title);
+
+    // defaults set
+    expect(savedPost.upvotes_clap).toBe(0);
+    expect(savedPost.upvotes_laugh).toBe(0);
+    expect(savedPost.upvotes_sad).toBe(0);
+
+    // time stamps set
+    expect(savedPost.createdAt).toBeDefined();
+    expect(savedPost.updatedAt).toBeDefined();
 
     done();
   });
 
-  it('create post without required fields should fail', async done => {
-    const postWithoutRequiredField = new PostModel({});
+  it('create post without required title should fail', async done => {
+    const postWithoutRequiredTitle = new PostModel({});
     let err;
     try {
-      await postWithoutRequiredField.save();
+      await postWithoutRequiredTitle.save();
+    } catch (error) {
+      err = error;
+    }
+
+    expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
+    done();
+  });
+
+  it('create post without required body should fail', async done => {
+    const postWithoutRequiredBody = new PostModel({
+      title: 'Test Post',
+    });
+    let err;
+    try {
+      await postWithoutRequiredBody.save();
     } catch (error) {
       err = error;
     }

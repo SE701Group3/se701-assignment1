@@ -27,10 +27,21 @@
     align-items: center;
 }
 
+.clicked {
+    color: rgb(201, 130, 0);
+}
+
 .post-button {
     margin: 2em;
 }
 
 .post-icon {
     color: #5d5d5d;
+    width: 35px;
 }  
+
+.buttonGroup {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
