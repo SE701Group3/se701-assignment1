@@ -1,14 +1,12 @@
 import React from 'react';
-import PostDetail from './PostDetail';
-import CommentsContainer from './CommentsContainer';
-import CreateCommentModal from './CreateCommentModal';
+import PostDetailPageContainer from './PostDetailPageContainer';
+// eslint-disable-next-line import/no-named-as-default
+import PostDetailPage from './PostDetailPage';
 
 export default () => {
   return (
-    <div>
-      <PostDetail />
-      <CommentsContainer />
-      <CreateCommentModal />
-    </div>
+    <PostDetailPageContainer>
+      <PostDetailPage />
+    </PostDetailPageContainer>
   );
 };
