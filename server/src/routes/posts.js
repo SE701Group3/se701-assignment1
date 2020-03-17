@@ -40,6 +40,28 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Get one post (detailed)
+// eslint-disable-next-line no-unused-vars
+router.get('/:id', async (req, res) => {
+  try {
+    const foundPost = await Post.findOne({ _id: req.params.id });
+    const postData = {
+      _id: foundPost._id,
+      title: foundPost.title,
+      body: foundPost.body,
+      upvotes_clap: foundPost.upvotes_clap,
+      upvotes_laugh: foundPost.upvotes_laugh,
+      upvotes_sad: foundPost.upvotes_sad,
+      date_created: foundPost.createdAt,
+      comments: await Comment.find({ _id: { $in: [foundPost.comment_id] } }),
+    };
+
+    res.send(postData);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
+
 // Deleting one post
 // eslint-disable-next-line no-unused-vars
 router.delete('/:id', async (req, res) => {
