@@ -294,6 +294,45 @@ describe('Posts API', () => {
     done();
   });
 
+  it('tests the get single post route', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const url = '/posts/';
+    const commentData = {
+      body: 'This is the body for a test comment',
+    };
+
+    const response1 = await supertest(app)
+      .post(url.concat(createdPost._id, '/comment'))
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+
+    const response2 = await supertest(app).get(url.concat('/', createdPost._id));
+    expect(response2.status).toBe(200);
+    expect(response2.body._id).toBe(createdPost._id);
+    expect(response2.body.title).toBe(postData.title);
+    expect(response2.body.body).toBe(postData.body);
+    expect(response2.body.date_created).toBeDefined();
+    expect(response2.body.upvotes_clap).toBe(0);
+    expect(response2.body.upvotes_laugh).toBe(0);
+    expect(response2.body.upvotes_sad).toBe(0);
+    expect(response2.body.comments[0]._id).toBeDefined();
+    expect(response2.body.comments[0].body).toBe(commentData.body);
+    expect(response2.body.comments[0].createdAt).toBeDefined();
+    done();
+  });
+
   // it('tests the comment method and makes sure it appends to post schema ', async done => {
   //   const commentData = {
   //     title: 'Test comment',
