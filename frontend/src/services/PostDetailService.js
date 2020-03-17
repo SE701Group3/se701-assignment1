@@ -6,7 +6,7 @@ const getPostInformation = async postId => {
   return {
     id: 426,
     title: 'Threader is good?',
-    body: 'as the title said',
+    content: 'as the title said',
     date_created: '2020-03-12T03:26:09.094Z',
     upvotes_clap: 2,
     upvotes_laugh: 10,
