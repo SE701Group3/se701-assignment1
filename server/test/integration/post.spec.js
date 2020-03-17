@@ -80,7 +80,7 @@ describe('Posts API', () => {
 
     const url = '/posts/';
     const response2 = await supertest(app)
-      .patch(url.concat(response1.body._id))
+      .put(url.concat(response1.body._id))
       .send({ title: updatedPost.title, body: updatedPost.body });
     expect(response2.status).toBe(200);
 
@@ -104,6 +104,92 @@ describe('Posts API', () => {
       .put(url.concat('100'))
       .send({ title: updatedPost.title, body: updatedPost.body });
     expect(response2.status).toBe(404);
+    done();
+  });
+
+  it('tests the delete post method', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/posts')
+      .send(postData);
+
+    const createdPost = response.body;
+    const url = '/posts/';
+
+    const response1 = await supertest(app).delete(url.concat(createdPost._id));
+
+    expect(response1.status).toBe(200);
+
+    const response3 = await supertest(app).get(url);
+
+    expect(response3.body).toMatchObject([]);
+    done();
+  });
+
+  it('tests the deletion of already deleted post', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const url = '/posts/';
+
+    const response1 = await supertest(app).delete(url.concat(createdPost._id));
+
+    expect(response1.status).toBe(200);
+
+    const response3 = await supertest(app).get(url);
+
+    expect(response3.body).toMatchObject([]);
+
+    const response2 = await supertest(app).delete(url.concat(createdPost._id));
+
+    expect(response2.status).toBe(200);
+
+    const response4 = await supertest(app).get(url);
+
+    expect(response4.body).toMatchObject([]);
+    done();
+  });
+
+  it('tests the delete route with no defined post id', async done => {
+    const postData = {};
+
+    const url = '/posts/';
+
+    const response = await supertest(app).delete(url.concat(postData));
+
+    expect(response.status).toBe(404);
+    done();
+  });
+
+  it('tests the delete post method with an incorrect post id in url', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/posts')
+      .send(postData);
+
+    const createdPost = response.body;
+    const url = '/posts/';
+
+    const response1 = await supertest(app).delete(url.concat(createdPost._id + 3));
+
+    expect(response1.status).toBe(404);
     done();
   });
 });
