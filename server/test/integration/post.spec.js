@@ -123,10 +123,14 @@ describe('Posts API', () => {
     const response1 = await supertest(app).delete(url.concat(createdPost._id));
 
     expect(response1.status).toBe(200);
+
+    const response3 = await supertest(app).get(url);
+
+    expect(response3.body).toMatchObject([]);
     done();
   });
 
-  it('tests the deletion of already deleted post and returns as error', async done => {
+  it('tests the deletion of already deleted post', async done => {
     const postData = {
       title: 'Test post',
       body: 'This is the body for a test post',
@@ -145,11 +149,17 @@ describe('Posts API', () => {
 
     expect(response1.status).toBe(200);
 
-    await supertest(app).get(url);
+    const response3 = await supertest(app).get(url);
+
+    expect(response3.body).toMatchObject([]);
 
     const response2 = await supertest(app).delete(url.concat(createdPost._id));
 
     expect(response2.status).toBe(200);
+
+    const response4 = await supertest(app).get(url);
+
+    expect(response4.body).toMatchObject([]);
     done();
   });
 
