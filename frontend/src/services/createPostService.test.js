@@ -20,7 +20,7 @@ describe('submitPost', () => {
       statusText: 'OK',
     });
     await submitPost('title', 'body');
-    expect(fetch.mock.calls[0][0]).toEqual('/api/post/create');
+    expect(fetch.mock.calls[0][0]).toEqual('/posts');
     expect(fetch.mock.calls[0][1].method).toEqual('POST');
   });
 

@@ -20,6 +20,9 @@ export default async (title, body) => {
 
   if (!response.ok) {
     const { message } = await response.json();
+    if (message.includes('is required')) {
+      throw new SubmitPostError('Please ensure all fields are filled in');
+    }
     throw new SubmitPostError(message);
   }
 
