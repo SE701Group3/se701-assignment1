@@ -117,7 +117,8 @@ router.put('/:id/upvote', async (req, res) => {
       );
     } else res.status(400).json({ message: 'Invalid upvote type' });
 
-    res.status(200).send();
+    const returnPost = await Post.findById(req.body.id);
+    res.status(200).send(returnPost);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
