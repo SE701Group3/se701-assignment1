@@ -5,9 +5,9 @@ import { SubmitCommentError, submitComment } from '../../services/PostDetailServ
 export const createCommentService = submit => CreateCommentModal => ({ showModal, setModal }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleSubmit = async (title, body) => {
+  const handleSubmit = async body => {
     try {
-      await submit(title, body);
+      await submit(body);
       setErrorMessage(null);
       setModal(false);
     } catch (error) {

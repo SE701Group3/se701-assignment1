@@ -10,12 +10,16 @@ function formatDate(date) {
   return newDate.toDateString();
 }
 
-function nestComments(commentList) {
+function nestComments(commentList, setModal) {
   return commentList.map(comment => {
     return (
       <Container>
-        <Comment body={comment.body} dateCreated={formatDate(comment.date_created)} />
-        {nestComments(comment.children)}
+        <Comment
+          body={comment.body}
+          dateCreated={formatDate(comment.date_created)}
+          setModal={setModal}
+        />
+        {nestComments(comment.children, setModal)}
       </Container>
     );
   });
@@ -26,14 +30,22 @@ const CreateCommentModalService = withCreateCommentService(CreateCommentModal);
 const PostDetailPage = ({ commentsToDisplay }) => {
   const [showModal, setModal] = useState(false);
 
+  const handleOpen = () => {
+    setModal(true);
+  };
+
   return (
     <div>
       <PostDetail />
       {commentsToDisplay.map(comment => {
         return (
           <Container maxWidth="sm">
-            <Comment body={comment.body} dateCreated={formatDate(comment.date_created)} />
-            {nestComments(comment.children)}
+            <Comment
+              body={comment.body}
+              dateCreated={formatDate(comment.date_created)}
+              setModal={handleOpen}
+            />
+            {nestComments(comment.children, handleOpen)}
           </Container>
         );
       })}

@@ -13,11 +13,11 @@ const splitTextToParagraph = text => {
   });
 };
 
-const Comment = ({ body, dateCreated }) => {
+const Comment = ({ body, dateCreated, setModal }) => {
   return (
     <Card className={styles.root}>
       <div className={styles['comment-box']}>
-        <Button>
+        <Button onClick={setModal()}>
           <img src={ReplyImage} alt="reply-img" className={styles.reply} />
         </Button>
         <CardContent>
@@ -26,7 +26,7 @@ const Comment = ({ body, dateCreated }) => {
             <Typography variant="caption" color="textSecondary">
               {dateCreated}
             </Typography>
-            <Typography component="p" variant="body2" color="textSecondary">
+            <Typography component="span" variant="body2" color="textSecondary">
               {splitTextToParagraph(body)}
             </Typography>
           </div>

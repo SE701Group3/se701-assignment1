@@ -5,12 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import styles from './PostDetailStyles.module.css';
 
-const CreateCommentModal = ({ onSubmit, errorMessage, showModal, setModal }) => {
+const CreateCommentModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
   const [body, setBody] = useState('');
-
-  const handleClose = () => {
-    setModal(false);
-  };
 
   const handleSubmit = () => {
     onSubmit(body);
@@ -22,7 +18,7 @@ const CreateCommentModal = ({ onSubmit, errorMessage, showModal, setModal }) => 
 
   return (
     <div>
-      <Modal open={showModal} onClose={handleClose}>
+      <Modal open={showModal} onClose={onClose}>
         <div className={styles.modal}>
           <Typography variant="h2">Post Comment</Typography>
           <p>{errorMessage}</p>
@@ -39,7 +35,7 @@ const CreateCommentModal = ({ onSubmit, errorMessage, showModal, setModal }) => 
             onChange={handleBodyChange}
           />
           <div className={styles.modalButtons}>
-            <Button classes={{ root: styles.cancelButton }} onClick={handleClose}>
+            <Button classes={{ root: styles.cancelButton }} onClick={onClose}>
               Cancel
             </Button>
             <Button className={styles.submitButton} onClick={handleSubmit}>
