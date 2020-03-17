@@ -8,8 +8,8 @@ const FrontpageContainer = ({ children }) => {
   useEffect(() => {
     async function getPostsOnLoad() {
       const response = await getPosts();
-      setRetrievedPosts(response.posts);
-      setPostsToDisplay(response.posts);
+      setRetrievedPosts(response);
+      setPostsToDisplay(response.reverse());
     }
 
     getPostsOnLoad();

@@ -7,8 +7,13 @@ export default async (title, body) => {
   };
 
   const requestBody = JSON.stringify(parameters);
+  console.log(requestBody);
 
-  const response = await fetch('http://localhost:5001/posts', {
+  const response = await fetch('/posts', {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
     method: 'POST',
     body: requestBody,
   });
@@ -16,5 +21,9 @@ export default async (title, body) => {
   if (!response.ok) {
     const { message } = await response.json();
     throw new SubmitPostError(message);
+  }
+
+  if (response.ok) {
+    window.location.reload();
   }
 };

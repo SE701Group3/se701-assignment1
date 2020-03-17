@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import { Container } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
@@ -19,10 +20,10 @@ const Index = ({ postsToDisplay, handleSearch, handleVote }) => {
       <Container maxWidth="sm" classes={{ root: styles.container }}>
         {postsToDisplay.map(post => (
           <Post
-            id={post.id}
+            id={post._id}
             title={post.title}
-            content={post.content}
-            key={`${post.id}-key`}
+            content={post.body}
+            key={`${post._id}-key`}
             upvotes={post.upvotes_laugh}
             downvotes={post.upvotes_sad}
             claps={post.upvotes_clap}
