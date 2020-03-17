@@ -5,6 +5,7 @@ import PostDetail from './PostDetail';
 import Comment from './Comment';
 import CreateCommentModal from './CreateCommentModal';
 import withCreateCommentService from './withCreateCommentService';
+import Header from '../../common/Header/Header';
 
 function formatDate(date) {
   const newDate = new Date(date);
@@ -29,12 +30,14 @@ function nestComments(commentList, setModal) {
 
 const CreateCommentModalService = withCreateCommentService(CreateCommentModal);
 
-const PostDetailPage = ({ commentsToDisplay }) => {
+const PostDetailPage = ({ postToDisplay, commentsToDisplay, postsToDisplay, handleSearch }) => {
   const [showModal, setModal] = useState(false);
 
   return (
     <div>
-      <PostDetail />
+      <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
+
+      <PostDetail postToDisplay={postToDisplay} />
       {commentsToDisplay.map(comment => (
         <Container maxWidth="sm" key={`${comment.id}-container-key`}>
           <Comment
