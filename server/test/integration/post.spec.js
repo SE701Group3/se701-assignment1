@@ -80,7 +80,7 @@ describe('Posts API', () => {
 
     const url = '/posts/';
     const response2 = await supertest(app)
-      .patch(url.concat(response1.body._id))
+      .put(url.concat(response1.body._id))
       .send({ title: updatedPost.title, body: updatedPost.body });
     expect(response2.status).toBe(200);
 
@@ -104,6 +104,9 @@ describe('Posts API', () => {
       .put(url.concat('100'))
       .send({ title: updatedPost.title, body: updatedPost.body });
     expect(response2.status).toBe(404);
+    done();
+  });
+
   it('tests the delete post method', async done => {
     const postData = {
       title: 'Test post',
