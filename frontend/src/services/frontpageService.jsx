@@ -5,19 +5,30 @@ export const getPosts = async () => {
 
 // eslint-disable-next-line camelcase
 export const handleVote = async ({ id, upvote_type, upvote }) => {
-  // const params = {
-  //   id,
-  //   upvote_type,
-  //   upvote,
-  // };
+  const params = {
+    id,
+    upvote_type,
+    upvote,
+  };
 
-  // const response = await fetch(`/api/post/${id}/upvote`, {
-  //   method: 'PUT',
-  //   body: params,
-  // }).then(responseBody => responseBody.json());
+  const requestBody = JSON.stringify(params);
 
-  // if (response.message) {
-  //   console.log('error');
-  // }
-  console.log(id, upvote_type, upvote);
+  const response = await fetch(`/posts/${id}/upvote`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    method: 'PUT',
+    body: requestBody,
+  })
+    .then(responseBody => responseBody.json())
+    // eslint-disable-next-line no-unused-vars
+    .catch(error => {});
+
+  if (response) {
+    if (response.message) {
+      console.log(response.message);
+    }
+  }
+  // console.log(id, upvote_type, upvote);
 };
