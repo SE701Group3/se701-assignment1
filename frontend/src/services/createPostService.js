@@ -24,8 +24,4 @@ export default async (title, body) => {
     }
     throw new SubmitPostError(message);
   }
-
-  if (response.ok) {
-    window.location.reload();
-  }
 };
