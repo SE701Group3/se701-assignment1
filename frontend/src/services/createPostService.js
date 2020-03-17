@@ -7,7 +7,6 @@ export default async (title, body) => {
   };
 
   const requestBody = JSON.stringify(parameters);
-  console.log(requestBody);
 
   const response = await fetch('/posts', {
     headers: {
