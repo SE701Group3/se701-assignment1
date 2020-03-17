@@ -1,6 +1,7 @@
 export const getPosts = async () => {
-  // const response = await fetch('/api/post').then(respose => respose.json());
+  // const response = await fetch('http://localhost:5001/posts').then(respose => respose.json());
 
+  // console.log(response);
   // return response;
 
   return {
