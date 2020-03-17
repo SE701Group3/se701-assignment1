@@ -6,9 +6,13 @@ import Button from '@material-ui/core/Button';
 import ReplyImage from '../../common/icons/reply.png';
 
 import styles from './Comment.module.css';
-// {this.props.post.text.split("\n").map((i, key) => {
-//   return <p key={key}>{i}</p>;
-// })}
+
+const splitTextToParagraph = text => {
+  return text.split('\n').map(i => {
+    return <p>{i}</p>;
+  });
+};
+
 const Comment = ({ body, dateCreated }) => {
   return (
     <Card className={styles.root}>
@@ -23,7 +27,7 @@ const Comment = ({ body, dateCreated }) => {
               {dateCreated}
             </Typography>
             <Typography component="p" variant="body2" color="textSecondary">
-              {body}
+              {splitTextToParagraph(body)}
             </Typography>
           </div>
         </CardContent>
