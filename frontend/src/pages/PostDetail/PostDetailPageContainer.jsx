@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getPostInformation } from '../../services/PostDetailService';
+import { handleVote } from '../../services/frontpageService';
 
 const PostDetailPageContainer = ({ children }) => {
   const [commentsToDisplay, setCommentsToDisplay] = useState([]);
@@ -22,12 +23,15 @@ const PostDetailPageContainer = ({ children }) => {
     setPostsToDisplay(retrievedPosts.filter(post => post.title.includes(event.target.value)));
   };
 
-  return React.cloneElement(children, {
+  const newProps = {
     postToDisplay,
     commentsToDisplay,
     postsToDisplay,
     handleSearch,
-  });
+    handleVote,
+  };
+
+  return React.cloneElement(children, { ...newProps });
 };
 
 export default PostDetailPageContainer;

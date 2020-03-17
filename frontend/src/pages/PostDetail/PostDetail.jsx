@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import Post from '../Frontpage/Post';
 
-const PostDetail = ({ postToDisplay }) => {
+const PostDetail = ({ postToDisplay, handleVote }) => {
   return (
     <Container width="sm">
       <Post
@@ -12,6 +12,7 @@ const PostDetail = ({ postToDisplay }) => {
         upvotes={postToDisplay.upvotes_laugh}
         downvotes={postToDisplay.upvotes_sad}
         claps={postToDisplay.upvotes_clap}
+        handleVote={handleVote}
       />
     </Container>
   );
