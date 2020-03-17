@@ -5,17 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import styles from './PostDetailStyles.module.css';
 
-const CreateCommentModal = ({ errorMessage, onSubmit, onClose }) => {
+const CreateCommentModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
   const [body, setBody] = useState('');
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleSubmit = () => {
     onSubmit(body);
@@ -27,10 +18,7 @@ const CreateCommentModal = ({ errorMessage, onSubmit, onClose }) => {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Post Comment
-      </button>
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={showModal} onClose={onClose}>
         <div className={styles.modal}>
           <Typography variant="h2">Post Comment</Typography>
           <p>{errorMessage}</p>

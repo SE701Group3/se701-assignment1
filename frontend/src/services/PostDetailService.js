@@ -1,4 +1,6 @@
-const getPostInformation = async postId => {
+export class SubmitCommentError extends Error {}
+
+export const getPostInformation = async postId => {
   // const response = await fetch('/api/post/postId').then(respose => respose.json());
 
   // return response;
@@ -56,4 +58,29 @@ const getPostInformation = async postId => {
   };
 };
 
-export default getPostInformation;
+export const submitComment = async (postId, parentId, body) => {
+  const parameters = {
+    postId,
+    parentId,
+    body,
+  };
+
+  const requestBody = JSON.stringify(parameters);
+
+  const response = await fetch(`/post/${postId}/comment`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    method: 'POST',
+    body: requestBody,
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    if (message.includes('is required')) {
+      throw new SubmitCommentError('Please ensure all fields are filled in');
+    }
+    throw new SubmitCommentError(message);
+  }
+};

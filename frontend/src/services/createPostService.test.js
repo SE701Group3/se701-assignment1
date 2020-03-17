@@ -28,9 +28,7 @@ describe('submitPost', () => {
       statusText: 'OK',
     });
     await submitPost('title', 'body');
-    expect(fetch.mock.calls[0][1].body).toEqual(
-      `{"title":"title","body":"body"}`,
-    );
+    expect(fetch.mock.calls[0][1].body).toEqual(`{"title":"title","body":"body"}`);
   });
 
   it('throws an error with the right message when the request fails', async () => {
