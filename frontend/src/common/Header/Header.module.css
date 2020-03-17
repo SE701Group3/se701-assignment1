@@ -1,0 +1,37 @@
+.appBar {
+    box-shadow: 0 2px 4px 0 rgba(191, 191, 191, 0.5);
+    text-align:left;
+    background-color: #ffffff !important;
+    display: flex;
+    height: 50px;
+  }
+
+  .toolBar {
+    min-height: 50px !important
+  }
+  
+  .searchBar{
+    margin-left: 14% !important;
+    margin-right: 30% !important;
+    width: 50%;
+    background-color: #e4e9ef;
+  }
+
+  .logo {
+    margin-left: 5%;
+    height: 3em;  
+}
+  
+  .title {
+    color: #000000;
+    width: 15%;
+  }
+
+  .searchBox {
+    border-radius: 0px !important;
+  }
+
+  .searchText {
+    font-size: 25px !important;
+    padding: 4px 14px !important;
+  }

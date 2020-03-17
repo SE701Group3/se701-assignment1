@@ -1,13 +1,12 @@
 import React from 'react';
+import PostDetailPageContainer from './PostDetailPageContainer';
+// eslint-disable-next-line import/no-named-as-default
+import PostDetailPage from './PostDetailPage';
 
 export default () => {
   return (
-    <header className="App-header">
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      <p>This is the Post detail page</p>
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-        Learn React
-      </a>
-    </header>
+    <PostDetailPageContainer>
+      <PostDetailPage />
+    </PostDetailPageContainer>
   );
 };
