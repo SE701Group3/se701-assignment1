@@ -8,16 +8,14 @@ import ReplyImage from '../../common/icons/reply.png';
 import styles from './Comment.module.css';
 
 const splitTextToParagraph = text => {
-  return text.split('\n').map(i => {
-    return <p>{i}</p>;
-  });
+  return text.split('\n').map(i => <p key={`${Math.floor(Math.random() * 100)}`}>{i}</p>);
 };
 
 const Comment = ({ body, dateCreated, setModal }) => {
   return (
     <Card className={styles.root}>
       <div className={styles['comment-box']}>
-        <Button onClick={setModal()}>
+        <Button onClick={setModal}>
           <img src={ReplyImage} alt="reply-img" className={styles.reply} />
         </Button>
         <CardContent>
