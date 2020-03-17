@@ -60,15 +60,12 @@ router.post('/:id/comment', async (req, res) => {
     comment_id: req.body.comment_id,
     body: req.body.body,
   });
-  
   try {
-    // TODO
     const newComment = await comment.save();
     res.status(201).json(newComment);
 
     await Post.update({ _id: req.params.id }, { $push: { comment_id: newComment._id } });
-    res.status(200).send();
-    
+    res.status(200).send(); 
   } catch (err) {
     res.status(404).json({ message: err.message });
   }

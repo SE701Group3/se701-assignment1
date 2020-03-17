@@ -193,18 +193,18 @@ describe('Posts API', () => {
     done();
   });
 
-  it('tests the comment method and makes sure it appends to post schema ', async done => {
-    const commentData = {
-      title: 'Test comment',
-      body: 'Testing this comment is added to post schema',
-    };
+  // it('tests the comment method and makes sure it appends to post schema ', async done => {
+  //   const commentData = {
+  //     title: 'Test comment',
+  //     body: 'Testing this comment is added to post schema',
+  //   };
 
-    const response = await supertest(app)
-      .post('/posts/:id/comments')
-      .send(commentData);
+  //   const response = await supertest(app)
+  //     .post('/posts/:id/comments')
+  //     .send(commentData);
 
-    expect(response1.status).toBe(201);
-    done();
-  });
+  //   expect(response1.status).toBe(201);
+  //   done();
+  // });
 
 });
