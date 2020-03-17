@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container } from '@material-ui/core';
 import PostDetail from './PostDetail';
 import Comment from './Comment';
 import CreateCommentModal from './CreateCommentModal';
+import withCreateCommentService from './withCreateCommentService';
 
 function formatDate(date) {
   const newDate = new Date(date);
@@ -20,7 +21,11 @@ function nestComments(commentList) {
   });
 }
 
+const CreateCommentModalService = withCreateCommentService(CreateCommentModal);
+
 const PostDetailPage = ({ commentsToDisplay }) => {
+  const [showModal, setModal] = useState(false);
+
   return (
     <div>
       <PostDetail />
@@ -32,7 +37,7 @@ const PostDetailPage = ({ commentsToDisplay }) => {
           </Container>
         );
       })}
-      <CreateCommentModal />
+      <CreateCommentModalService showModal={showModal} setModal={setModal} />
     </div>
   );
 };
