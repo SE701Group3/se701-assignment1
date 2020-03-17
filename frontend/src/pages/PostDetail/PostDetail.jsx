@@ -8,12 +8,13 @@ const PostDetail = ({ postToDisplay, handleVote }) => {
       <Post
         id={postToDisplay.id}
         title={postToDisplay.title}
-        content={postToDisplay.content}
+        content={postToDisplay.body}
         key={`${postToDisplay.id}-key`}
         upvotes={postToDisplay.upvotes_laugh}
         downvotes={postToDisplay.upvotes_sad}
         claps={postToDisplay.upvotes_clap}
         handleVote={handleVote}
+        frontpage={false}
       />
     </Container>
   );

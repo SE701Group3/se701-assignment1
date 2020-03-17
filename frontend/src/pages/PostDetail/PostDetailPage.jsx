@@ -44,19 +44,21 @@ const PostDetailPage = ({
       <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
 
       <PostDetail postToDisplay={postToDisplay} handleVote={handleVote} />
-      {commentsToDisplay.map(comment => (
-        <Container maxWidth="sm" key={`${comment.id}-container-key`}>
-          <Comment
-            body={comment.body}
-            dateCreated={formatDate(comment.date_created)}
-            setModal={() => {
-              setModal(true);
-            }}
-            key={`${comment.id}-key`}
-          />
-          {nestComments(comment.children, setModal)}
-        </Container>
-      ))}
+      {commentsToDisplay
+        ? commentsToDisplay.map(comment => (
+            <Container maxWidth="sm" key={`${comment.id}-container-key`}>
+              <Comment
+                body={comment.body}
+                dateCreated={formatDate(comment.date_created)}
+                setModal={() => {
+                  setModal(true);
+                }}
+                key={`${comment.id}-key`}
+              />
+              {nestComments(comment.children, setModal)}
+            </Container>
+          ))
+        : null}
       <CreateCommentModalService showModal={showModal} setModal={setModal} />
     </div>
   );

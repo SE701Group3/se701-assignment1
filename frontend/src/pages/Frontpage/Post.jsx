@@ -4,13 +4,15 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import { CardActionArea } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import ClapImg from '../../common/icons/clap.png';
 import SmileImg from '../../common/icons/emoji.png';
 import SadImg from '../../common/icons/sad.png';
 
 import styles from './Post.module.css';
 
-const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote }) => {
+const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, frontpage }) => {
   const [upvoteClap, setUpvoteClap] = useState(false);
   const [upvoteLaugh, setUpvoteLaugh] = useState(false);
   const [upvoteSad, setUpvoteSad] = useState(false);
@@ -84,7 +86,16 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote }) => 
         </div>
         <CardContent>
           <div className={styles['post-content']}>
-            <Typography variant="h2">{title}</Typography>
+            {frontpage ? (
+              <Link to={`/post/${id}`}>
+                <CardActionArea>
+                  <Typography variant="h2">{title}</Typography>
+                </CardActionArea>
+              </Link>
+            ) : (
+              <Typography variant="h2">{title}</Typography>
+            )}
+
             <Typography variant="body2" color="textSecondary">
               {content}
             </Typography>

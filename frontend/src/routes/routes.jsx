@@ -12,7 +12,7 @@ const paths = {
 const routes = (
   <Switch>
     <Route exact path={paths.FRONTPAGE} component={Frontpage} />
-    <Route exact path={paths.POST_DETAILS} component={PostDetail} />
+    <Route exact path={`${paths.POST_DETAILS}/:id`} component={PostDetail} />
   </Switch>
 );
 

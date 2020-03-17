@@ -28,6 +28,7 @@ const Index = ({ postsToDisplay, handleSearch, handleVote }) => {
             downvotes={post.upvotes_sad}
             claps={post.upvotes_clap}
             handleVote={handleVote}
+            frontpage
           />
         ))}
       </Container>
