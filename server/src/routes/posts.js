@@ -40,4 +40,10 @@ router.delete('/:id', (req, res) => {
   // TODO
 });
 
+// Commenting once
+// eslint-disable-next-line no-unused-vars
+router.comment('/', async (req, res) => {
+  // TODO
+});
+
 module.exports = router;
