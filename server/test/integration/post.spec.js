@@ -126,7 +126,7 @@ describe('Posts API', () => {
     done();
   });
 
-  it('tests the deletion of already deleted post and return error message', async done => {
+  it('tests the deletion of already deleted post and returns as error', async done => {
     const postData = {
       title: 'Test post',
       body: 'This is the body for a test post',
@@ -145,8 +145,7 @@ describe('Posts API', () => {
 
     expect(response1.status).toBe(200);
 
-    const response3 = await supertest(app).get(url);
-    console.log(response3.body);
+    await supertest(app).get(url);
 
     const response2 = await supertest(app).delete(url.concat(createdPost._id));
 
