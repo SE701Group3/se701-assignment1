@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const commentsSchema = new mongoose.Schema({
-  parent_id: {
+  comment_id: {
     type: String,
     required: false,
   },

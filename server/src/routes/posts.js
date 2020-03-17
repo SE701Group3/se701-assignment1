@@ -57,7 +57,7 @@ router.delete('/:id', async (req, res) => {
 // eslint-disable-next-line no-unused-vars
 router.post('/:id/comment', async (req, res) => {
   const comment = new Comment({
-    parent_id: req.body.parent_id,
+    comment_id: req.body.comment_id,
     body: req.body.body,
   });
   
