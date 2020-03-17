@@ -60,6 +60,40 @@ describe('Posts API', () => {
     done();
   });
 
+  it('upvote post successfully', async done => {
+    // create post
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    // Get post
+    const response2 = await supertest(app).get('/posts');
+
+    // Upvote the post
+    const upvoteRequest = {
+      id: response2.body[0]._id,
+      upvote_type: 'clap',
+      upvote: true,
+    };
+
+    const response3 = await supertest(app)
+      .put(`/posts/${response2.body[0]._id}/upvote`)
+      .send(upvoteRequest);
+    expect(response3.status).toBe(200);
+
+    // Check if post was upvoted
+    const response4 = await supertest(app).get('/posts');
+    expect(response4.body[0].upvotes_clap).toBe(1);
+    done();
+  });
+
   it('update post successfully', async done => {
     // create post
     const postData = {
@@ -107,7 +141,8 @@ describe('Posts API', () => {
     done();
   });
 
-  it('tests the delete post method', async done => {
+  it('upvote post with invalid type fails', async done => {
+    // create post
     const postData = {
       title: 'Test post',
       body: 'This is the body for a test post',
@@ -116,7 +151,40 @@ describe('Posts API', () => {
     const response = await supertest(app)
       .post('/posts')
       .send(postData);
+    expect(response.status).toBe(201);
 
+    // Get post
+    const response2 = await supertest(app).get('/posts');
+
+    // Upvote the post
+    const upvoteRequest = {
+      id: response2.body[0]._id,
+      upvote_type: 'claps',
+      upvote: true,
+    };
+
+    const response3 = await supertest(app)
+      .put(`/posts/${response2.body[0]._id}/upvote`)
+      .send(upvoteRequest);
+    expect(response3.status).toBe(400);
+
+    // Check if post was upvoted
+    const response4 = await supertest(app).get('/posts');
+    expect(response4.body[0].upvotes_clap).toBe(0);
+    done();
+  });
+
+  it('tests the delete post method', async done => {
+    // create post
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/posts')
+      .send(postData);
+    expect(response.status).toBe(201);
     const createdPost = response.body;
     const url = '/posts/';
 
@@ -130,7 +198,41 @@ describe('Posts API', () => {
     done();
   });
 
+  it('downvote post successfully', async done => {
+    // create post
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/posts')
+      .send(postData);
+    expect(response.status).toBe(201);
+
+    // Get post
+    const response2 = await supertest(app).get('/posts');
+
+    // Downvote the post
+    const upvoteRequest = {
+      id: response2.body[0]._id,
+      upvote_type: 'clap',
+      upvote: false,
+    };
+
+    const response3 = await supertest(app)
+      .put(`/posts/${response2.body[0]._id}/upvote`)
+      .send(upvoteRequest);
+    expect(response3.status).toBe(200);
+
+    // Check if post was upvoted
+    const response4 = await supertest(app).get('/posts');
+    expect(response4.body[0].upvotes_clap).toBe(-1);
+    done();
+  });
+
   it('tests the deletion of already deleted post', async done => {
+    // create post
     const postData = {
       title: 'Test post',
       body: 'This is the body for a test post',
@@ -141,7 +243,6 @@ describe('Posts API', () => {
       .send(postData);
 
     expect(response.status).toBe(201);
-
     const createdPost = response.body;
     const url = '/posts/';
 
