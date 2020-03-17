@@ -6,7 +6,7 @@ const PostDetailPageContainer = ({ children }) => {
   const [commentsToDisplay, setCommentsToDisplay] = useState([]);
   const [postToDisplay, setPostToDisplay] = useState([]);
   const [postsToDisplay, setPostsToDisplay] = useState([]);
-  const [retrievedPosts, setRetrievedPosts] = useState([]);
+  const [retrievedComments, setRetrievedComments] = useState([]);
 
   useEffect(() => {
     async function getPostInformationOnLoad() {
@@ -14,13 +14,15 @@ const PostDetailPageContainer = ({ children }) => {
       setCommentsToDisplay(response.Comments);
       setPostToDisplay(response);
       setPostsToDisplay(response.posts);
-      setRetrievedPosts(response.posts);
+      setRetrievedComments(response.Comments);
     }
     getPostInformationOnLoad();
   }, []);
 
   const handleSearch = event => {
-    setPostsToDisplay(retrievedPosts.filter(post => post.title.includes(event.target.value)));
+    setCommentsToDisplay(
+      retrievedComments.filter(comment => comment.body.includes(event.target.value)),
+    );
   };
 
   const newProps = {
