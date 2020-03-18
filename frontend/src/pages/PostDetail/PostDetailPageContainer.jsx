@@ -15,7 +15,7 @@ const PostDetailPageContainer = ({ children }) => {
   useEffect(() => {
     async function getPostInformationOnLoad() {
       const response = await getPostInformation(id);
-      setCommentsToDisplay(response.comments);
+      setCommentsToDisplay(response.comments.reverse());
       setPostToDisplay(response);
       setPostsToDisplay(response.posts);
       setRetrievedComments(response.comments);
@@ -25,7 +25,9 @@ const PostDetailPageContainer = ({ children }) => {
 
   const handleSearch = event => {
     setCommentsToDisplay(
-      retrievedComments.filter(comment => comment.body.includes(event.target.value)),
+      retrievedComments.filter(comment =>
+        comment.body.toLowerCase().includes(event.target.value.toLowerCase()),
+      ),
     );
   };
 

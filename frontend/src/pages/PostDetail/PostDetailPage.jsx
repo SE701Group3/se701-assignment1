@@ -54,14 +54,14 @@ const PostDetailPage = ({
       <PostDetail postToDisplay={postToDisplay} handleVote={handleVote} />
       {commentsToDisplay
         ? commentsToDisplay.map(comment => (
-            <Container maxWidth="sm" key={`${comment.id}-container-key`}>
+            <Container maxWidth="sm" key={`${Math.floor(Math.random() * 100)}-container-key`}>
               <Comment
                 body={comment.body}
-                dateCreated={formatDate(comment.date_created)}
+                dateCreated={formatDate(comment.createdAt)}
                 setModal={() => {
                   setModal(true);
                 }}
-                key={`${comment.id}-key`}
+                key={`${Math.floor(Math.random() * 100)}`}
               />
               {nestComments(comment.children, setModal)}
             </Container>

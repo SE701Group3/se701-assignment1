@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { Redirect } from 'react-router-dom';
 import submitComment, { SubmitCommentError } from '../../services/PostDetailService';
 
 export const createCommentService = submit => CreateCommentModal => ({
@@ -9,14 +8,13 @@ export const createCommentService = submit => CreateCommentModal => ({
   postID,
 }) => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [toRedirect, setRedirect] = useState(false);
 
   const handleSubmit = async body => {
     try {
       await submit(postID, body);
       setErrorMessage(null);
       setModal(false);
-      setRedirect(true);
+      window.location.reload();
     } catch (error) {
       if (!(error instanceof SubmitCommentError)) {
         setErrorMessage('Could not submit post. Please try again.');
@@ -40,7 +38,6 @@ export const createCommentService = submit => CreateCommentModal => ({
         onSubmit={handleSubmit}
         onClose={handleClose}
       />
-      {toRedirect && <Redirect to={`/post/${postID}`} />}
     </>
   );
 };

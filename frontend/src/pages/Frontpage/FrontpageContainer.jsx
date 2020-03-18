@@ -16,7 +16,11 @@ const FrontpageContainer = ({ children }) => {
   }, []);
 
   const handleSearch = event => {
-    setPostsToDisplay(retrievedPosts.filter(post => post.title.includes(event.target.value)));
+    setPostsToDisplay(
+      retrievedPosts.filter(post =>
+        post.title.toLowerCase().includes(event.target.value.toLowerCase()),
+      ),
+    );
   };
 
   const newProps = { postsToDisplay, handleSearch, handleVote };
