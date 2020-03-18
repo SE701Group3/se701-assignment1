@@ -319,6 +319,7 @@ describe('Posts API', () => {
     expect(response1.status).toBe(201);
 
     const response2 = await supertest(app).get(url.concat('/', createdPost._id));
+    console.log(response2.body);
     expect(response2.status).toBe(200);
     expect(response2.body._id).toBe(createdPost._id);
     expect(response2.body.title).toBe(postData.title);
@@ -330,6 +331,71 @@ describe('Posts API', () => {
     expect(response2.body.comments[0]._id).toBeDefined();
     expect(response2.body.comments[0].body).toBe(commentData.body);
     expect(response2.body.comments[0].createdAt).toBeDefined();
+    done();
+  });
+
+  it('tests the get single post route with two comment objects', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const url = '/posts/';
+    const commentData = {
+      body: 'This is the body for a test comment',
+    };
+    const commentData2 = {
+      body: 'This is the body for a test comment',
+    };
+
+    const response1 = await supertest(app)
+      .post(url.concat(createdPost._id, '/comment'))
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+
+    const response2 = await supertest(app).get(url.concat('/', createdPost._id));
+    expect(response2.status).toBe(200);
+    expect(response2.body._id).toBe(createdPost._id);
+    expect(response2.body.title).toBe(postData.title);
+    expect(response2.body.body).toBe(postData.body);
+    expect(response2.body.date_created).toBeDefined();
+    expect(response2.body.upvotes_clap).toBe(0);
+    expect(response2.body.upvotes_laugh).toBe(0);
+    expect(response2.body.upvotes_sad).toBe(0);
+    expect(response2.body.comments[0]._id).toBeDefined();
+    expect(response2.body.comments[0].body).toBe(commentData.body);
+    expect(response2.body.comments[0].createdAt).toBeDefined();
+
+    const response3 = await supertest(app)
+      .post(url.concat(createdPost._id, '/comment'))
+      .send(commentData2);
+
+    expect(response3.status).toBe(201);
+
+    const response4 = await supertest(app).get(url.concat('/', createdPost._id));
+    console.log(response4.body);
+    expect(response4.status).toBe(200);
+    expect(response4.body._id).toBe(createdPost._id);
+    expect(response4.body.title).toBe(postData.title);
+    expect(response4.body.body).toBe(postData.body);
+    expect(response4.body.date_created).toBeDefined();
+    expect(response4.body.upvotes_clap).toBe(0);
+    expect(response4.body.upvotes_laugh).toBe(0);
+    expect(response4.body.upvotes_sad).toBe(0);
+    expect(response4.body.comments[0]._id).toBeDefined();
+    expect(response4.body.comments[0].body).toBe(commentData.body);
+    expect(response4.body.comments[0].createdAt).toBeDefined();
+    expect(response4.body.comments[1]._id).toBeDefined();
+    expect(response4.body.comments[1].body).toBe(commentData2.body);
+    expect(response4.body.comments[1].createdAt).toBeDefined();
     done();
   });
 
