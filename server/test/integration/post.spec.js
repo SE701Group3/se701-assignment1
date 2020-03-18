@@ -319,7 +319,6 @@ describe('Posts API', () => {
     expect(response1.status).toBe(201);
 
     const response2 = await supertest(app).get(url.concat('/', createdPost._id));
-    console.log(response2.body);
     expect(response2.status).toBe(200);
     expect(response2.body._id).toBe(createdPost._id);
     expect(response2.body.title).toBe(postData.title);
@@ -381,7 +380,6 @@ describe('Posts API', () => {
     expect(response3.status).toBe(201);
 
     const response4 = await supertest(app).get(url.concat('/', createdPost._id));
-    console.log(response4.body);
     expect(response4.status).toBe(200);
     expect(response4.body._id).toBe(createdPost._id);
     expect(response4.body.title).toBe(postData.title);
