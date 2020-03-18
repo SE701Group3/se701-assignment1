@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 
-import { SubmitCommentError, submitComment } from '../../services/PostDetailService';
+import submitComment, { SubmitCommentError } from '../../services/PostDetailService';
 
-export const createCommentService = submit => CreateCommentModal => ({ showModal, setModal }) => {
+export const createCommentService = submit => CreateCommentModal => ({
+  showModal,
+  setModal,
+  postID,
+}) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async body => {
     try {
-      await submit(body);
+      await submit(postID, body);
       setErrorMessage(null);
       setModal(false);
     } catch (error) {

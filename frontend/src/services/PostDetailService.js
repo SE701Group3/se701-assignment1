@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export class SubmitCommentError extends Error {}
 
 export const getPostInformation = async postId => {
@@ -57,16 +58,17 @@ export const getPostInformation = async postId => {
   // };
 };
 
-export const submitComment = async (postId, parentId, body) => {
+export default async (children_id, body) => {
   const parameters = {
-    postId,
-    parentId,
+    children_id,
     body,
   };
 
+  console.log(parameters);
+
   const requestBody = JSON.stringify(parameters);
 
-  const response = await fetch(`/post/${postId}/comment`, {
+  const response = await fetch(`/posts/${children_id}/comment`, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
