@@ -15,10 +15,10 @@ const PostDetailPageContainer = ({ children }) => {
   useEffect(() => {
     async function getPostInformationOnLoad() {
       const response = await getPostInformation(id);
-      setCommentsToDisplay(response.Comments);
+      setCommentsToDisplay(response.comments);
       setPostToDisplay(response);
       setPostsToDisplay(response.posts);
-      setRetrievedComments(response.Comments);
+      setRetrievedComments(response.comments);
     }
     getPostInformationOnLoad();
   }, []);
