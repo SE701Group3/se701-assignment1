@@ -1,4 +1,3 @@
-
 /* eslint-disable camelcase */
 export class SubmitCommentError extends Error {}
 
