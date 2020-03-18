@@ -13,7 +13,6 @@ const CreateCommentModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
   };
 
   const handleBodyChange = event => {
-    console.log(event.target.value);
     setBody(event.target.value);
   };
 

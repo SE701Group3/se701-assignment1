@@ -16,9 +16,9 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, front
   const [upvoteClap, setUpvoteClap] = useState(false);
   const [upvoteLaugh, setUpvoteLaugh] = useState(false);
   const [upvoteSad, setUpvoteSad] = useState(false);
-  const [clapCount, setClapCount] = useState(claps);
-  const [smileCount, setSmileCount] = useState(upvotes);
-  const [sadCount, setSadCount] = useState(downvotes);
+  const clapCount = claps + (upvoteClap ? 1 : 0);
+  const smileCount = upvotes + (upvoteLaugh ? 1 : 0);
+  const sadCount = downvotes + (upvoteSad ? 1 : 0);
 
   return (
     <Card className={styles.root}>
@@ -29,11 +29,6 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, front
               className={styles['post-button']}
               onClick={() => {
                 handleVote({ id, upvote_type: 'clap', upvote: !upvoteClap });
-                if (upvoteClap) {
-                  setClapCount(clapCount - 1);
-                } else {
-                  setClapCount(clapCount + 1);
-                }
                 setUpvoteClap(!upvoteClap);
               }}
             >
@@ -48,11 +43,6 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, front
               className={styles['post-button']}
               onClick={() => {
                 handleVote({ id, upvote_type: 'laugh', upvote: !upvoteLaugh });
-                if (upvoteLaugh) {
-                  setSmileCount(smileCount - 1);
-                } else {
-                  setSmileCount(smileCount + 1);
-                }
                 setUpvoteLaugh(!upvoteLaugh);
               }}
             >
@@ -67,11 +57,6 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, front
               className={styles['post-button']}
               onClick={() => {
                 handleVote({ id, upvote_type: 'sad', upvote: !upvoteSad });
-                if (upvoteSad) {
-                  setSadCount(sadCount - 1);
-                } else {
-                  setSadCount(sadCount + 1);
-                }
                 setUpvoteSad(!upvoteSad);
               }}
             >
