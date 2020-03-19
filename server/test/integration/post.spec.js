@@ -329,7 +329,7 @@ describe('Posts API', () => {
     expect(response2.body.upvotes_sad).toBe(0);
     expect(response2.body.comments[0]._id).toBeDefined();
     expect(response2.body.comments[0].body).toBe(commentData.body);
-    expect(response2.body.comments[0].createdAt).toBeDefined();
+    expect(response2.body.comments[0].date_created).toBeDefined();
     done();
   });
 
@@ -371,7 +371,7 @@ describe('Posts API', () => {
     expect(response2.body.upvotes_sad).toBe(0);
     expect(response2.body.comments[0]._id).toBeDefined();
     expect(response2.body.comments[0].body).toBe(commentData.body);
-    expect(response2.body.comments[0].createdAt).toBeDefined();
+    expect(response2.body.comments[0].date_created).toBeDefined();
 
     const response3 = await supertest(app)
       .post(url.concat(createdPost._id, '/comment'))
@@ -390,10 +390,10 @@ describe('Posts API', () => {
     expect(response4.body.upvotes_sad).toBe(0);
     expect(response4.body.comments[0]._id).toBeDefined();
     expect(response4.body.comments[0].body).toBe(commentData.body);
-    expect(response4.body.comments[0].createdAt).toBeDefined();
+    expect(response4.body.comments[0].date_created).toBeDefined();
     expect(response4.body.comments[1]._id).toBeDefined();
     expect(response4.body.comments[1].body).toBe(commentData2.body);
-    expect(response4.body.comments[1].createdAt).toBeDefined();
+    expect(response4.body.comments[1].date_created).toBeDefined();
     done();
   });
 

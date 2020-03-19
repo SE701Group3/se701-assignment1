@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
       upvotes_clap: foundPost.upvotes_clap,
       upvotes_laugh: foundPost.upvotes_laugh,
       upvotes_sad: foundPost.upvotes_sad,
-      date_created: foundPost.createdAt,
+      date_created: foundPost.date_created,
       comments: await Comment.find({ _id: { $in: foundPost.comment_id } }),
     };
 
