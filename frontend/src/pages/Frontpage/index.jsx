@@ -16,7 +16,7 @@ const Index = ({ postsToDisplay, handleSearch, handleVote }) => {
 
   return (
     <>
-      <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
+      <Header handleSearch={handleSearch} />
       <Container maxWidth="sm" classes={{ root: styles.container }}>
         {postsToDisplay.map(post => (
           <Post
