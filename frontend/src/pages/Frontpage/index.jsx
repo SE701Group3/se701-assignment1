@@ -6,8 +6,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Header from '../../common/Header/Header';
 import Post from './Post';
 import styles from './frontpageStyles.module.css';
-import CreatePostModal from '../CreatePost/CreatePostModal';
-import withCreatePostService from '../CreatePost/withCreatePostService';
+import CreatePostModal from './CreatePost/CreatePostModal';
+import withCreatePostService from './CreatePost/withCreatePostService';
 
 const CreatePostModalServiced = withCreatePostService(CreatePostModal);
 
