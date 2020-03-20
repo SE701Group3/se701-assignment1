@@ -5,16 +5,18 @@ const FrontpageContainer = ({ children }) => {
   const [retrievedPosts, setRetrievedPosts] = useState([]);
   const [postsToDisplay, setPostsToDisplay] = useState([]);
 
+  // Runs when the frontpage is loaded to retrieve posts from the database
   useEffect(() => {
     async function getPostsOnLoad() {
       const response = await getPosts();
       setRetrievedPosts(response);
-      setPostsToDisplay(response.reverse());
+      setPostsToDisplay(response.reverse()); // As the database returns the posts in oldest first, the array is reversed to show newest posts first
     }
 
     getPostsOnLoad();
   }, []);
 
+  // When user types in the search bar, the posts are filtered according to their titles
   const handleSearch = event => {
     setPostsToDisplay(
       retrievedPosts.filter(post =>
@@ -23,6 +25,8 @@ const FrontpageContainer = ({ children }) => {
     );
   };
 
+  // Any variables or methods declared in newProps will be passed through to children
+  // components as declared in frontpage.jsx
   const newProps = { postsToDisplay, handleSearch, handleVote };
 
   return React.cloneElement(children, { ...newProps });
