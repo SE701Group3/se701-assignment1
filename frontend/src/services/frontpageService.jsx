@@ -1,5 +1,7 @@
+import { upvotePostRoute, getPostsRoute } from './apiRoutes';
+
 export const getPosts = async () => {
-  const response = await fetch('/posts').then(respose => respose.json());
+  const response = await fetch(getPostsRoute).then(respose => respose.json());
   return response;
 };
 
@@ -13,7 +15,7 @@ export const handleVote = async ({ id, upvote_type, upvote }) => {
 
   const requestBody = JSON.stringify(params);
 
-  const response = await fetch(`/posts/${id}/upvote`, {
+  const response = await fetch(upvotePostRoute(id), {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

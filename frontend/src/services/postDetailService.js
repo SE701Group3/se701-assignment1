@@ -1,8 +1,10 @@
+import { getPostRoute, createCommentRoute } from './apiRoutes';
+
 /* eslint-disable camelcase */
 export class SubmitCommentError extends Error {}
 
 export const getPostInformation = async postId => {
-  return fetch(`/posts/${postId}`).then(respose => respose.json());
+  return fetch(getPostRoute(postId)).then(respose => respose.json());
 };
 
 export default async (children_id, body) => {
@@ -15,7 +17,7 @@ export default async (children_id, body) => {
 
   const requestBody = JSON.stringify(parameters);
 
-  const response = await fetch(`/posts/${children_id}/comment`, {
+  const response = await fetch(createCommentRoute(children_id), {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

@@ -1,11 +1,9 @@
-import sinon from 'sinon';
 import { enableFetchMocks } from 'jest-fetch-mock';
+import submitPost from './createPostService';
+import { createPostRoute } from './apiRoutes';
 
 // Ensure that things are mocked before we import the implementation-under-test.
 enableFetchMocks();
-
-// eslint-disable-next-line import/first
-import submitPost from './createPostService';
 
 process.on('unhandledRejection', up => {
   throw up;
@@ -18,7 +16,7 @@ describe('submitPost', () => {
       statusText: 'OK',
     });
     await submitPost('title', 'body');
-    expect(fetch.mock.calls[0][0]).toEqual('/posts');
+    expect(fetch.mock.calls[0][0]).toEqual(createPostRoute);
     expect(fetch.mock.calls[0][1].method).toEqual('POST');
   });
 
