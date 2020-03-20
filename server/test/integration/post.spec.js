@@ -26,7 +26,16 @@ describe('Posts API', () => {
   });
 
   /* Tests for get all posts API */
-  it('tests the get all posts endpoint', async done => {
+  it('tests the get all posts endpoint with no posts', async done => {
+    const response2 = await supertest(app).get('/api/posts');
+    expect(response2.status).toBe(200);
+
+    expect(response2.body).toMatchObject([]);
+
+    done();
+  });
+
+  it('tests the get all posts endpoint with one post', async done => {
     const postData = {
       title: 'Test post',
       body: 'This is the body for a test post',
@@ -39,6 +48,7 @@ describe('Posts API', () => {
     expect(response.status).toBe(201);
 
     const response2 = await supertest(app).get('/api/posts');
+    expect(response2.status).toBe(200);
     const createdPost = response2.body;
 
     expect(createdPost[0].title).toBe(postData.title);
@@ -47,6 +57,45 @@ describe('Posts API', () => {
     expect(createdPost[0].upvotes_clap).toBe(0);
     expect(createdPost[0].upvotes_laugh).toBe(0);
     expect(createdPost[0].upvotes_sad).toBe(0);
+
+    done();
+  });
+
+  it('tests the get all posts endpoint with multiple posts', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const response2 = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response2.status).toBe(201);
+
+    const response3 = await supertest(app).get('/api/posts');
+    expect(response3.status).toBe(200);
+    const createdPost = response3.body;
+
+    expect(createdPost[0].title).toBe(postData.title);
+    expect(createdPost[0].body).toBe(postData.body);
+
+    expect(createdPost[0].upvotes_clap).toBe(0);
+    expect(createdPost[0].upvotes_laugh).toBe(0);
+    expect(createdPost[0].upvotes_sad).toBe(0);
+
+    expect(createdPost[1].title).toBe(postData.title);
+    expect(createdPost[1].body).toBe(postData.body);
+
+    expect(createdPost[1].upvotes_clap).toBe(0);
+    expect(createdPost[1].upvotes_laugh).toBe(0);
+    expect(createdPost[1].upvotes_sad).toBe(0);
 
     done();
   });
