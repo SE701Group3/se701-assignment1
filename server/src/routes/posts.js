@@ -33,8 +33,12 @@ router.post('/', async (req, res) => {
 // eslint-disable-next-line no-unused-vars
 router.put('/:id', async (req, res) => {
   try {
-    await Post.update({ _id: req.params.id }, { title: req.body.title, body: req.body.body });
-    res.status(200).send();
+    if (req.body.title != null && req.body.body != null) {
+      await Post.update({ _id: req.params.id }, { title: req.body.title, body: req.body.body });
+      res.status(200).send();
+    } else {
+      res.status(400).json({ message: 'Please include a title and body' });
+    }
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -99,25 +103,35 @@ router.put('/:id/upvote', async (req, res) => {
   try {
     if (req.body.upvote_type === 'clap') {
       const claps = currentPost.upvotes_clap;
+
       await Post.updateOne(
         { _id: req.body.id },
         { upvotes_clap: claps + (req.body.upvote === true ? 1 : -1) },
       );
+
+      const returnPost = await Post.findById(req.body.id);
+      res.status(200).json(returnPost);
     } else if (req.body.upvote_type === 'laugh') {
       const laughs = currentPost.upvotes_laugh;
+
       await Post.update(
         { _id: req.body.id },
         { upvotes_laugh: laughs + (req.body.upvote === true ? 1 : -1) },
       );
+
+      const returnPost = await Post.findById(req.body.id);
+      res.status(200).json(returnPost);
     } else if (req.body.upvote_type === 'sad') {
       const sads = currentPost.upvotes_sad;
+
       await Post.update(
         { _id: req.body.id },
         { upvotes_sad: sads + (req.body.upvote === true ? 1 : -1) },
       );
-    } else res.status(400).json({ message: 'Invalid upvote type' });
 
-    res.status(200).send();
+      const returnPost = await Post.findById(req.body.id);
+      res.status(200).json(returnPost);
+    } else res.status(400).json({ message: 'Invalid upvote type' });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
