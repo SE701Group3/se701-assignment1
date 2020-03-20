@@ -33,8 +33,12 @@ router.post('/', async (req, res) => {
 // eslint-disable-next-line no-unused-vars
 router.put('/:id', async (req, res) => {
   try {
-    await Post.update({ _id: req.params.id }, { title: req.body.title, body: req.body.body });
-    res.status(200).send();
+    if (req.body.title != null && req.body.body != null) {
+      await Post.update({ _id: req.params.id }, { title: req.body.title, body: req.body.body });
+      res.status(200).send();
+    } else {
+      res.status(400).json({ message: 'Please include a title and body' });
+    }
   } catch (err) {
     res.status(404).json({ message: err.message });
   }

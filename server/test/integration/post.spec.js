@@ -184,6 +184,33 @@ describe('Posts API', () => {
     done();
   });
 
+  it('update post with missing title and body', async done => {
+    // create post
+    const postData = {
+      title: 'First Title',
+      body: 'First body',
+    };
+
+    const response1 = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+    expect(response1.status).toBe(201);
+
+    const updatedPost = {};
+
+    const url = '/api/posts/';
+    const response2 = await supertest(app)
+      .put(url.concat(response1.body._id))
+      .send(updatedPost);
+    expect(response2.status).toBe(400);
+
+    // check that the database wasn't updated
+    const response3 = await supertest(app).get(url);
+    expect(response3.body[0].title).toBe(postData.title);
+    expect(response3.body[0].body).toBe(postData.body);
+    done();
+  });
+
   /* Tests for get detailed post API */
   it('tests the get single post route', async done => {
     const postData = {
