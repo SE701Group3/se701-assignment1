@@ -2,7 +2,7 @@
 export class SubmitCommentError extends Error {}
 
 export const getPostInformation = async postId => {
-  return await fetch(`/posts/${postId}`).then(respose => respose.json());
+  return fetch(`/posts/${postId}`).then(respose => respose.json());
 };
 
 export default async (children_id, body) => {
