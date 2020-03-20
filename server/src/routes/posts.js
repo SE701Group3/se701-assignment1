@@ -99,26 +99,35 @@ router.put('/:id/upvote', async (req, res) => {
   try {
     if (req.body.upvote_type === 'clap') {
       const claps = currentPost.upvotes_clap;
+
       await Post.updateOne(
         { _id: req.body.id },
         { upvotes_clap: claps + (req.body.upvote === true ? 1 : -1) },
       );
+
+      const returnPost = await Post.findById(req.body.id);
+      res.status(200).json(returnPost);
     } else if (req.body.upvote_type === 'laugh') {
       const laughs = currentPost.upvotes_laugh;
+
       await Post.update(
         { _id: req.body.id },
         { upvotes_laugh: laughs + (req.body.upvote === true ? 1 : -1) },
       );
+
+      const returnPost = await Post.findById(req.body.id);
+      res.status(200).json(returnPost);
     } else if (req.body.upvote_type === 'sad') {
       const sads = currentPost.upvotes_sad;
+
       await Post.update(
         { _id: req.body.id },
         { upvotes_sad: sads + (req.body.upvote === true ? 1 : -1) },
       );
-    } else res.status(400).json({ message: 'Invalid upvote type' });
 
-    const returnPost = await Post.findById(req.body.id);
-    res.status(200).send(returnPost);
+      const returnPost = await Post.findById(req.body.id);
+      res.status(200).json(returnPost);
+    } else res.status(400).json({ message: 'Invalid upvote type' });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

@@ -340,22 +340,27 @@ describe('Posts API', () => {
 
     // Get post
     const response2 = await supertest(app).get('/api/posts');
+    const testId = response2.body[0]._id;
 
     // Upvote the post
     const upvoteRequest = {
-      id: response2.body[0]._id,
+      id: testId,
       upvote_type: 'clap',
       upvote: true,
     };
 
     const response3 = await supertest(app)
-      .put(`/api/posts/${response2.body[0]._id}/upvote`)
+      .put(`/api/posts/${testId}/upvote`)
       .send(upvoteRequest);
     expect(response3.status).toBe(200);
 
-    // Check if post was upvoted
-    const response4 = await supertest(app).get('/api/posts');
-    expect(response4.body[0].upvotes_clap).toBe(1);
+    expect(response3.body._id).toBe(testId);
+    expect(response3.body.title).toBe(postData.title);
+    expect(response3.body.body).toBe(postData.body);
+    expect(response3.body.date_created).toBeDefined();
+    expect(response3.body.upvotes_clap).toBe(1);
+    expect(response3.body.upvotes_laugh).toBe(0);
+    expect(response3.body.upvotes_sad).toBe(0);
     done();
   });
 
@@ -406,22 +411,27 @@ describe('Posts API', () => {
 
     // Get post
     const response2 = await supertest(app).get('/api/posts');
+    const testId = response2.body[0]._id;
 
-    // Downvote the post
+    // Upvote the post
     const upvoteRequest = {
-      id: response2.body[0]._id,
+      id: testId,
       upvote_type: 'clap',
       upvote: false,
     };
 
     const response3 = await supertest(app)
-      .put(`/api/posts/${response2.body[0]._id}/upvote`)
+      .put(`/api/posts/${testId}/upvote`)
       .send(upvoteRequest);
     expect(response3.status).toBe(200);
 
-    // Check if post was upvoted
-    const response4 = await supertest(app).get('/api/posts');
-    expect(response4.body[0].upvotes_clap).toBe(-1);
+    expect(response3.body._id).toBe(testId);
+    expect(response3.body.title).toBe(postData.title);
+    expect(response3.body.body).toBe(postData.body);
+    expect(response3.body.date_created).toBeDefined();
+    expect(response3.body.upvotes_clap).toBe(-1);
+    expect(response3.body.upvotes_laugh).toBe(0);
+    expect(response3.body.upvotes_sad).toBe(0);
     done();
   });
 });
