@@ -7,6 +7,10 @@ export const getPostInformation = async postId => {
   return fetch(getPostRoute(postId)).then(respose => respose.json());
 };
 
+/*
+  This function is used to handle the creation of comments through the API and
+  persist the newly created comments to the database.
+*/
 export default async (children_id, body) => {
   const parameters = {
     children_id,

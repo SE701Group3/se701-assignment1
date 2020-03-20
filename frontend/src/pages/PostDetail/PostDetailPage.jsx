@@ -17,6 +17,9 @@ function formatDate(date) {
   return newDate.toDateString();
 }
 
+/*
+  Function used to recursively retrieve and display child comments
+*/
 function nestComments(commentList, setModal) {
   if (commentList) {
     return commentList.map(comment => (
@@ -38,18 +41,12 @@ function nestComments(commentList, setModal) {
 
 const CreateCommentModalService = withCreateCommentService(CreateCommentModal);
 
-const PostDetailPage = ({
-  postToDisplay,
-  commentsToDisplay,
-  postsToDisplay,
-  handleSearch,
-  handleVote,
-}) => {
+const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handleVote }) => {
   const [showModal, setModal] = useState(false);
 
   return (
     <div>
-      <Header postsToDisplay={postsToDisplay} handleSearch={handleSearch} />
+      <Header handleSearch={handleSearch} />
 
       <PostDetail postToDisplay={postToDisplay} handleVote={handleVote} />
       {commentsToDisplay

@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 
 import submitComment, { SubmitCommentError } from '../../services/postDetailService';
 
+/*
+  Creates the modal for creating a comments and handles its functionality,
+  such as submitting the comment and closing the modal.
+*/
 export const createCommentService = submit => CreateCommentModal => ({
   showModal,
   setModal,
