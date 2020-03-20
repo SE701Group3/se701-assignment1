@@ -462,19 +462,57 @@ describe('Posts API', () => {
   });
 
   /* Tests for create comment API */
-  // it('tests the comment method and makes sure it appends to post schema ', async done => {
-  //   const commentData = {
-  //     title: 'Test comment',
-  //     body: 'Testing this comment is added to post schema',
-  //   };
+  it('tests creating a comment', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
 
-  //   const response = await supertest(app)
-  //     .post('/api/posts/:id/comments')
-  //     .send(commentData);
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
 
-  //   expect(response1.status).toBe(201);
-  //   done();
-  // });
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const url = '/api/posts/';
+    const commentData = {
+      body: 'This is the body for a test comment',
+    };
+
+    const response1 = await supertest(app)
+      .post(url.concat(createdPost._id, '/comment'))
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+    done();
+  });
+
+  it('tests creating a comment with an invalid post id', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const url = '/api/posts/';
+    const commentData = {
+      body: 'This is the body for a test comment',
+    };
+
+    const response1 = await supertest(app)
+      .post(url.concat(createdPost._id + 5, '/comment'))
+      .send(commentData);
+
+    expect(response1.status).toBe(400);
+    done();
+  });
 
   /* Tests for upvote API */
   it('upvote post successfully', async done => {
