@@ -57,7 +57,7 @@ const PostDetailPage = ({
             <Container maxWidth="sm" key={`${Math.floor(Math.random() * 100)}-container-key`}>
               <Comment
                 body={comment.body}
-                dateCreated={formatDate(comment.createdAt)}
+                dateCreated={formatDate(comment.date_created)}
                 setModal={() => {
                   setModal(true);
                 }}

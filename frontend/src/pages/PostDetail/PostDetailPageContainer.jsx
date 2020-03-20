@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPostInformation } from '../../services/PostDetailService';
+import { getPostInformation } from '../../services/postDetailService';
 import { handleVote } from '../../services/frontpageService';
 
 const PostDetailPageContainer = ({ children }) => {
