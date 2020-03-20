@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const commentsSchema = new mongoose.Schema(
   {
-    comment_id: {
+    children_id: {
       type: String,
       required: false,
     },
@@ -12,7 +12,7 @@ const commentsSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,
+    timestamps: { createdAt: 'date_created' },
   },
 );
 

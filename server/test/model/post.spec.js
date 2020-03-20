@@ -41,7 +41,7 @@ describe('Post Model', () => {
     expect(savedPost.upvotes_sad).toBe(0);
 
     // time stamps set
-    expect(savedPost.createdAt).toBeDefined();
+    expect(savedPost.date_created).toBeDefined();
     expect(savedPost.updatedAt).toBeDefined();
 
     done();
