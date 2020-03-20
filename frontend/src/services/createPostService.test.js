@@ -13,7 +13,7 @@ process.on('unhandledRejection', up => {
 
 describe('submitPost', () => {
   it('sends a POST request to the right endpoint', async () => {
-    fetch.mockResponseOnce('', {
+    fetch.mockResponseOnce('{"_id": 1}', {
       status: 200,
       statusText: 'OK',
     });
@@ -23,7 +23,7 @@ describe('submitPost', () => {
   });
 
   it('sends the right parameters to the request', async () => {
-    fetch.mockResponseOnce('', {
+    fetch.mockResponseOnce('{"_id": 1}', {
       status: 200,
       statusText: 'OK',
     });
