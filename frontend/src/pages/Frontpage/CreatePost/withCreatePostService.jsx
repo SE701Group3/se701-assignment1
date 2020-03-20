@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import submitPost, { SubmitPostError } from '../../services/createPostService';
+import submitPost, { SubmitPostError } from '../../../services/createPostService';
 
 export const createPostService = submit => CreatePost => ({ showModal, setModal }) => {
   const [errorMessage, setErrorMessage] = useState(null);
