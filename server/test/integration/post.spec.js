@@ -25,6 +25,32 @@ describe('Posts API', () => {
       .catch(err => done(err));
   });
 
+  /* Tests for get all posts API */
+  it('tests the get all posts endpoint', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const response2 = await supertest(app).get('/api/posts');
+    const createdPost = response2.body;
+
+    expect(createdPost[0].title).toBe(postData.title);
+    expect(createdPost[0].body).toBe(postData.body);
+
+    expect(createdPost[0].upvotes_clap).toBe(0);
+    expect(createdPost[0].upvotes_laugh).toBe(0);
+    expect(createdPost[0].upvotes_sad).toBe(0);
+
+    done();
+  });
+
   /* Tests for create post API */
   it('tests the create post endpoint and returns as success message', async done => {
     const postData = {
