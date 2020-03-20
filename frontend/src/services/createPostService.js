@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 export class SubmitPostError extends Error {}
 
 export default async (title, body) => {
@@ -24,4 +25,6 @@ export default async (title, body) => {
     }
     throw new SubmitPostError(message);
   }
+
+  return (await response.json())._id;
 };

@@ -6,14 +6,16 @@ const PostDetail = ({ postToDisplay, handleVote }) => {
   return (
     <Container width="sm">
       <Post
-        id={postToDisplay.id}
+        // eslint-disable-next-line no-underscore-dangle
+        id={postToDisplay._id}
         title={postToDisplay.title}
-        content={postToDisplay.content}
+        content={postToDisplay.body}
         key={`${postToDisplay.id}-key`}
         upvotes={postToDisplay.upvotes_laugh}
         downvotes={postToDisplay.upvotes_sad}
         claps={postToDisplay.upvotes_clap}
         handleVote={handleVote}
+        frontpage={false}
       />
     </Container>
   );
