@@ -226,6 +226,36 @@ describe('Posts API', () => {
 
     const createdPost = response.body;
     const url = '/api/posts/';
+
+    const response2 = await supertest(app).get(url.concat('/', createdPost._id));
+    expect(response2.status).toBe(200);
+    // confirm post body fields
+    expect(response2.body._id).toBe(createdPost._id);
+    expect(response2.body.title).toBe(postData.title);
+    expect(response2.body.body).toBe(postData.body);
+    expect(response2.body.date_created).toBeDefined();
+    expect(response2.body.upvotes_clap).toBe(0);
+    expect(response2.body.upvotes_laugh).toBe(0);
+    expect(response2.body.upvotes_sad).toBe(0);
+    // confirm there are no comments
+    expect(response2.body.comments).toMatchObject([]);
+    done();
+  });
+
+  it('tests the get single post route', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const url = '/api/posts/';
     const commentData = {
       body: 'This is the body for a test comment',
     };
@@ -316,6 +346,26 @@ describe('Posts API', () => {
     expect(response4.body.comments[1]._id).toBeDefined();
     expect(response4.body.comments[1].body).toBe(commentData2.body);
     expect(response4.body.comments[1].date_created).toBeDefined();
+    done();
+  });
+
+  it('tests the get single post route', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const url = '/api/posts/';
+
+    const response2 = await supertest(app).get(url.concat('/', createdPost._id + 3));
+    expect(response2.status).toBe(404);
     done();
   });
 
