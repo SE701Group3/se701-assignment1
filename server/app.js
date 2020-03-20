@@ -9,7 +9,7 @@ app.use(express.json());
 
 const postsRouter = require('./src/routes/posts');
 
-app.use('/posts', postsRouter);
+app.use('/api/posts', postsRouter);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 

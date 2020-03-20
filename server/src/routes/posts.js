@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
       upvotes_clap: foundPost.upvotes_clap,
       upvotes_laugh: foundPost.upvotes_laugh,
       upvotes_sad: foundPost.upvotes_sad,
-      date_created: foundPost.createdAt,
+      date_created: foundPost.date_created,
       comments: await Comment.find({ _id: { $in: foundPost.comment_id } }),
     };
 
@@ -79,7 +79,7 @@ router.delete('/:id', async (req, res) => {
 // eslint-disable-next-line no-unused-vars
 router.post('/:id/comment', async (req, res) => {
   const comment = new Comment({
-    comment_id: req.body.comment_id,
+    children_id: req.body.children_id,
     body: req.body.body,
   });
   try {

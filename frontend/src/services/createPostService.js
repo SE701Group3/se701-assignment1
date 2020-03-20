@@ -1,3 +1,5 @@
+import { getPostsRoute } from './apiRoutes';
+
 /* eslint-disable no-underscore-dangle */
 export class SubmitPostError extends Error {}
 
@@ -9,7 +11,7 @@ export default async (title, body) => {
 
   const requestBody = JSON.stringify(parameters);
 
-  const response = await fetch('/posts', {
+  const response = await fetch(getPostsRoute, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

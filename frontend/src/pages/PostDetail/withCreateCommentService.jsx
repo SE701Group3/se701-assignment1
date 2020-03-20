@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import submitComment, { SubmitCommentError } from '../../services/PostDetailService';
+import submitComment, { SubmitCommentError } from '../../services/postDetailService';
 
 export const createCommentService = submit => CreateCommentModal => ({
   showModal,

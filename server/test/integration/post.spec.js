@@ -32,7 +32,7 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
 
     expect(response.status).toBe(201);
@@ -53,7 +53,7 @@ describe('Posts API', () => {
     const postData = {};
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
 
     expect(response.status).toBe(400);
@@ -68,13 +68,13 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
 
     expect(response.status).toBe(201);
 
     // Get post
-    const response2 = await supertest(app).get('/posts');
+    const response2 = await supertest(app).get('/api/posts');
 
     // Upvote the post
     const upvoteRequest = {
@@ -84,12 +84,12 @@ describe('Posts API', () => {
     };
 
     const response3 = await supertest(app)
-      .put(`/posts/${response2.body[0]._id}/upvote`)
+      .put(`/api/posts/${response2.body[0]._id}/upvote`)
       .send(upvoteRequest);
     expect(response3.status).toBe(200);
 
     // Check if post was upvoted
-    const response4 = await supertest(app).get('/posts');
+    const response4 = await supertest(app).get('/api/posts');
     expect(response4.body[0].upvotes_clap).toBe(1);
     done();
   });
@@ -102,7 +102,7 @@ describe('Posts API', () => {
     };
 
     const response1 = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
     expect(response1.status).toBe(201);
 
@@ -112,7 +112,7 @@ describe('Posts API', () => {
       body: 'Second Body',
     };
 
-    const url = '/posts/';
+    const url = '/api/posts/';
     const response2 = await supertest(app)
       .put(url.concat(response1.body._id))
       .send({ title: updatedPost.title, body: updatedPost.body });
@@ -133,7 +133,7 @@ describe('Posts API', () => {
       body: 'Second Body',
     };
 
-    const url = '/posts/';
+    const url = '/api/posts/';
     const response2 = await supertest(app)
       .put(url.concat('100'))
       .send({ title: updatedPost.title, body: updatedPost.body });
@@ -149,12 +149,12 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
     expect(response.status).toBe(201);
 
     // Get post
-    const response2 = await supertest(app).get('/posts');
+    const response2 = await supertest(app).get('/api/posts');
 
     // Upvote the post
     const upvoteRequest = {
@@ -164,12 +164,12 @@ describe('Posts API', () => {
     };
 
     const response3 = await supertest(app)
-      .put(`/posts/${response2.body[0]._id}/upvote`)
+      .put(`/api/posts/${response2.body[0]._id}/upvote`)
       .send(upvoteRequest);
     expect(response3.status).toBe(400);
 
     // Check if post was upvoted
-    const response4 = await supertest(app).get('/posts');
+    const response4 = await supertest(app).get('/api/posts');
     expect(response4.body[0].upvotes_clap).toBe(0);
     done();
   });
@@ -182,11 +182,11 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
     expect(response.status).toBe(201);
     const createdPost = response.body;
-    const url = '/posts/';
+    const url = '/api/posts/';
 
     const response1 = await supertest(app).delete(url.concat(createdPost._id));
 
@@ -206,12 +206,12 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
     expect(response.status).toBe(201);
 
     // Get post
-    const response2 = await supertest(app).get('/posts');
+    const response2 = await supertest(app).get('/api/posts');
 
     // Downvote the post
     const upvoteRequest = {
@@ -221,12 +221,12 @@ describe('Posts API', () => {
     };
 
     const response3 = await supertest(app)
-      .put(`/posts/${response2.body[0]._id}/upvote`)
+      .put(`/api/posts/${response2.body[0]._id}/upvote`)
       .send(upvoteRequest);
     expect(response3.status).toBe(200);
 
     // Check if post was upvoted
-    const response4 = await supertest(app).get('/posts');
+    const response4 = await supertest(app).get('/api/posts');
     expect(response4.body[0].upvotes_clap).toBe(-1);
     done();
   });
@@ -239,12 +239,12 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
 
     expect(response.status).toBe(201);
     const createdPost = response.body;
-    const url = '/posts/';
+    const url = '/api/posts/';
 
     const response1 = await supertest(app).delete(url.concat(createdPost._id));
 
@@ -267,7 +267,7 @@ describe('Posts API', () => {
   it('tests the delete route with no defined post id', async done => {
     const postData = {};
 
-    const url = '/posts/';
+    const url = '/api/posts/';
 
     const response = await supertest(app).delete(url.concat(postData));
 
@@ -282,11 +282,11 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
 
     const createdPost = response.body;
-    const url = '/posts/';
+    const url = '/api/posts/';
 
     const response1 = await supertest(app).delete(url.concat(createdPost._id + 3));
 
@@ -301,13 +301,13 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
 
     expect(response.status).toBe(201);
 
     const createdPost = response.body;
-    const url = '/posts/';
+    const url = '/api/posts/';
     const commentData = {
       body: 'This is the body for a test comment',
     };
@@ -329,7 +329,7 @@ describe('Posts API', () => {
     expect(response2.body.upvotes_sad).toBe(0);
     expect(response2.body.comments[0]._id).toBeDefined();
     expect(response2.body.comments[0].body).toBe(commentData.body);
-    expect(response2.body.comments[0].createdAt).toBeDefined();
+    expect(response2.body.comments[0].date_created).toBeDefined();
     done();
   });
 
@@ -340,13 +340,13 @@ describe('Posts API', () => {
     };
 
     const response = await supertest(app)
-      .post('/posts')
+      .post('/api/posts')
       .send(postData);
 
     expect(response.status).toBe(201);
 
     const createdPost = response.body;
-    const url = '/posts/';
+    const url = '/api/posts/';
     const commentData = {
       body: 'This is the body for a test comment',
     };
@@ -371,7 +371,7 @@ describe('Posts API', () => {
     expect(response2.body.upvotes_sad).toBe(0);
     expect(response2.body.comments[0]._id).toBeDefined();
     expect(response2.body.comments[0].body).toBe(commentData.body);
-    expect(response2.body.comments[0].createdAt).toBeDefined();
+    expect(response2.body.comments[0].date_created).toBeDefined();
 
     const response3 = await supertest(app)
       .post(url.concat(createdPost._id, '/comment'))
@@ -390,10 +390,10 @@ describe('Posts API', () => {
     expect(response4.body.upvotes_sad).toBe(0);
     expect(response4.body.comments[0]._id).toBeDefined();
     expect(response4.body.comments[0].body).toBe(commentData.body);
-    expect(response4.body.comments[0].createdAt).toBeDefined();
+    expect(response4.body.comments[0].date_created).toBeDefined();
     expect(response4.body.comments[1]._id).toBeDefined();
     expect(response4.body.comments[1].body).toBe(commentData2.body);
-    expect(response4.body.comments[1].createdAt).toBeDefined();
+    expect(response4.body.comments[1].date_created).toBeDefined();
     done();
   });
 
@@ -404,7 +404,7 @@ describe('Posts API', () => {
   //   };
 
   //   const response = await supertest(app)
-  //     .post('/posts/:id/comments')
+  //     .post('/api/posts/:id/comments')
   //     .send(commentData);
 
   //   expect(response1.status).toBe(201);
