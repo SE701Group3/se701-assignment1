@@ -22,6 +22,7 @@ export const createCommentService = submit => CreateCommentModal => ({
     } catch (error) {
       if (!(error instanceof SubmitCommentError)) {
         setErrorMessage('Could not submit post. Please try again.');
+        // eslint-disable-next-line no-console
         console.error(error);
       } else {
         setErrorMessage(error.message);

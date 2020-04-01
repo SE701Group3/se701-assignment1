@@ -29,8 +29,8 @@ export const handleVote = async ({ id, upvote_type, upvote }) => {
 
   if (response) {
     if (response.message) {
+      // eslint-disable-next-line no-console
       console.log(response.message);
     }
   }
-  // console.log(id, upvote_type, upvote);
 };

@@ -17,8 +17,6 @@ export default async (children_id, body) => {
     body,
   };
 
-  console.log(parameters);
-
   const requestBody = JSON.stringify(parameters);
 
   const response = await fetch(createCommentRoute(children_id), {

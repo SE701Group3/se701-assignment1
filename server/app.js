@@ -14,7 +14,9 @@ app.use('/api/posts', postsRouter);
 app.get('/', (req, res) => res.send('Hello World!'));
 
 const db = mongoose.connection;
+/* eslint-disable no-console */
 db.on('error', error => console.error(error));
 db.once('open', () => console.log('connected to database'));
+/* eslint-enable no-console */
 
 module.exports = app;
