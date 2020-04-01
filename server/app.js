@@ -8,8 +8,10 @@ const mongoose = require('mongoose');
 app.use(express.json());
 
 const postsRouter = require('./src/routes/posts');
+const commentsRouter = require('./src/routes/comments');
 
 app.use('/api/posts', postsRouter);
+app.use('/api/comments', commentsRouter);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 

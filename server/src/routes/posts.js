@@ -79,23 +79,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// Commenting once and updating post schema with comment id
-// eslint-disable-next-line no-unused-vars
-router.post('/:id/comment', async (req, res) => {
-  const comment = new Comment({
-    children_id: req.body.children_id,
-    body: req.body.body,
-  });
-  try {
-    const newComment = await comment.save();
-
-    await Post.update({ _id: req.params.id }, { $push: { comment_id: newComment._id } });
-    res.status(201).send();
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
 // Upvote a post
 router.put('/:id/upvote', async (req, res) => {
   const currentPost = await Post.findById(req.body.id);
