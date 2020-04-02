@@ -57,7 +57,7 @@ router.get('/:id', async (req, res) => {
       upvotes_laugh: foundPost.upvotes_laugh,
       upvotes_sad: foundPost.upvotes_sad,
       date_created: foundPost.date_created,
-      comments: await Comment.find({ _id: { $in: foundPost.comment_id } }),
+      comments: await Comment.find({ _id: { $in: foundPost.children } }),
     };
 
     res.send(postData);
@@ -76,23 +76,6 @@ router.delete('/:id', async (req, res) => {
     res.status(200).send();
   } catch (err) {
     res.status(404).json({ message: err.message });
-  }
-});
-
-// Commenting once and updating post schema with comment id
-// eslint-disable-next-line no-unused-vars
-router.post('/:id/comment', async (req, res) => {
-  const comment = new Comment({
-    children_id: req.body.children_id,
-    body: req.body.body,
-  });
-  try {
-    const newComment = await comment.save();
-
-    await Post.update({ _id: req.params.id }, { $push: { comment_id: newComment._id } });
-    res.status(201).send();
-  } catch (err) {
-    res.status(400).json({ message: err.message });
   }
 });
 

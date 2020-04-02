@@ -16,6 +16,7 @@ export const createPostService = submit => CreatePost => ({ showModal, setModal 
     } catch (error) {
       if (!(error instanceof SubmitPostError)) {
         setErrorMessage('Could not submit post. Please try again.');
+        // eslint-disable-next-line no-console
         console.error(error);
       } else {
         setErrorMessage(error.message);
