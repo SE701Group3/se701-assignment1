@@ -6,9 +6,9 @@ const commentsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    children_id: {
-      type: String,
-      required: false,
+    children: {
+      type: Array,
+      default: [],
     },
     body: {
       type: String,

@@ -7,7 +7,6 @@ const PostDetailPageContainer = ({ children }) => {
   const [commentsToDisplay, setCommentsToDisplay] = useState([]);
   const [postToDisplay, setPostToDisplay] = useState([]);
   const [retrievedComments, setRetrievedComments] = useState([]);
-  // const [postId, setPostID] = useState('');
 
   const { id } = useParams();
 
