@@ -13,6 +13,7 @@ module.exports = {
   },
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
+    "no-underscore-dangle": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "react/prop-types": ["off"],
     "max-len": [

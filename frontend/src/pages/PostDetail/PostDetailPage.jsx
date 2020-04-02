@@ -12,15 +12,15 @@ import Header from '../../common/Header/Header';
 
 import styles from './PostDetailPage.module.css';
 
-function formatDate(date) {
+const formatDate = date => {
   const newDate = new Date(date);
   return newDate.toDateString();
-}
+};
 
 /*
   Function used to recursively retrieve and display child comments
 */
-function nestComments(commentList, setModal, setParentID) {
+const nestComments = (commentList, setModal, setParentID) => {
   if (commentList && Array.isArray(commentList) && commentList.length) {
     return commentList.map(comment => (
       <Container key={`${comment.id}-container-key`}>
@@ -29,7 +29,6 @@ function nestComments(commentList, setModal, setParentID) {
           dateCreated={formatDate(comment.date_created)}
           setModal={() => {
             setModal(true);
-            // eslint-disable-next-line no-underscore-dangle
             setParentID(comment._id);
           }}
           key={`${comment.id}-key`}
@@ -39,7 +38,7 @@ function nestComments(commentList, setModal, setParentID) {
     ));
   }
   return null;
-}
+};
 
 const CreateCommentModalService = withCreateCommentService(CreateCommentModal);
 
@@ -60,7 +59,6 @@ const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handle
                 dateCreated={formatDate(comment.date_created)}
                 setModal={() => {
                   setModal(true);
-                  // eslint-disable-next-line no-underscore-dangle
                   setParentID(comment._id);
                 }}
                 key={`${Math.floor(Math.random() * 100)}`}
@@ -75,7 +73,6 @@ const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handle
         }}
         onClick={() => {
           setModal(true);
-          // eslint-disable-next-line no-underscore-dangle
           setParentID(postToDisplay._id);
         }}
       >
@@ -84,7 +81,6 @@ const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handle
       <CreateCommentModalService
         showModal={showModal}
         setModal={setModal}
-        // eslint-disable-next-line no-underscore-dangle
         postID={postToDisplay._id}
         parentID={parentID}
       />
