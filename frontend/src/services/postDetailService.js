@@ -11,15 +11,15 @@ export const getPostInformation = async postId => {
   This function is used to handle the creation of comments through the API and
   persist the newly created comments to the database.
 */
-export default async (children_id, body) => {
+export default async (body, parentID) => {
   const parameters = {
-    children_id,
     body,
+    parentID,
   };
 
   const requestBody = JSON.stringify(parameters);
 
-  const response = await fetch(createCommentRoute(children_id), {
+  const response = await fetch(createCommentRoute(), {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

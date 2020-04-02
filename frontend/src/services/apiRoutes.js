@@ -5,5 +5,5 @@ export const getPostsRoute = `${API_ROOT}/posts`;
 export const createPostRoute = getPostsRoute;
 export const getPostRoute = id => `${API_ROOT}/posts/${id}`;
 export const updatePostRoute = getPostRoute;
-export const getCommentsRoute = id => `${API_ROOT}/posts/${id}/comment`;
+export const getCommentsRoute = () => `${API_ROOT}/comments`;
 export const createCommentRoute = getCommentsRoute;

@@ -9,13 +9,13 @@ import submitComment, { SubmitCommentError } from '../../services/postDetailServ
 export const createCommentService = submit => CreateCommentModal => ({
   showModal,
   setModal,
-  postID,
+  parentID,
 }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async body => {
     try {
-      await submit(postID, body);
+      await submit(body, parentID);
       setErrorMessage(null);
       setModal(false);
       window.location.reload();

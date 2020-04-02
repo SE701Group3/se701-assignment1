@@ -12,16 +12,16 @@ import Header from '../../common/Header/Header';
 
 import styles from './PostDetailPage.module.css';
 
-function formatDate(date) {
+const formatDate = date => {
   const newDate = new Date(date);
   return newDate.toDateString();
-}
+};
 
 /*
   Function used to recursively retrieve and display child comments
 */
-function nestComments(commentList, setModal) {
-  if (commentList) {
+const nestComments = (commentList, setModal, setParentID) => {
+  if (commentList && Array.isArray(commentList) && commentList.length) {
     return commentList.map(comment => (
       <Container key={`${comment.id}-container-key`}>
         <Comment
@@ -29,20 +29,22 @@ function nestComments(commentList, setModal) {
           dateCreated={formatDate(comment.date_created)}
           setModal={() => {
             setModal(true);
+            setParentID(comment._id);
           }}
           key={`${comment.id}-key`}
         />
-        {nestComments(comment.children, setModal)}
+        {nestComments(comment.children, setModal, setParentID)}
       </Container>
     ));
   }
   return null;
-}
+};
 
 const CreateCommentModalService = withCreateCommentService(CreateCommentModal);
 
 const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handleVote }) => {
   const [showModal, setModal] = useState(false);
+  const [parentID, setParentID] = useState(-1);
 
   return (
     <div>
@@ -57,10 +59,11 @@ const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handle
                 dateCreated={formatDate(comment.date_created)}
                 setModal={() => {
                   setModal(true);
+                  setParentID(comment._id);
                 }}
                 key={`${Math.floor(Math.random() * 100)}`}
               />
-              {nestComments(comment.children, setModal)}
+              {nestComments(comment.children, setModal, setParentID)}
             </Container>
           ))
         : null}
@@ -70,6 +73,7 @@ const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handle
         }}
         onClick={() => {
           setModal(true);
+          setParentID(postToDisplay._id);
         }}
       >
         <AddIcon classes={{ root: styles.addIcon }} />
@@ -77,8 +81,8 @@ const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handle
       <CreateCommentModalService
         showModal={showModal}
         setModal={setModal}
-        // eslint-disable-next-line no-underscore-dangle
         postID={postToDisplay._id}
+        parentID={parentID}
       />
     </div>
   );

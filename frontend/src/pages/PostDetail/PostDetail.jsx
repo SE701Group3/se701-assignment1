@@ -6,7 +6,6 @@ const PostDetail = ({ postToDisplay, handleVote }) => {
   return (
     <Container width="sm">
       <Post
-        // eslint-disable-next-line no-underscore-dangle
         id={postToDisplay._id}
         title={postToDisplay.title}
         content={postToDisplay.body}

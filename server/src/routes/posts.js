@@ -44,6 +44,15 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+const getNestedComments = async childrenIDs => {
+  const comments = await Comment.find({ _id: { $in: childrenIDs } });
+  for (let i = 0; i < comments.length; i += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    comments[i].children = await getNestedComments(comments[i].children);
+  }
+  return comments;
+};
+
 // Get one post (detailed)
 // eslint-disable-next-line no-unused-vars
 router.get('/:id', async (req, res) => {
@@ -57,7 +66,7 @@ router.get('/:id', async (req, res) => {
       upvotes_laugh: foundPost.upvotes_laugh,
       upvotes_sad: foundPost.upvotes_sad,
       date_created: foundPost.date_created,
-      comments: await Comment.find({ _id: { $in: foundPost.children } }),
+      comments: await getNestedComments(foundPost.children),
     };
 
     res.send(postData);
