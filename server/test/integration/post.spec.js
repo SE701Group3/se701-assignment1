@@ -255,18 +255,20 @@ describe('Posts API', () => {
     expect(response.status).toBe(201);
 
     const createdPost = response.body;
-    const url = '/api/posts/';
+    const commentUrl = '/api/comments';
+    const postUrl = '/api/posts';
     const commentData = {
       body: 'This is the body for a test comment',
+      parentID: createdPost._id,
     };
 
     const response1 = await supertest(app)
-      .post(url.concat(createdPost._id, '/comment'))
+      .post(commentUrl)
       .send(commentData);
 
     expect(response1.status).toBe(201);
 
-    const response2 = await supertest(app).get(url.concat('/', createdPost._id));
+    const response2 = await supertest(app).get(postUrl.concat('/', createdPost._id));
     expect(response2.status).toBe(200);
     // confirm post body fields
     expect(response2.body._id).toBe(createdPost._id);
@@ -296,21 +298,25 @@ describe('Posts API', () => {
     expect(response.status).toBe(201);
 
     const createdPost = response.body;
-    const url = '/api/posts/';
+
+    const commentUrl = '/api/comments';
+    const postUrl = '/api/posts';
     const commentData = {
       body: 'This is the body for a test comment',
+      parentID: createdPost._id,
     };
     const commentData2 = {
       body: 'This is the body for a test comment',
+      parentID: createdPost._id,
     };
 
     const response1 = await supertest(app)
-      .post(url.concat(createdPost._id, '/comment'))
+      .post(commentUrl)
       .send(commentData);
 
     expect(response1.status).toBe(201);
 
-    const response2 = await supertest(app).get(url.concat('/', createdPost._id));
+    const response2 = await supertest(app).get(postUrl.concat('/', createdPost._id));
     expect(response2.status).toBe(200);
     expect(response2.body._id).toBe(createdPost._id);
     expect(response2.body.title).toBe(postData.title);
@@ -324,12 +330,12 @@ describe('Posts API', () => {
     expect(response2.body.comments[0].date_created).toBeDefined();
 
     const response3 = await supertest(app)
-      .post(url.concat(createdPost._id, '/comment'))
+      .post(commentUrl)
       .send(commentData2);
 
     expect(response3.status).toBe(201);
 
-    const response4 = await supertest(app).get(url.concat('/', createdPost._id));
+    const response4 = await supertest(app).get(postUrl.concat('/', createdPost._id));
     expect(response4.status).toBe(200);
     expect(response4.body._id).toBe(createdPost._id);
     expect(response4.body.title).toBe(postData.title);
@@ -475,13 +481,14 @@ describe('Posts API', () => {
     expect(response.status).toBe(201);
 
     const createdPost = response.body;
-    const url = '/api/posts/';
+    const commentUrl = '/api/comments';
     const commentData = {
       body: 'This is the body for a test comment',
+      parentID: createdPost._id,
     };
 
     const response1 = await supertest(app)
-      .post(url.concat(createdPost._id, '/comment'))
+      .post(commentUrl)
       .send(commentData);
 
     expect(response1.status).toBe(201);
@@ -501,13 +508,14 @@ describe('Posts API', () => {
     expect(response.status).toBe(201);
 
     const createdPost = response.body;
-    const url = '/api/posts/';
+    const commentUrl = '/api/comments';
     const commentData = {
       body: 'This is the body for a test comment',
+      parentID: createdPost._id + 5,
     };
 
     const response1 = await supertest(app)
-      .post(url.concat(createdPost._id + 5, '/comment'))
+      .post(commentUrl)
       .send(commentData);
 
     expect(response1.status).toBe(400);
