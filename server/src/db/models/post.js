@@ -25,6 +25,10 @@ const postSchema = new mongoose.Schema(
     comment_id: {
       type: Array,
     },
+    children: {
+      type: Array,
+      default: [],
+    },
   },
   {
     timestamps: { createdAt: 'date_created' },

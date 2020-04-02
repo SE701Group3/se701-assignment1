@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const commentsSchema = new mongoose.Schema(
   {
+    parentID: {
+      type: String,
+      required: true,
+    },
     children_id: {
       type: String,
       required: false,

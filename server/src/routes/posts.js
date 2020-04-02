@@ -57,7 +57,7 @@ router.get('/:id', async (req, res) => {
       upvotes_laugh: foundPost.upvotes_laugh,
       upvotes_sad: foundPost.upvotes_sad,
       date_created: foundPost.date_created,
-      comments: await Comment.find({ _id: { $in: foundPost.comment_id } }),
+      comments: await Comment.find({ _id: { $in: foundPost.children } }),
     };
 
     res.send(postData);
