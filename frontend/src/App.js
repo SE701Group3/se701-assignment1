@@ -5,7 +5,8 @@ import firebase from 'firebase/app';
 import './App.css';
 import routes from './routes/routes';
 
-import firebaseConfig from './firebaseConfig';
+const firebaseConfig = JSON.parse(atob(process.env.REACT_APP_FIREBASE_CONFIG));
+
 firebase.initializeApp(firebaseConfig);
 
 function App() {
