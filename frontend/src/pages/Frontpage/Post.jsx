@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { CardActionArea } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -80,10 +81,14 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, front
             ) : (
               <Typography variant="h2">{title}</Typography>
             )}
-
             <Typography variant="body2" color="textSecondary">
               {content}
             </Typography>
+          </div>
+          <div className={styles['post-edit-button']}>
+            <Button variant="contained" size="small" startIcon={<EditIcon />}>
+              Edit
+            </Button>
           </div>
         </CardContent>
       </div>
