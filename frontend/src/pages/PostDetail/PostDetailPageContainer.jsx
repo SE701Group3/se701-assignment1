@@ -16,7 +16,7 @@ const PostDetailPageContainer = ({ children }) => {
     setCommentsToDisplay(response.comments.reverse());
     setPostToDisplay(response);
     setRetrievedComments(response.comments);
-  }
+  };
 
   // Runs when the post detail page is loaded. It retrieves information from the databse
   useEffect(() => {

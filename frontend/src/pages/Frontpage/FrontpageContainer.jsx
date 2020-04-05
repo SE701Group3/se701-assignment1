@@ -9,7 +9,7 @@ const FrontpageContainer = ({ children }) => {
     const response = await getPosts();
     setRetrievedPosts(response);
     setPostsToDisplay(response.reverse()); // As the database returns the posts in oldest first, the array is reversed to show newest posts first
-  }
+  };
 
   // Runs when the frontpage is loaded to retrieve posts from the database
   useEffect(() => {
