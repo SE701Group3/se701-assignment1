@@ -100,14 +100,14 @@ router.delete('/:id', async (req, res) => {
     // so comment body is altered instead.
     if (Object.keys(comment.children).length === 0) {
       await Comment.findOneAndDelete({
-        _id: req.params.id,
+        _id: comment._id,
       });
 
       // Update parent to remove this comment as a child
       await Post.update({ _id: comment.parentID }, { $pull: { children: comment._id } });
       await Comment.update({ _id: comment.parentID }, { $pull: { children: comment._id } });
     } else {
-      await Comment.update({ _id: req.params.id }, { body: '[Comment deleted]' });
+      await Comment.update({ _id: comment._id }, { body: '[Comment deleted]' });
     }
 
     res.status(200).send();
