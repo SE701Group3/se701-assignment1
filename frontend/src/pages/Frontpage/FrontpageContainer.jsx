@@ -5,7 +5,7 @@ const FrontpageContainer = ({ children }) => {
   const [retrievedPosts, setRetrievedPosts] = useState([]);
   const [postsToDisplay, setPostsToDisplay] = useState([]);
 
-  async function getPostsOnLoad() {
+  const getPostsOnLoad = async () => {
     const response = await getPosts();
     setRetrievedPosts(response);
     setPostsToDisplay(response.reverse()); // As the database returns the posts in oldest first, the array is reversed to show newest posts first
