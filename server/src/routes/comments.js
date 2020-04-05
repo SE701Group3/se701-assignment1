@@ -27,8 +27,8 @@ router.post('/', async (req, res) => {
 // eslint-disable-next-line no-unused-vars
 router.put('/:id', async (req, res) => {
   try {
-    if (req.body.body != null) {
-      await Comment.update({ _id: req.params.id }, { body: req.body.body });
+    if (req.body.commentBody != null) {
+      await Comment.update({ _id: req.params.id }, { body: req.body.commentBody });
       res.status(200).send();
     } else {
       res.status(400).json({ message: 'Please include a body to update this comment' });
