@@ -46,7 +46,7 @@ router.delete('/:id', async (req, res) => {
     });
 
     if (comment == null) {
-      res.status(400).json({ message: 'Comment not found. Please provide a valid comment ID' });
+      res.status(404).json({ message: 'Comment not found. Please provide a valid comment ID' });
     } else {
       // Comment can be deleted entirely if it has no children.
       // If it has children, the comment should be kept so that nested structure remains,
