@@ -16,7 +16,17 @@ import styles from './Post.module.css';
 // Import for testing post updates
 import updatePostService from '../../services/updatePostService';
 
-const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, frontpage }) => {
+const Post = ({
+  id,
+  title,
+  content,
+  upvotes,
+  downvotes,
+  claps,
+  handleVote,
+  frontpage,
+  loadPost,
+}) => {
   const [upvoteClap, setUpvoteClap] = useState(false);
   const [upvoteLaugh, setUpvoteLaugh] = useState(false);
   const [upvoteSad, setUpvoteSad] = useState(false);
@@ -27,6 +37,7 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, front
   // Method used for testing post updates
   const handleUpdate = () => {
     updatePostService(id, 'testTitle', 'testBody');
+    loadPost();
   };
 
   return (

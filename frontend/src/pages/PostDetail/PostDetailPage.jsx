@@ -42,7 +42,13 @@ const nestComments = (commentList, setModal, setParentID) => {
 
 const CreateCommentModalService = withCreateCommentService(CreateCommentModal);
 
-const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handleVote }) => {
+const PostDetailPage = ({
+  postToDisplay,
+  commentsToDisplay,
+  handleSearch,
+  handleVote,
+  getPostInformationOnLoad,
+}) => {
   const [showModal, setModal] = useState(false);
   const [parentID, setParentID] = useState(-1);
 
@@ -50,7 +56,11 @@ const PostDetailPage = ({ postToDisplay, commentsToDisplay, handleSearch, handle
     <div>
       <Header handleSearch={handleSearch} />
 
-      <PostDetail postToDisplay={postToDisplay} handleVote={handleVote} />
+      <PostDetail
+        postToDisplay={postToDisplay}
+        handleVote={handleVote}
+        getPostInformationOnLoad={getPostInformationOnLoad}
+      />
       {commentsToDisplay
         ? commentsToDisplay.map(comment => (
             <Container maxWidth="sm" key={`${Math.floor(Math.random() * 100)}-container-key`}>

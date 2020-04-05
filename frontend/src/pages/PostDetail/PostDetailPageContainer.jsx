@@ -10,15 +10,16 @@ const PostDetailPageContainer = ({ children }) => {
 
   const { id } = useParams();
 
+  async function getPostInformationOnLoad() {
+    const response = await getPostInformation(id);
+    // The database returns comments in oldest first, so reversed to see the lastest comments
+    setCommentsToDisplay(response.comments.reverse());
+    setPostToDisplay(response);
+    setRetrievedComments(response.comments);
+  }
+
   // Runs when the post detail page is loaded. It retrieves information from the databse
   useEffect(() => {
-    async function getPostInformationOnLoad() {
-      const response = await getPostInformation(id);
-      // The database returns comments in oldest first, so reversed to see the lastest comments
-      setCommentsToDisplay(response.comments.reverse());
-      setPostToDisplay(response);
-      setRetrievedComments(response.comments);
-    }
     getPostInformationOnLoad();
   }, []);
 
@@ -39,6 +40,7 @@ const PostDetailPageContainer = ({ children }) => {
     commentsToDisplay,
     handleSearch,
     handleVote,
+    getPostInformationOnLoad,
   };
 
   return React.cloneElement(children, { ...newProps });
