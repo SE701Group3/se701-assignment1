@@ -102,9 +102,14 @@ router.delete('/:id', async (req, res) => {
       await Comment.findOneAndDelete({
         _id: req.params.id,
       });
+
+      // Update parent to remove this comment as a child
+      await Post.update({ _id: comment.parentID }, { $pull: { children: comment._id } });
+      await Comment.update({ _id: comment.parentID }, { $pull: { children: comment._id } });
     } else {
       await Comment.update({ _id: req.params.id }, { body: '[Comment deleted]' });
     }
+
     res.status(200).send();
   } catch (err) {
     res.status(404).json({ message: err.message });
