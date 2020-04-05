@@ -38,4 +38,28 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Delete one comment
+// eslint-disable-next-line no-unused-vars
+router.delete('/:id', async (req, res) => {
+  try {
+    const comment = await Comment.findOne({
+      _id: req.params.id,
+    });
+
+    // Comment can be deleted entirely if it has no children.
+    // If it has children, the comment should be kept so that nested structure remains,
+    // so comment body is altered instead.
+    if (Object.keys(comment.children).length === 0) {
+      await Comment.findOneAndDelete({
+        _id: req.params.id,
+      });
+    } else {
+      await Comment.update({ _id: req.params.id }, { body: '[Comment deleted]' });
+    }
+    res.status(200).send();
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
+
 module.exports = router;
