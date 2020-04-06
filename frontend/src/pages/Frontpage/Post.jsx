@@ -13,13 +13,32 @@ import SadImg from '../../common/icons/sad.png';
 
 import styles from './Post.module.css';
 
-const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, frontpage }) => {
+// Import for testing post updates
+import updatePostService from '../../services/updatePostService';
+
+const Post = ({
+  id,
+  title,
+  content,
+  upvotes,
+  downvotes,
+  claps,
+  handleVote,
+  frontpage,
+  loadPost,
+}) => {
   const [upvoteClap, setUpvoteClap] = useState(false);
   const [upvoteLaugh, setUpvoteLaugh] = useState(false);
   const [upvoteSad, setUpvoteSad] = useState(false);
   const clapCount = claps + (upvoteClap ? 1 : 0);
   const smileCount = upvotes + (upvoteLaugh ? 1 : 0);
   const sadCount = downvotes + (upvoteSad ? 1 : 0);
+
+  // Method used for testing post updates
+  const handleUpdate = () => {
+    updatePostService(id, 'testTitle', 'testBody');
+    loadPost();
+  };
 
   return (
     <Card className={styles.root}>
@@ -86,7 +105,14 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, front
             </Typography>
           </div>
           <div className={styles['post-edit-button']}>
-            <Button variant="contained" size="small" startIcon={<EditIcon />}>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<EditIcon />}
+              onClick={() => {
+                handleUpdate();
+              }}
+            >
               Edit
             </Button>
           </div>

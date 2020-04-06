@@ -11,7 +11,7 @@ import withCreatePostService from './CreatePost/withCreatePostService';
 
 const CreatePostModalServiced = withCreatePostService(CreatePostModal);
 
-const Index = ({ postsToDisplay, handleSearch, handleVote }) => {
+const Index = ({ postsToDisplay, handleSearch, handleVote, getPostsOnLoad }) => {
   const [showModal, setModal] = useState(false);
 
   return (
@@ -29,6 +29,7 @@ const Index = ({ postsToDisplay, handleSearch, handleVote }) => {
             claps={post.upvotes_clap}
             handleVote={handleVote}
             frontpage
+            loadPost={getPostsOnLoad}
           />
         ))}
       </Container>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import Post from '../Frontpage/Post';
 
-const PostDetail = ({ postToDisplay, handleVote }) => {
+const PostDetail = ({ postToDisplay, handleVote, getPostInformationOnLoad }) => {
   return (
     <Container width="sm">
       <Post
@@ -15,6 +15,7 @@ const PostDetail = ({ postToDisplay, handleVote }) => {
         claps={postToDisplay.upvotes_clap}
         handleVote={handleVote}
         frontpage={false}
+        loadPost={getPostInformationOnLoad}
       />
     </Container>
   );
