@@ -38,4 +38,36 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Delete one comment
+router.delete('/:id', async (req, res) => {
+  try {
+    const comment = await Comment.findOne({
+      _id: req.params.id,
+    });
+
+    if (comment == null) {
+      res.status(404).json({ message: 'Comment not found. Please provide a valid comment ID' });
+    } else {
+      // Comment can be deleted entirely if it has no children.
+      // If it has children, the comment should be kept so that nested structure remains,
+      // so comment body is altered instead.
+      if (Object.keys(comment.children).length === 0) {
+        await Comment.findOneAndDelete({
+          _id: comment._id,
+        });
+
+        // Update parent to remove this comment as a child
+        await Post.update({ _id: comment.parentID }, { $pull: { children: comment._id } });
+        await Comment.update({ _id: comment.parentID }, { $pull: { children: comment._id } });
+      } else {
+        await Comment.update({ _id: comment._id }, { body: '[Comment deleted]' });
+      }
+
+      res.status(200).send();
+    }
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
+
 module.exports = router;
