@@ -26,11 +26,9 @@ const LoadingIndicator = () => {
 
 export function isLoading(array) {
   if (array === undefined || array.length === 0) {
-    console.log('loading');
     return true;
   }
 
-  console.log('not loading');
   return false;
 }
 
