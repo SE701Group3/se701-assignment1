@@ -10,7 +10,6 @@ export default async (title, body) => {
   };
 
   const requestBody = JSON.stringify(parameters);
-
   const response = await fetch(getPostsRoute, {
     headers: {
       'Content-Type': 'application/json',
