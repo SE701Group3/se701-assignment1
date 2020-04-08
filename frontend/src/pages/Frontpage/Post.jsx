@@ -13,8 +13,9 @@ import SadImg from '../../common/icons/sad.png';
 
 import styles from './Post.module.css';
 
-// Import for testing post updates
+// Import for testing post apis
 import updatePostService from '../../services/updatePostService';
+// import deletePostService from '../../services/deletePostService';
 
 const Post = ({
   id,
@@ -39,6 +40,12 @@ const Post = ({
     updatePostService(id, 'testTitle', 'testBody');
     loadPost();
   };
+
+  // Method used for testing post deletes
+  // const handleDelete = () => {
+  //   deletePostService(id);
+  //   loadPost();
+  // };
 
   return (
     <Card className={styles.root}>
@@ -111,6 +118,7 @@ const Post = ({
               startIcon={<EditIcon />}
               onClick={() => {
                 handleUpdate();
+                // handleDelete();
               }}
             >
               Edit
