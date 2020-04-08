@@ -58,7 +58,11 @@ const PostDetailPage = ({
     <div>
       <Header handleSearch={handleSearch} />
 
-      <PostDetail postToDisplay={postToDisplay} handleVote={handleVote} getPostInformationOnLoad={getPostInformationOnLoad} />
+      <PostDetail
+        postToDisplay={postToDisplay}
+        handleVote={handleVote}
+        getPostInformationOnLoad={getPostInformationOnLoad}
+      />
       {promiseInProgress ? (
         <LoadingIndicator />
       ) : (

@@ -21,24 +21,6 @@ const Index = ({ postsToDisplay, handleSearch, handleVote, getPostsOnLoad }) => 
   return (
     <>
       <Header handleSearch={handleSearch} />
-<<<<<<< HEAD
-      <Container maxWidth="sm" classes={{ root: styles.container }}>
-        {postsToDisplay.map(post => (
-          <Post
-            id={post._id}
-            title={post.title}
-            content={post.body}
-            key={`${post._id}-key`}
-            upvotes={post.upvotes_laugh}
-            downvotes={post.upvotes_sad}
-            claps={post.upvotes_clap}
-            handleVote={handleVote}
-            frontpage
-            loadPost={getPostsOnLoad}
-          />
-        ))}
-      </Container>
-=======
       {promiseInProgress ? (
         <LoadingIndicator />
       ) : (
@@ -54,11 +36,11 @@ const Index = ({ postsToDisplay, handleSearch, handleVote, getPostsOnLoad }) => 
               claps={post.upvotes_clap}
               handleVote={handleVote}
               frontpage
+              loadPost={getPostsOnLoad}
             />
           ))}
         </Container>
       )}
->>>>>>> Add loaders for comments and posts upon api calls - via using promise tracker and loader spinner
       <Fab
         classes={{
           root: styles.addButton,
