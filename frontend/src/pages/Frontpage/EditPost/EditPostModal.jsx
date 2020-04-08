@@ -9,15 +9,6 @@ const EditPostModal = ({ showModal, errorMessage, onSubmit, onClose, oldTitle, o
   const [title, setTitle] = useState(oldTitle);
   const [body, setBody] = useState(oldBody);
 
-  // This is because the first time the modal is loaded the old title and old body are undefined.
-  // So these lines ensure they are set when the correct values are brought in.
-  // setTitle(oldTitle);
-  // setBody(oldBody);
-  console.log(title);
-  console.log(body);
-  console.log(oldTitle);
-  console.log(oldBody);
-
   const handleSubmit = () => {
     onSubmit(title, body);
   };
