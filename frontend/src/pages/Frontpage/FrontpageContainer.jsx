@@ -13,17 +13,6 @@ const FrontpageContainer = ({ children }) => {
 
   // Runs when the frontpage is loaded to retrieve posts from the database
   useEffect(() => {
-<<<<<<< HEAD
-=======
-    async function getPostsOnLoad() {
-      const response = await getPosts();
-      setRetrievedPosts(response);
-
-      // As the database returns the posts in oldest first, the array is reversed to show newest posts first
-      setPostsToDisplay(response.reverse());
-    }
-
->>>>>>> Add loaders for comments and posts upon api calls - via using promise tracker and loader spinner
     getPostsOnLoad();
   }, []);
 
