@@ -13,33 +13,20 @@ import SadImg from '../../common/icons/sad.png';
 
 import styles from './Post.module.css';
 
-// Import for testing post apis
-import updatePostService from '../../services/updatePostService';
 // import deletePostService from '../../services/deletePostService';
+import EditPostModal from './EditPost/EditPostModal';
+import withUpdatePostService from './EditPost/withUpdatePostService';
 
-const Post = ({
-  id,
-  title,
-  content,
-  upvotes,
-  downvotes,
-  claps,
-  handleVote,
-  frontpage,
-  loadPost,
-}) => {
+const UpdatePostModalServiced = withUpdatePostService(EditPostModal);
+
+const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, frontpage }) => {
   const [upvoteClap, setUpvoteClap] = useState(false);
   const [upvoteLaugh, setUpvoteLaugh] = useState(false);
   const [upvoteSad, setUpvoteSad] = useState(false);
   const clapCount = claps + (upvoteClap ? 1 : 0);
   const smileCount = upvotes + (upvoteLaugh ? 1 : 0);
   const sadCount = downvotes + (upvoteSad ? 1 : 0);
-
-  // Method used for testing post updates
-  const handleUpdate = () => {
-    updatePostService(id, 'testTitle', 'testBody');
-    loadPost();
-  };
+  const [showModal, setModal] = useState(false);
 
   // Method used for testing post deletes
   // const handleDelete = () => {
@@ -117,8 +104,7 @@ const Post = ({
               size="small"
               startIcon={<EditIcon />}
               onClick={() => {
-                handleUpdate();
-                // handleDelete();
+                setModal(true);
               }}
             >
               Edit
@@ -126,6 +112,15 @@ const Post = ({
           </div>
         </CardContent>
       </div>
+      {title && (
+        <UpdatePostModalServiced
+          showModal={showModal}
+          setModal={setModal}
+          id={id}
+          oldTitle={title}
+          oldBody={content}
+        />
+      )}
     </Card>
   );
 };
