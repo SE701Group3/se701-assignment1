@@ -1,10 +1,11 @@
+import { trackPromise } from 'react-promise-tracker';
 import { getPostRoute, createCommentRoute } from './apiRoutes';
 
 /* eslint-disable camelcase */
 export class SubmitCommentError extends Error {}
 
 export const getPostInformation = async postId => {
-  return fetch(getPostRoute(postId)).then(respose => respose.json());
+  return trackPromise(fetch(getPostRoute(postId)).then(respose => respose.json()));
 };
 
 /*
