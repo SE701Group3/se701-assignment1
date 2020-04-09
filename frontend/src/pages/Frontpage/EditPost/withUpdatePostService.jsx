@@ -18,7 +18,6 @@ export const updatePostService = submit => EditPost => ({
       setErrorMessage(null);
       loadPost();
       setModal(false);
-      window.location.reload();
     } catch (error) {
       if (!(error instanceof UpdatePostError)) {
         setErrorMessage('Could not edit post. Please try again.');
