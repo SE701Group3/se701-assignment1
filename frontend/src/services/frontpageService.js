@@ -1,7 +1,8 @@
+import { trackPromise } from 'react-promise-tracker';
 import { upvotePostRoute, getPostsRoute } from './apiRoutes';
 
 export const getPosts = async () => {
-  const response = await fetch(getPostsRoute).then(respose => respose.json());
+  const response = await trackPromise(fetch(getPostsRoute).then(respose => respose.json()));
   return response;
 };
 

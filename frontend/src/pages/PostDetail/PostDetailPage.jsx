@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { Container } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import { usePromiseTracker } from 'react-promise-tracker';
 
 import PostDetail from './PostDetail';
 import Comment from './Comment';
 import CreateCommentModal from './CreateCommentModal';
 import withCreateCommentService from './withCreateCommentService';
 import Header from '../../common/Header/Header';
-
+import LoadingIndicator from '../../common/Loader/LoadingIndicator';
 import styles from './PostDetailPage.module.css';
 
 const formatDate = date => {
@@ -51,6 +52,7 @@ const PostDetailPage = ({
 }) => {
   const [showModal, setModal] = useState(false);
   const [parentID, setParentID] = useState(-1);
+  const { promiseInProgress } = usePromiseTracker();
 
   return (
     <div>
@@ -61,22 +63,24 @@ const PostDetailPage = ({
         handleVote={handleVote}
         getPostInformationOnLoad={getPostInformationOnLoad}
       />
-      {commentsToDisplay
-        ? commentsToDisplay.map(comment => (
-            <Container maxWidth="sm" key={`${Math.floor(Math.random() * 100)}-container-key`}>
-              <Comment
-                body={comment.body}
-                dateCreated={formatDate(comment.date_created)}
-                setModal={() => {
-                  setModal(true);
-                  setParentID(comment._id);
-                }}
-                key={`${Math.floor(Math.random() * 100)}`}
-              />
-              {nestComments(comment.children, setModal, setParentID)}
-            </Container>
-          ))
-        : null}
+      {promiseInProgress ? (
+        <LoadingIndicator />
+      ) : (
+        commentsToDisplay.map(comment => (
+          <Container maxWidth="sm" key={`${Math.floor(Math.random() * 100)}-container-key`}>
+            <Comment
+              body={comment.body}
+              dateCreated={formatDate(comment.date_created)}
+              setModal={() => {
+                setModal(true);
+                setParentID(comment._id);
+              }}
+              key={`${Math.floor(Math.random() * 100)}`}
+            />
+            {nestComments(comment.children, setModal)}
+          </Container>
+        ))
+      )}
       <Fab
         classes={{
           root: styles.addButton,
