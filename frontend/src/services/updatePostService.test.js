@@ -1,6 +1,6 @@
 import { enableFetchMocks } from 'jest-fetch-mock';
 import updateService from './updatePostService';
-import { updatePostRoute } from './apiRoutes';
+import { getPostRoute } from './apiRoutes';
 
 // Ensure that things are mocked before we import the implementation-under-test.
 enableFetchMocks();
@@ -16,7 +16,7 @@ describe('Test update service', () => {
       statusText: 'OK',
     });
     await updateService(1, 'title', 'body');
-    expect(fetch.mock.calls[0][0]).toEqual(updatePostRoute);
+    expect(fetch.mock.calls[0][0]).toEqual(getPostRoute(1));
     expect(fetch.mock.calls[0][1].method).toEqual('PUT');
   });
 
