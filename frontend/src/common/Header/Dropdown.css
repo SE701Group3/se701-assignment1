@@ -1,0 +1,10 @@
+.dropbox-parent {
+    display: flex;
+    align-items: center;
+}
+.child-elements{
+    align-items: center;
+}
+#label{
+    padding-right: 15px;
+}

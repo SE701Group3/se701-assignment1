@@ -3,6 +3,7 @@ import { TextField, AppBar, Toolbar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import LogoImage from '../icons/logo.png';
+import Dropdown from './Dropdown';
 
 import styles from './Header.module.css';
 
@@ -25,6 +26,7 @@ const Header = ({ handleSearch }) => {
             },
           }}
         />
+        <Dropdown />
       </Toolbar>
     </AppBar>
   );
