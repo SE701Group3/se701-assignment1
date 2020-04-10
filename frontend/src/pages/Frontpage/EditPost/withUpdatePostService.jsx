@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 
 import updatePost, { UpdatePostError } from '../../../services/updatePostService';
 
@@ -9,17 +8,16 @@ export const updatePostService = submit => EditPost => ({
   id,
   oldTitle,
   oldBody,
+  loadPost,
 }) => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [updateSuccessful, setUpdateStatus] = useState(false);
 
   const handleSubmit = async (title, body) => {
     try {
       await submit(id, title, body);
       setErrorMessage(null);
+      loadPost();
       setModal(false);
-      setUpdateStatus(true);
-      window.location.reload();
     } catch (error) {
       if (!(error instanceof UpdatePostError)) {
         setErrorMessage('Could not edit post. Please try again.');
@@ -46,7 +44,6 @@ export const updatePostService = submit => EditPost => ({
         oldTitle={oldTitle}
         oldBody={oldBody}
       />
-      {updateSuccessful ? <Redirect to={`/post/${id}`} refresh="true" /> : null}
     </>
   );
 };

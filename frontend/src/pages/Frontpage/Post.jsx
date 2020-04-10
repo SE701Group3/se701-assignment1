@@ -18,7 +18,17 @@ import withUpdatePostService from './EditPost/withUpdatePostService';
 
 const UpdatePostModalServiced = withUpdatePostService(EditPostModal);
 
-const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, frontpage }) => {
+const Post = ({
+  id,
+  title,
+  content,
+  upvotes,
+  downvotes,
+  claps,
+  handleVote,
+  frontpage,
+  loadPost,
+}) => {
   const [upvoteClap, setUpvoteClap] = useState(false);
   const [upvoteLaugh, setUpvoteLaugh] = useState(false);
   const [upvoteSad, setUpvoteSad] = useState(false);
@@ -112,6 +122,7 @@ const Post = ({ id, title, content, upvotes, downvotes, claps, handleVote, front
           id={id}
           oldTitle={title}
           oldBody={content}
+          loadPost={loadPost}
         />
       )}
     </Card>
