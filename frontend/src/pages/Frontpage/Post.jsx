@@ -13,6 +13,8 @@ import SadImg from '../../common/icons/sad.png';
 
 import styles from './Post.module.css';
 
+// Uncomment when delete post button is implemented
+// import deletePostService from '../../services/deletePostService';
 import EditPostModal from './EditPost/EditPostModal';
 import withUpdatePostService from './EditPost/withUpdatePostService';
 
@@ -36,6 +38,12 @@ const Post = ({
   const smileCount = upvotes + (upvoteLaugh ? 1 : 0);
   const sadCount = downvotes + (upvoteSad ? 1 : 0);
   const [showModal, setModal] = useState(false);
+
+  // Call this method onClick of the delete button
+  // const handleDelete = () => {
+  //   deletePostService(id);
+  //   window.location.reload();
+  // };
 
   return (
     <Card className={styles.root}>
