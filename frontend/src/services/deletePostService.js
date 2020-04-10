@@ -21,6 +21,7 @@ export default async id => {
 
   if (!response.ok) {
     const { message } = await response.json();
+    // eslint-disable-next-line no-console
     console.log(message);
     throw new DeletePostError('Post does not exist');
   }
