@@ -467,61 +467,6 @@ describe('Posts API', () => {
     done();
   });
 
-  /* Tests for create comment API */
-  it('tests creating a comment', async done => {
-    const postData = {
-      title: 'Test post',
-      body: 'This is the body for a test post',
-    };
-
-    const response = await supertest(app)
-      .post('/api/posts')
-      .send(postData);
-
-    expect(response.status).toBe(201);
-
-    const createdPost = response.body;
-    const commentUrl = '/api/comments';
-    const commentData = {
-      body: 'This is the body for a test comment',
-      parentID: createdPost._id,
-    };
-
-    const response1 = await supertest(app)
-      .post(commentUrl)
-      .send(commentData);
-
-    expect(response1.status).toBe(201);
-    done();
-  });
-
-  it('tests creating a comment with an invalid post id', async done => {
-    const postData = {
-      title: 'Test post',
-      body: 'This is the body for a test post',
-    };
-
-    const response = await supertest(app)
-      .post('/api/posts')
-      .send(postData);
-
-    expect(response.status).toBe(201);
-
-    const createdPost = response.body;
-    const commentUrl = '/api/comments';
-    const commentData = {
-      body: 'This is the body for a test comment',
-      parentID: createdPost._id + 5,
-    };
-
-    const response1 = await supertest(app)
-      .post(commentUrl)
-      .send(commentData);
-
-    expect(response1.status).toBe(400);
-    done();
-  });
-
   /* Tests for upvote API */
   it('upvote post successfully', async done => {
     // create post
@@ -817,6 +762,248 @@ describe('Posts API', () => {
     expect(response3.body.upvotes_clap).toBe(0);
     expect(response3.body.upvotes_laugh).toBe(0);
     expect(response3.body.upvotes_sad).toBe(-1);
+    done();
+  });
+});
+
+describe('Comments API', () => {
+  beforeAll(async done => {
+    db.connect()
+      .then(() => done())
+      .catch(err => done(err));
+  });
+
+  beforeEach(async done => {
+    db.drop()
+      .then(() => done())
+      .catch(err => done(err));
+  });
+
+  afterAll(async done => {
+    db.close()
+      .then(() => done())
+      .catch(err => done(err));
+  });
+
+  /* Tests for POST comment API */
+  it('tests creating a comment', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const commentUrl = '/api/comments';
+    const commentData = {
+      body: 'This is the body for a test comment',
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+    done();
+  });
+
+  it('tests creating a comment with an invalid post id', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const commentUrl = '/api/comments';
+    const commentData = {
+      body: 'This is the body for a test comment',
+      parentID: createdPost._id + 5,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+
+    expect(response1.status).toBe(400);
+    done();
+  });
+
+  /* Tests for DELETE comment API */
+  it('tests deleting an existing childless comment', async done => {
+    // Creating a post
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    // Creating a comment
+    const createdPost = response.body;
+    const commentUrl = '/api/comments/';
+    const commentData = {
+      body: 'This is the body for a test comment',
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+
+    // Get the post in detail
+    const detailedPost = await supertest(app).get(`/api/posts/${createdPost._id}`);
+
+    // Delete the comment on the post
+    const response2 = await supertest(app).delete(
+      commentUrl.concat(detailedPost.body.comments[0]._id),
+    );
+    expect(response2.status).toBe(200);
+
+    done();
+  });
+
+  it('tests deleting a nonexistent comment', async done => {
+    const commentUrl = '/api/comments/';
+
+    const response = await supertest(app).delete(commentUrl.concat('68'));
+    expect(response.status).toBe(404);
+
+    done();
+  });
+
+  it('tests deleting a existing comment that has children', async done => {
+    // Creating a post
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    // Creating a top level comment
+    const createdPost = response.body;
+    const commentUrl = '/api/comments/';
+    const topCommentBody = 'This is the body for a test comment';
+    const commentData = {
+      body: topCommentBody,
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+
+    // Create child comment
+    const newCommentId = await (await supertest(app).get(`/api/posts/${createdPost._id}`)).body
+      .comments[0]._id;
+
+    const replyBody = 'That was an insightful comment!';
+    const replyData = {
+      body: replyBody,
+      parentID: newCommentId,
+    };
+
+    const response2 = await supertest(app)
+      .post(commentUrl)
+      .send(replyData);
+
+    expect(response2.status).toBe(201);
+
+    // Delete the top level comment
+    const response3 = await supertest(app).delete(commentUrl.concat(newCommentId));
+
+    expect(response3.status).toBe(200);
+
+    // Check comment tree still intact
+    const post = await (await supertest(app).get(`/api/posts/${createdPost._id}`)).body;
+
+    expect(post.comments[0].body).toBe('[Comment deleted]');
+    expect(post.comments[0].children[0].body).toBe(replyBody);
+
+    done();
+  });
+
+  it('tests deleting a comment that is a child of another', async done => {
+    // Creating a post
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    // Creating a top level comment
+    const createdPost = response.body;
+    const commentUrl = '/api/comments/';
+    const topCommentBody = 'This is the body for a test comment';
+    const commentData = {
+      body: topCommentBody,
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+
+    // Create child comment
+    const newCommentId = await (await supertest(app).get(`/api/posts/${createdPost._id}`)).body
+      .comments[0]._id;
+
+    const replyBody = 'That was an insightful comment!';
+    const replyData = {
+      body: replyBody,
+      parentID: newCommentId,
+    };
+
+    const response2 = await supertest(app)
+      .post(commentUrl)
+      .send(replyData);
+
+    expect(response2.status).toBe(201);
+
+    // Delete the child comment
+    const replyId = await (await supertest(app).get(`/api/posts/${createdPost._id}`)).body
+      .comments[0].children[0]._id;
+
+    const response3 = await supertest(app).delete(commentUrl.concat(replyId));
+
+    expect(response3.status).toBe(200);
+
+    // Check comment tree still intact
+    const post = await (await supertest(app).get(`/api/posts/${createdPost._id}`)).body;
+
+    expect(post.comments[0].body).toBe(topCommentBody);
+    expect(post.comments[0].children[0]).toBeUndefined();
     done();
   });
 });
