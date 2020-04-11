@@ -12,3 +12,24 @@
   color: #ffffff;
   font-size: 4rem;
 }
+
+.commentContainer {
+  padding: 0 !important;
+}
+
+.subcommentContainer {
+  display: grid !important;
+  grid-gap: 10px;
+  grid-template-rows: auto;
+}
+
+.comment .Mui-expanded{
+  margin: 0;
+}
+
+.comments {
+  padding-top: 10px;
+  display: grid !important;
+  grid-gap: 10px;
+  grid-template-rows: auto;
+}

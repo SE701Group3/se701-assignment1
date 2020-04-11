@@ -14,3 +14,8 @@
 .reply {
     width: 25px;
 }
+
+.root {
+    width: 100%;
+    box-shadow: none !important;
+}
