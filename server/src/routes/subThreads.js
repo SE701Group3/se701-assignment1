@@ -19,5 +19,11 @@ const initialisePromises = [
 });
 Promise.all(initialisePromises).catch();
 
+// Get a list of all subThreads
+// eslint-disable-next-line no-unused-vars
+router.get('/', async (req, res) => {
+  const subThreads = await SubThread.find({}, { title: 1 });
+  res.status(201).json(subThreads);
+});
 
 module.exports = router;
