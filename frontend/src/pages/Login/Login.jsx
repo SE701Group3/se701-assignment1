@@ -6,7 +6,9 @@ const uiConfig = {
   signInFlow: 'popup',
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
   callbacks: {
-    signInSuccessWithAuthResult: () => {
+    signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+      console.log(authResult);
+      console.log(redirectUrl);
       return false;
     },
   },
