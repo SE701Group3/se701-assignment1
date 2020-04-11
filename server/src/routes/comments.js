@@ -1,8 +1,11 @@
 const express = require('express');
+const firebaseAuthMiddleware = require('../middleware/firebaseAuth');
 
 const router = express.Router();
 const Post = require('../db/models/post');
 const Comment = require('../db/models/comments');
+
+router.use(firebaseAuthMiddleware);
 
 // Add one comment
 // eslint-disable-next-line no-unused-vars
