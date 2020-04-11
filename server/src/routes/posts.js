@@ -1,10 +1,12 @@
 const express = require('express');
-const { firebaseAuthMiddleware } = require('../middleware/firebaseAuth');
+const firebaseAuthMiddleware = require('../middleware/firebaseAuth');
 
 const router = express.Router();
 const Post = require('../db/models/post');
 const Comment = require('../db/models/comments');
 const SubThread = require('../db/models/subThreads');
+
+router.use(firebaseAuthMiddleware);
 
 // Get all posts
 router.get('/', async (req, res) => {

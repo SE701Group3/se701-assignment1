@@ -1,22 +1,22 @@
-const firebaseApp = require('../firebase');
+const admin = require('firebase-admin');
 
 function firebaseAuthMiddleware(req, res, next) {
   const authorization = req.header('Authorization');
   if (authorization) {
-    const token = authorization.split(' ');
-    firebaseApp
-      .auth()
-      .verifyIdToken(token[1])
-      .then(decodedToken => {
+    let token = authorization.split(' ');
+    admin.auth().verifyIdToken(token[1])
+      .then((decodedToken) => {
         req.user = decodedToken;
         next();
       })
       .catch(err => {
-        res.status(401).send(err);
+        log(err);
+        res.sendStatus(401);
       });
   } else {
-    res.status(401).send('Authorization header is not found');
+    log('Authorization header is not found');
+    res.sendStatus(401);
   }
 }
 
-module.exports = { firebaseAuthMiddleware };
+module.exports = firebaseAuthMiddleware;
