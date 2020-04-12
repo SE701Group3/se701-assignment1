@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
     const comment = await Comment.findOne({ _id: req.params.id });
 
     if (!comment) {
-      res.status(400).json({ message: 'This comment does not exits' });
+      res.status(404).json({ message: 'This comment does not exits' });
       return;
     }
 
