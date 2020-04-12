@@ -15,7 +15,7 @@ function firebaseAuthMiddleware(req, res, next) {
         res.status(401).send(err);
       });
   } else {
-    res.send(401).send('Authorization header is not found');
+    res.status(401).send('Authorization header is not found');
   }
 }
 
