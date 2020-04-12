@@ -495,6 +495,53 @@ describe('Posts API', () => {
     done();
   });
 
+  it('tests creating and updating a comment', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const postUrl = '/api/posts/';
+    const response = await supertest(app)
+      .post(postUrl)
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const commentUrl = '/api/comments/';
+    const commentData = {
+      body: 'This is the body for a test comment',
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+    expect(response1.status).toBe(201);
+
+    // Grab the comment ID with another GET request
+    const response2 = await supertest(app).get(postUrl.concat(createdPost._id));
+
+    // update the comment
+    const updatedComment = {
+      commentBody: 'Second Body',
+      parentID: createdPost._id,
+    };
+
+    const response3 = await supertest(app)
+      .put(commentUrl.concat(response2.body.comments[0]._id))
+      .send(updatedComment);
+    expect(response3.status).toBe(200);
+
+    // validate comment is updated
+    const response4 = await supertest(app).get(postUrl.concat(response.body._id));
+    expect(response4.body.comments[0].body).toBe(updatedComment.commentBody);
+    expect(response4.body.comments[0].parentID).toBe(updatedComment.parentID);
+
+    done();
+  });
+
   it('tests creating a comment with an invalid post id', async done => {
     const postData = {
       title: 'Test post',
