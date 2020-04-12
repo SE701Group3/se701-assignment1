@@ -7,8 +7,8 @@ const uiConfig = {
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
   callbacks: {
     signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-      console.log(authResult);
-      console.log(redirectUrl);
+      console.log(authResult);  // eslint-disable-line no-console
+      console.log(redirectUrl); // eslint-disable-line no-console
       return false;
     },
   },
