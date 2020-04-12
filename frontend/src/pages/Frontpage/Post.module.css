@@ -51,3 +51,9 @@
     right: 16px;
     bottom: 16px;
 }
+
+.post-delete-button{
+    position: absolute;
+    right: 100px;
+    bottom: 16px;
+}

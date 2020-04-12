@@ -57,3 +57,24 @@
   color: white !important;
   height: 35px;
 }
+
+.confirmDeleteButton {
+  background-color: #107ccd !important;
+  color: white !important;
+  height: 35px;
+  margin-right: 230px !important;
+}
+
+.cancelDeleteButton {
+  background-color: #a4a9af !important;
+  font-size: large;
+  color: white !important;
+  margin-right: 15px !important;
+  height: 35px;
+}
+
+.deleteText{
+  margin-bottom: 15px !important;
+  margin-top: 15px !important;
+  text-align: center;
+}
