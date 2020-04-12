@@ -1,5 +1,5 @@
 const express = require('express');
-const firebaseAuthMiddleware = require('../middleware/firebaseAuth');
+const { firebaseAuthMiddleware } = require('../middleware/firebaseAuth');
 
 const router = express.Router();
 const Post = require('../db/models/post');

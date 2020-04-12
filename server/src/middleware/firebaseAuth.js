@@ -19,4 +19,4 @@ function firebaseAuthMiddleware(req, res, next) {
   }
 }
 
-module.exports = firebaseAuthMiddleware;
+module.exports = { firebaseAuthMiddleware };
