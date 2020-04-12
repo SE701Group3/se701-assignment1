@@ -23,6 +23,22 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Get a single comment
+router.get('/:id', async (req, res) => {
+  try {
+    const comment = await Comment.findOne({ _id: req.params.id });
+
+    if (!comment) {
+      res.status(400).json({ message: 'This comment does not exits' });
+      return;
+    }
+
+    res.status(201).send(comment);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 // Update one comment
 // eslint-disable-next-line no-unused-vars
 router.put('/:id', async (req, res) => {
