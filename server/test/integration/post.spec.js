@@ -1006,4 +1006,64 @@ describe('Comments API', () => {
     expect(post.comments[0].children[0]).toBeUndefined();
     done();
   });
+
+  it('tests deleting a parent comment after its child comment has been deleted', async done => {
+    // Creating a post
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    // Creating a top level comment
+    const createdPost = response.body;
+    const commentUrl = '/api/comments/';
+    const topCommentBody = 'This is the body for a test comment';
+    const commentData = {
+      body: topCommentBody,
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+
+    // Create child comment
+    const newCommentId = await (await supertest(app).get(`/api/posts/${createdPost._id}`)).body
+      .comments[0]._id;
+
+    const replyBody = 'That was an insightful comment!';
+    const replyData = {
+      body: replyBody,
+      parentID: newCommentId,
+    };
+
+    const response2 = await supertest(app)
+      .post(commentUrl)
+      .send(replyData);
+
+    expect(response2.status).toBe(201);
+
+    // Delete the child comment
+    const replyId = await (await supertest(app).get(`/api/posts/${createdPost._id}`)).body
+      .comments[0].children[0]._id;
+
+    const response3 = await supertest(app).delete(commentUrl.concat(replyId));
+
+    expect(response3.status).toBe(200);
+
+    // Delete the parent comment
+    const response4 = await supertest(app).delete(commentUrl.concat(newCommentId));
+
+    expect(response4.status).toBe(200);
+
+    done();
+  });
 });
