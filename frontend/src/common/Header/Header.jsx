@@ -7,7 +7,7 @@ import SubthreaderDropdown from './SubthreaderDropdown';
 
 import styles from './Header.module.css';
 
-const Header = ({ handleSearch, retrievedSubthreaders }) => {
+const Header = ({ handleSearch, retrievedSubthreaders, changeSubthread }) => {
   return (
     <AppBar position="static" classes={{ root: styles.appBar }}>
       <Toolbar classes={{ root: styles.toolBar }}>
@@ -26,7 +26,10 @@ const Header = ({ handleSearch, retrievedSubthreaders }) => {
             },
           }}
         />
-        <SubthreaderDropdown retrievedSubthreaders={retrievedSubthreaders} />
+        <SubthreaderDropdown
+          retrievedSubthreaders={retrievedSubthreaders}
+          changeSubthread={changeSubthread}
+        />
       </Toolbar>
     </AppBar>
   );

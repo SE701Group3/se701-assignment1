@@ -20,13 +20,18 @@ const Index = ({
   handleVote,
   getPostsOnLoad,
   retrievedSubthreaders,
+  changeSubThread,
 }) => {
   const [showModal, setModal] = useState(false);
   const { promiseInProgress } = usePromiseTracker();
 
   return (
     <>
-      <Header handleSearch={handleSearch} retrievedSubthreaders={retrievedSubthreaders} />
+      <Header
+        handleSearch={handleSearch}
+        retrievedSubthreaders={retrievedSubthreaders}
+        changeSubthread={changeSubThread}
+      />
       {promiseInProgress ? (
         <LoadingIndicator />
       ) : (

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getPosts, handleVote, getSubthreaders } from '../../services/frontpageService';
+import {
+  getPosts,
+  handleVote,
+  getSubthreaders,
+  getPostsForSubthread,
+} from '../../services/frontpageService';
 
 const FrontpageContainer = ({ children }) => {
   const [retrievedPosts, setRetrievedPosts] = useState([]);
@@ -31,6 +36,20 @@ const FrontpageContainer = ({ children }) => {
     );
   };
 
+  const changeSubThread = async event => {
+    if (event === 'All') {
+      setPostsToDisplay(retrievedPosts.reverse());
+    } else {
+      const response = await getPostsForSubthread(event);
+
+      if (!Array.isArray(response) || !response.length) {
+        setPostsToDisplay([]);
+      } else {
+        setPostsToDisplay([]);
+      }
+    }
+  };
+
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
   const newProps = {
@@ -40,6 +59,7 @@ const FrontpageContainer = ({ children }) => {
     getPostsOnLoad,
     getSubthreadersOnLoad,
     retrievedSubthreaders,
+    changeSubThread,
   };
 
   return React.cloneElement(children, { ...newProps });

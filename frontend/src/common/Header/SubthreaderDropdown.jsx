@@ -4,11 +4,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import './SubthreaderDropdown.css';
 
-const SubthreaderDropdown = ({ retrievedSubthreaders }) => {
+const SubthreaderDropdown = ({ retrievedSubthreaders, changeSubthread }) => {
   const [thread, setThread] = React.useState('All');
 
   const handleChange = event => {
     setThread(event.target.value);
+    changeSubthread(event.target.value);
   };
 
   if (window.location.pathname === '/post') return null;
