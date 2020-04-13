@@ -4,17 +4,22 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import './SubthreaderDropdown.css';
 
-// eslint-disable-next-line no-unused-vars
 const SubthreaderDropdown = ({ retrievedSubthreaders }) => {
+  const [thread, setThread] = React.useState('All');
+
+  const handleChange = event => {
+    setThread(event.target.value);
+  };
+
   return (
     <div className="dropbox-parent">
       <InputLabel className="child-elements" id="label">
         Subthreaders
       </InputLabel>
-      <Select className="child-elements">
-        <MenuItem>All</MenuItem>
+      <Select className="child-elements" labelId="label" value={thread} onChange={handleChange}>
+        <MenuItem value="All"> All </MenuItem>
         {retrievedSubthreaders.map(sub => (
-          <MenuItem>{sub}</MenuItem>
+          <MenuItem value={sub}> {sub} </MenuItem>
         ))}
       </Select>
     </div>
