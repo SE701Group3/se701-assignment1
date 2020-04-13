@@ -9,28 +9,23 @@ const userSchema = new mongoose.Schema({
   posts: {
     type: Array,
     default: [],
-    required: true,
   },
   comments: {
     type: Array,
     default: [],
-    required: true,
   },
   votes: {
     claps: {
       type: Array,
       default: [],
-      required: true,
     },
     laughs: {
       type: Array,
       default: [],
-      required: true,
     },
     sads: {
       type: Array,
       default: [],
-      required: true,
     },
   },
 });
