@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../db/models/post');
 const Comment = require('../db/models/comments');
+const SubThread = require('../db/models/subThreads');
 
 // Get all posts
 router.get('/', async (req, res) => {
@@ -54,7 +55,6 @@ const getNestedComments = async childrenIDs => {
 };
 
 // Get one post (detailed)
-// eslint-disable-next-line no-unused-vars
 router.get('/:id', async (req, res) => {
   try {
     const foundPost = await Post.findOne({ _id: req.params.id });
@@ -124,6 +124,21 @@ router.put('/:id/upvote', async (req, res) => {
       const returnPost = await Post.findById(req.body.id);
       res.status(200).json(returnPost);
     } else res.status(400).json({ message: 'Invalid upvote type' });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Get all posts that belong to a specific subThread
+router.get('/subThread/:subThreadTitle', async (req, res) => {
+  try {
+    const foundSubThread = await SubThread.findOne({ title: req.params.subThreadTitle });
+    if (!foundSubThread) {
+      res.status(404).json({ message: 'This subThread does not exist' });
+      return;
+    }
+    const posts = await Post.find({ _id: { $in: foundSubThread.posts } });
+    res.send(posts);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

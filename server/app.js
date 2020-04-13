@@ -9,9 +9,11 @@ app.use(express.json());
 
 const postsRouter = require('./src/routes/posts');
 const commentsRouter = require('./src/routes/comments');
+const subThreadsRouter = require('./src/routes/subThreads');
 
 app.use('/api/posts', postsRouter);
 app.use('/api/comments', commentsRouter);
+app.use('/api/subThreads', subThreadsRouter);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
