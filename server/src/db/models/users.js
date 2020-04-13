@@ -5,27 +5,33 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     posts: {
       type: Array,
       default: [],
+      required: true,
     },
     comments: {
       type: Array,
       default: [],
+      required: true,
     },
     votes: {
   	  claps: {
-  		  type: Number,
-  	    default: 0,
+  		  type: Array,
+  	    default: [],
+        required: true,
   	  },
   	  laughs: {
-  		  type: Number,
-  	    default: 0,
+  		  type: Array,
+  	    default: [],
+        required: true,
   	  },
   	  sads: {
-  		  type: Number,
-  	    default: 0,
+  		  type: Array,
+  	    default: [],
+        required: true,
   	  }
     },
   },
