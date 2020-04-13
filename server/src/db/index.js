@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Removes deprecation warning when enforcing uniquness
+// Removes deprecation warning when enforcing uniquness
 mongoose.set('useCreateIndex', true);
 
 function connect() {
