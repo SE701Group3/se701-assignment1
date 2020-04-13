@@ -4,8 +4,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import './SubthreaderDropdown.css';
 
+// eslint-disable-next-line no-unused-vars
 const SubthreaderDropdown = ({ retrievedSubthreaders }) => {
-  // console.log(retrievedSubthreaders);
   return (
     <div className="dropbox-parent">
       <InputLabel className="child-elements" id="label">
