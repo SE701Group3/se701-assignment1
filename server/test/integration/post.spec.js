@@ -557,15 +557,6 @@ describe('Posts API', () => {
 
     const createdPost = response.body;
     const commentUrl = '/api/comments/';
-    const commentData = {
-      body: 'This is the body for a test comment',
-      parentID: createdPost._id,
-    };
-
-    const response1 = await supertest(app)
-      .post(commentUrl)
-      .send(commentData);
-    expect(response1.status).toBe(201);
 
     // update the comment
     const updatedComment = {
