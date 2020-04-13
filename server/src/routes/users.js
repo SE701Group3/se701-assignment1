@@ -14,16 +14,13 @@ const testUsers = [
 ];
 
 // Insert test users if document is empty
-insertTestUsers = () => {
-  User.countDocuments(function(err, count) {
-    if (!err && count === 0) {
-      User.insertMany(testUsers, function(err1) {
-        if (err1) throw err1;
-      });
-    }
-  });
-}
-insertTestUsers();
+User.countDocuments((err, count) => {
+  if (!err && count === 0) {
+    User.insertMany(testUsers, err1 => {
+      if (err1) throw err1;
+    });
+  }
+});
 
 // Create a new user - THIS NEEDS WORK
 router.post('/', async (req, res) => {
