@@ -21,7 +21,7 @@ const SubthreaderDropdown = ({ retrievedSubthreaders }) => {
       <Select className="child-elements" labelId="label" value={thread} onChange={handleChange}>
         <MenuItem value="All"> All </MenuItem>
         {retrievedSubthreaders.map(sub => (
-          <MenuItem value={sub}> {sub} </MenuItem>
+          <MenuItem value={sub._id}> {sub.title} </MenuItem>
         ))}
       </Select>
     </div>
