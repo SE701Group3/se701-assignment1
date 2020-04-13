@@ -77,7 +77,7 @@ const PostDetailPage = ({
               }}
               key={`${Math.floor(Math.random() * 100)}`}
             />
-            {nestComments(comment.children, setModal)}
+            {nestComments(comment.children, setModal, setParentID)}
           </Container>
         ))
       )}
