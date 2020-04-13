@@ -5,6 +5,7 @@ const router = express.Router();
 const User = require('../db/models/users');
 
 // Initialise table with pre-defined users until the add endpoint is implemented
+
 const testUsers = [
   { email: 'user1@gmail.com', posts: [], comments: [], claps: [], laughs: [], sads: [], },
   { email: 'user2@gmail.com', posts: [], comments: [], claps: [], laughs: [], sads: [], },
@@ -13,6 +14,7 @@ const testUsers = [
   { email: 'user5@gmail.com', posts: [], comments: [], claps: [], laughs: [], sads: [], }
 ]
 
+//Insert test users if document empty
 User.countDocuments(function (err, count) {
     if (!err && count === 0) {
       User.insertMany(testUsers, function(err, res) {
@@ -21,7 +23,7 @@ User.countDocuments(function (err, count) {
     }
 });
 
-// Create a new user
+// Create a new user - THIS NEEDS WORK
 router.post('/', async (req, res) => {
   const { email } = req.body;
 
