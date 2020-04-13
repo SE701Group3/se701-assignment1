@@ -11,6 +11,8 @@ const SubthreaderDropdown = ({ retrievedSubthreaders }) => {
     setThread(event.target.value);
   };
 
+  if (window.location.pathname === '/post') return null;
+
   return (
     <div className="dropbox-parent">
       <InputLabel className="child-elements" id="label">
