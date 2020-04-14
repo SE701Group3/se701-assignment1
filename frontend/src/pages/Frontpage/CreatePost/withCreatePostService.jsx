@@ -11,9 +11,9 @@ export const createPostService = submit => CreatePost => ({
   const [errorMessage, setErrorMessage] = useState(null);
   const [id, setPostId] = useState(false);
 
-  const handleSubmit = async (title, body) => {
+  const handleSubmit = async (title, body, subthread) => {
     try {
-      const responseId = await submit(title, body);
+      const responseId = await submit(title, body, subthread);
       setErrorMessage(null);
       setModal(false);
       setPostId(responseId);

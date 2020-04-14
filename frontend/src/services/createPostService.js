@@ -3,10 +3,11 @@ import { getPostsRoute } from './apiRoutes';
 /* eslint-disable no-underscore-dangle */
 export class SubmitPostError extends Error {}
 
-export default async (title, body) => {
+export default async (title, body, subthread) => {
   const parameters = {
     title,
     body,
+    subthread,
   };
 
   const requestBody = JSON.stringify(parameters);
