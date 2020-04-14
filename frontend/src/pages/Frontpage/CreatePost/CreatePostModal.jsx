@@ -68,6 +68,7 @@ const CreatePostModal = ({ showModal, errorMessage, onSubmit, onClose, retrieved
           <SubthreaderDropdown
             changeSubthread={handleSubthreadChange}
             retrievedSubthreaders={retrievedSubthreaders}
+            pass="yes"
           />
         </div>
       </div>

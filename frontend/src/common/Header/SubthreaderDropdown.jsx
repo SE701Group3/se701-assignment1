@@ -6,22 +6,27 @@ import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 
 import './SubthreaderDropdown.css';
 
-const SubthreaderDropdown = ({ retrievedSubthreaders, changeSubthread }) => {
+const SubthreaderDropdown = ({ retrievedSubthreaders, changeSubthread, pass }) => {
   const [thread, setThread] = React.useState('All');
 
   const handleChange = event => {
     setThread(event.target.value);
     changeSubthread(event.target.value);
   };
+  let button;
+  if (!pass) {
+    button = (
+      <IconButton>
+        <AddOutlinedIcon className="icon" />
+      </IconButton>
+    );
+  }
 
   if (!(window.location.pathname === '/')) return null;
 
   return (
     <div className="dropbox-parent">
-      <IconButton>
-        <AddOutlinedIcon className="icon" />
-      </IconButton>
-
+      {button}
       <InputLabel className="child-elements" id="label">
         Subthreaders
       </InputLabel>
