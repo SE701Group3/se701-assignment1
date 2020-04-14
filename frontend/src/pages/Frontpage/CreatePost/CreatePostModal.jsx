@@ -56,13 +56,15 @@ const CreatePostModal = ({ showModal, errorMessage, onSubmit, onClose, retrieved
           value={body}
           onChange={handleBodyChange}
         />
-        <div className={styles.modalButtons}>
-          <Button classes={{ root: styles.cancelButton }} onClick={onClose}>
-            Cancel
-          </Button>
-          <Button className={styles.submitButton} onClick={handleSubmit}>
-            Submit
-          </Button>
+        <div>
+          <div className={styles.modalButtons}>
+            <Button classes={{ root: styles.cancelButton }} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button className={styles.submitButton} onClick={handleSubmit}>
+              Submit
+            </Button>
+          </div>
           <SubthreaderDropdown
             changeSubthread={handleSubthreadChange}
             retrievedSubthreaders={retrievedSubthreaders}
