@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 
+// Removes deprecation warning when enforcing uniquness
+mongoose.set('useCreateIndex', true);
+
 function connect() {
   if (process.env.NODE_ENV === 'test') {
     return mongoose.connect(
