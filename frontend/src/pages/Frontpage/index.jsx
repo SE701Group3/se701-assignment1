@@ -62,7 +62,11 @@ const Index = ({
       >
         <AddIcon classes={{ root: styles.addIcon }} />
       </Fab>
-      <CreatePostModalServiced showModal={showModal} setModal={setModal} />
+      <CreatePostModalServiced
+        showModal={showModal}
+        setModal={setModal}
+        retrievedSubthreaders={retrievedSubthreaders}
+      />
     </>
   );
 };

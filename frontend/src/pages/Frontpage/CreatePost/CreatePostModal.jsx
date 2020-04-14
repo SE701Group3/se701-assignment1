@@ -4,13 +4,15 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import styles from './CreatePost.module.css';
+import SubthreaderDropdown from '../../../common/Header/SubthreaderDropdown';
 
-const CreatePostModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
+const CreatePostModal = ({ showModal, errorMessage, onSubmit, onClose, retrievedSubthreaders }) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [subThread, setSubthread] = useState('');
 
   const handleSubmit = () => {
-    onSubmit(title, body);
+    onSubmit(title, body, subThread);
   };
 
   const handleTitleChange = event => {
@@ -19,6 +21,10 @@ const CreatePostModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
 
   const handleBodyChange = event => {
     setBody(event.target.value);
+  };
+
+  const handleSubthreadChange = value => {
+    setSubthread(value);
   };
 
   return (
@@ -57,6 +63,10 @@ const CreatePostModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
           <Button className={styles.submitButton} onClick={handleSubmit}>
             Submit
           </Button>
+          <SubthreaderDropdown
+            changeSubthread={handleSubthreadChange}
+            retrievedSubthreaders={retrievedSubthreaders}
+          />
         </div>
       </div>
     </Modal>
