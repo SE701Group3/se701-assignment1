@@ -20,7 +20,7 @@ const SubthreaderDropdown = ({ retrievedSubthreaders, changeSubthread }) => {
         Subthreaders
       </InputLabel>
       <Select className="child-elements" labelId="label" value={thread} onChange={handleChange}>
-        <MenuItem value="All"> All </MenuItem>
+        <MenuItem value=""> All </MenuItem>
         {retrievedSubthreaders.map(sub => (
           <MenuItem value={sub.title}> {sub.title} </MenuItem>
         ))}
