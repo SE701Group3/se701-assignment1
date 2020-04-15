@@ -121,7 +121,7 @@ const PostDetailPage = ({
       <div className={styles.comments}>
         {commentsToDisplay
           ? commentsToDisplay.map(comment => (
-              <Container maxWidth="sm" key={`${Math.floor(Math.random() * 100)}-container-key`}>
+              <Container maxWidth="md" key={`${Math.floor(Math.random() * 100)}-container-key`}>
                 {comment.children.length ? (
                   <ExpansionPanel>
                     <ExpansionPanelSummary
