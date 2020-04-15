@@ -45,7 +45,7 @@ const FrontpageContainer = ({ children }) => {
       if (!Array.isArray(response) || !response.length) {
         setPostsToDisplay([]);
       } else {
-        setPostsToDisplay([]);
+        setPostsToDisplay(response);
       }
     }
   };

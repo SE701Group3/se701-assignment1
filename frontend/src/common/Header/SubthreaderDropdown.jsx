@@ -32,7 +32,7 @@ const SubthreaderDropdown = ({
             setModal(true);
           }}
         >
-          <AddOutlinedIcon className="icon" />
+          <AddOutlinedIcon id="add-button" />
         </IconButton>
         <CreateSubthreadModalServiced
           showModal={showModal}
