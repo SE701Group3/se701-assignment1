@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import submitPost, { SubmitPostError } from '../../../services/createPostService';
+import createSubthread, { SubmitSubthreadError } from '../../../services/createSubthread';
 
 export const createNewSubthreadService = submit => CreatePost => ({
   showModal,
@@ -15,8 +15,8 @@ export const createNewSubthreadService = submit => CreatePost => ({
       setErrorMessage(null);
       setModal(false);
     } catch (error) {
-      if (!(error instanceof SubmitPostError)) {
-        setErrorMessage('Could not submit post. Please try again.');
+      if (!(error instanceof SubmitSubthreadError)) {
+        setErrorMessage('Could not create subthread. Please try again.');
         // eslint-disable-next-line no-console
         console.error(error);
       } else {
@@ -43,4 +43,4 @@ export const createNewSubthreadService = submit => CreatePost => ({
   );
 };
 
-export default createNewSubthreadService(submitPost);
+export default createNewSubthreadService(createSubthread);
