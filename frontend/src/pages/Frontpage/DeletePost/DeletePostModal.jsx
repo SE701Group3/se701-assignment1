@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
+import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import styles from '../CreatePost/CreatePost.module.css';
@@ -21,7 +22,7 @@ const DeletePostModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
             Cancel
           </Button>
           <Button className={styles.confirmDeleteButton} onClick={handleSubmit}>
-            Confirm
+            <Link to="/">Confirm</Link>
           </Button>
         </div>
       </div>
