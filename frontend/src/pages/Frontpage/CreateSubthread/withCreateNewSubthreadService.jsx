@@ -5,7 +5,7 @@ import createSubthread, { SubmitSubthreadError } from '../../../services/createS
 export const createNewSubthreadService = submit => CreatePost => ({
   showModal,
   setModal,
-  retrievedSubthreaders,
+  updateSubthreadersList,
 }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -23,9 +23,11 @@ export const createNewSubthreadService = submit => CreatePost => ({
         setErrorMessage(error.message);
       }
     }
+
+    updateSubthreadersList();
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
     setErrorMessage('');
     setModal(false);
   };
@@ -37,7 +39,6 @@ export const createNewSubthreadService = submit => CreatePost => ({
         errorMessage={errorMessage}
         onSubmit={handleSubmit}
         onClose={handleClose}
-        retrievedSubthreaders={retrievedSubthreaders}
       />
     </>
   );

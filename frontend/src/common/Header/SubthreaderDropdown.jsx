@@ -10,7 +10,12 @@ import './SubthreaderDropdown.css';
 
 const CreateSubthreadModalServiced = withCreateNewSubthreadService(CreateSubthreadModal);
 
-const SubthreaderDropdown = ({ retrievedSubthreaders, changeSubthread, pass }) => {
+const SubthreaderDropdown = ({
+  retrievedSubthreaders,
+  changeSubthread,
+  pass,
+  updateSubthreadersList,
+}) => {
   const [thread, setThread] = React.useState('All');
   const [showModal, setModal] = useState(false);
 
@@ -29,11 +34,16 @@ const SubthreaderDropdown = ({ retrievedSubthreaders, changeSubthread, pass }) =
         >
           <AddOutlinedIcon className="icon" />
         </IconButton>
-        <CreateSubthreadModalServiced showModal={showModal} setModal={setModal} />
+        <CreateSubthreadModalServiced
+          showModal={showModal}
+          setModal={setModal}
+          updateSubthreadersList={updateSubthreadersList}
+        />
       </div>
     );
   }
 
+  // Only loads on the home page
   if (!(window.location.pathname === '/')) return null;
 
   return (

@@ -17,14 +17,14 @@ const FrontpageContainer = ({ children }) => {
     setPostsToDisplay(response.reverse()); // As the database returns the posts in oldest first, the array is reversed to show newest posts first
   };
 
-  const getSubthreadersOnLoad = async () => {
-    const response = await getSubthreaders();
+  const updateSubthreadersList = async () => {
+    const response = [...(await getSubthreaders())];
     setSubthreaders(response);
   };
   // Runs when the frontpage is loaded to retrieve posts from the database
   useEffect(() => {
     getPostsOnLoad();
-    getSubthreadersOnLoad();
+    updateSubthreadersList();
   }, []);
 
   // When user types in the search bar, the posts are filtered according to their titles
@@ -57,9 +57,9 @@ const FrontpageContainer = ({ children }) => {
     handleSearch,
     handleVote,
     getPostsOnLoad,
-    getSubthreadersOnLoad,
     retrievedSubthreaders,
     changeSubThread,
+    updateSubthreadersList,
   };
 
   return React.cloneElement(children, { ...newProps });
