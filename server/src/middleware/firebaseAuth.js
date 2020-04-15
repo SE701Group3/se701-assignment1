@@ -1,10 +1,10 @@
-const admin = require('firebase-admin');
+const firebaseApp = require('../firebase');
 
 function firebaseAuthMiddleware(req, res, next) {
   const authorization = req.header('Authorization');
   if (authorization) {
     const token = authorization.split(' ');
-    admin
+    firebaseApp
       .auth()
       .verifyIdToken(token[1])
       .then(decodedToken => {
