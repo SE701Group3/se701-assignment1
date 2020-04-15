@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Select, InputLabel } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import withCreateNewSubthreadService from '../../pages/Frontpage/CreateSubthread/withCreateNewSubthreadService';
+import CreateSubthreadModal from '../../pages/Frontpage/CreateSubthread/addNewSubthreadModal';
 
 import './SubthreaderDropdown.css';
 
+const CreateSubthreadModalServiced = withCreateNewSubthreadService(CreateSubthreadModal);
+
 const SubthreaderDropdown = ({ retrievedSubthreaders, changeSubthread, pass }) => {
   const [thread, setThread] = React.useState('All');
+  const [showModal, setModal] = useState(false);
 
   const handleChange = event => {
     setThread(event.target.value);
@@ -16,9 +21,16 @@ const SubthreaderDropdown = ({ retrievedSubthreaders, changeSubthread, pass }) =
   let button;
   if (!pass) {
     button = (
-      <IconButton>
-        <AddOutlinedIcon className="icon" />
-      </IconButton>
+      <div>
+        <IconButton
+          onClick={() => {
+            setModal(true);
+          }}
+        >
+          <AddOutlinedIcon className="icon" />
+        </IconButton>
+        <CreateSubthreadModalServiced showModal={showModal} setModal={setModal} />
+      </div>
     );
   }
 

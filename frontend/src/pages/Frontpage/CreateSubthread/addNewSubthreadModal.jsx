@@ -3,7 +3,7 @@ import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import styles from './CreatePost.module.css';
+import styles from './CreateSubthread.module.css';
 
 const CreateSubthreadModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
   const [name, setName] = useState('');
