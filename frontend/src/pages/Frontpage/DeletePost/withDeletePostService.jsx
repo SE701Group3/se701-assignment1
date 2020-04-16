@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-// import { Redirect } from 'react-router-dom';
-// import { Redirect } from 'react-router-dom';
-
 import deletePost, { DeletePostError } from '../../../services/deletePostService';
 
 export const deletePostService = submit => DeletePost => ({
