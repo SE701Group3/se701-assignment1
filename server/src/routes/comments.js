@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
 
 // Update one comment
 // eslint-disable-next-line no-unused-vars
-router.put('/:id', firebaseAuthMiddleware, async (req, res) => {
+router.put('/:id',,firebaseAuthMiddleware, async (req, res) => {
   try {
     if (req.body.commentBody != null) {
       await Comment.update({ _id: req.params.id }, { body: req.body.commentBody });
