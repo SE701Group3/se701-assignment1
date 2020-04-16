@@ -21,9 +21,11 @@ const DeletePostModal = ({ showModal, errorMessage, onSubmit, onClose }) => {
           <Button classes={{ root: styles.cancelDeleteButton }} onClick={onClose}>
             Cancel
           </Button>
-          <Button className={styles.confirmDeleteButton} onClick={handleSubmit}>
-            <Link to="/">Confirm</Link>
-          </Button>
+          <Link to="/">
+            <Button className={styles.confirmDeleteButton} onClick={handleSubmit}>
+              Confirm
+            </Button>
+          </Link>
         </div>
       </div>
     </Modal>
