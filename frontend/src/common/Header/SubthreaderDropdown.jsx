@@ -28,6 +28,7 @@ const SubthreaderDropdown = ({
     button = (
       <div>
         <IconButton
+          key="addButton"
           onClick={() => {
             setModal(true);
           }}
