@@ -3,13 +3,17 @@ import { Redirect } from 'react-router-dom';
 
 import submitPost, { SubmitPostError } from '../../../services/createPostService';
 
-export const createPostService = submit => CreatePost => ({ showModal, setModal }) => {
+export const createPostService = submit => CreatePost => ({
+  showModal,
+  setModal,
+  retrievedSubthreaders,
+}) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [id, setPostId] = useState(false);
 
-  const handleSubmit = async (title, body) => {
+  const handleSubmit = async (title, body, subthread) => {
     try {
-      const responseId = await submit(title, body);
+      const responseId = await submit(title, body, subthread);
       setErrorMessage(null);
       setModal(false);
       setPostId(responseId);
@@ -36,6 +40,7 @@ export const createPostService = submit => CreatePost => ({ showModal, setModal 
         errorMessage={errorMessage}
         onSubmit={handleSubmit}
         onClose={handleClose}
+        retrievedSubthreaders={retrievedSubthreaders}
       />
       {id && <Redirect to={`/post/${id}`} />}
     </>

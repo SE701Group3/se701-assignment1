@@ -3,10 +3,16 @@ import { TextField, AppBar, Toolbar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import LogoImage from '../icons/logo.png';
+import SubthreaderDropdown from './SubthreaderDropdown';
 
 import styles from './Header.module.css';
 
-const Header = ({ handleSearch }) => {
+const Header = ({
+  handleSearch,
+  retrievedSubthreaders,
+  changeSubthread,
+  updateSubthreadersList,
+}) => {
   return (
     <AppBar position="static" classes={{ root: styles.appBar }}>
       <Toolbar classes={{ root: styles.toolBar }}>
@@ -24,6 +30,11 @@ const Header = ({ handleSearch }) => {
               input: styles.searchText,
             },
           }}
+        />
+        <SubthreaderDropdown
+          retrievedSubthreaders={retrievedSubthreaders}
+          changeSubthread={changeSubthread}
+          updateSubthreadersList={updateSubthreadersList}
         />
       </Toolbar>
     </AppBar>

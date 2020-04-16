@@ -7,3 +7,6 @@ export const getPostRoute = id => `${API_ROOT}/posts/${id}`;
 export const updatePostRoute = getPostRoute;
 export const getCommentsRoute = () => `${API_ROOT}/comments`;
 export const createCommentRoute = getCommentsRoute;
+export const getSubthreadersRoute = `${API_ROOT}/subThreads`;
+export const getPostsForSubthreadRoute = thread => `${API_ROOT}/posts/subThread/${thread}`;
+export const createSubthread = `${API_ROOT}/subThreads`;

@@ -14,13 +14,26 @@ import LoadingIndicator from '../../common/Loader/LoadingIndicator';
 
 const CreatePostModalServiced = withCreatePostService(CreatePostModal);
 
-const Index = ({ postsToDisplay, handleSearch, handleVote, getPostsOnLoad }) => {
+const Index = ({
+  postsToDisplay,
+  handleSearch,
+  handleVote,
+  getPostsOnLoad,
+  retrievedSubthreaders,
+  changeSubThread,
+  updateSubthreadersList,
+}) => {
   const [showModal, setModal] = useState(false);
   const { promiseInProgress } = usePromiseTracker();
 
   return (
     <>
-      <Header handleSearch={handleSearch} />
+      <Header
+        handleSearch={handleSearch}
+        retrievedSubthreaders={retrievedSubthreaders}
+        changeSubthread={changeSubThread}
+        updateSubthreadersList={updateSubthreadersList}
+      />
       {promiseInProgress ? (
         <LoadingIndicator />
       ) : (
@@ -51,7 +64,11 @@ const Index = ({ postsToDisplay, handleSearch, handleVote, getPostsOnLoad }) => 
       >
         <AddIcon classes={{ root: styles.addIcon }} />
       </Fab>
-      <CreatePostModalServiced showModal={showModal} setModal={setModal} />
+      <CreatePostModalServiced
+        showModal={showModal}
+        setModal={setModal}
+        retrievedSubthreaders={retrievedSubthreaders}
+      />
     </>
   );
 };
