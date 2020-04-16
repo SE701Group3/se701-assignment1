@@ -6,7 +6,10 @@ const uiConfig = {
   signInFlow: 'popup',
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
   callbacks: {
-    signInSuccessWithAuthResult: () => {
+    signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+      console.log(authResult); // eslint-disable-line no-console
+      console.log(redirectUrl); // eslint-disable-line no-console
+      console.log(firebase.auth().currentUser.getIdToken(false)); // eslint-disable-line no-console
       return false;
     },
   },

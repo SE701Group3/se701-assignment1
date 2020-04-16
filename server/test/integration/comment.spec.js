@@ -1,9 +1,13 @@
 // Environment variable used to set the in-memory database when the server is instantiated
 process.env.NODE_ENV = 'test';
 
+const sinon = require('sinon');
 const supertest = require('supertest');
-const app = require('../../app');
+const middleware = require('../../src/middleware/firebaseAuth');
 const db = require('../../src/db');
+
+const middlewareStub = sinon.stub(middleware, 'firebaseAuthMiddleware');
+const app = require('../../app');
 
 describe('Comments API', () => {
   beforeAll(async done => {
@@ -13,6 +17,8 @@ describe('Comments API', () => {
   });
 
   beforeEach(async done => {
+    middlewareStub.callsFake((req, res, next) => next());
+
     // clear database after each test to remove any dependencies between tests
     db.drop()
       .then(() => done())
