@@ -14,6 +14,9 @@ const commentsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: String,
+    },
   },
   {
     timestamps: { createdAt: 'date_created' },

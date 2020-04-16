@@ -26,6 +26,12 @@ const postSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    sub_thread: {
+      type: String,
+    },
+    author: {
+      type: String,
+    },
   },
   {
     timestamps: { createdAt: 'date_created' },
