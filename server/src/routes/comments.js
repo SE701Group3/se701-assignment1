@@ -5,11 +5,9 @@ const router = express.Router();
 const Post = require('../db/models/post');
 const Comment = require('../db/models/comments');
 
-router.use(firebaseAuthMiddleware);
-
 // Add one comment
 // eslint-disable-next-line no-unused-vars
-router.post('/', async (req, res) => {
+router.post('/', firebaseAuthMiddleware, async (req, res) => {
   const comment = new Comment({
     parentID: req.body.parentID,
     body: req.body.body,
@@ -44,7 +42,7 @@ router.get('/:id', async (req, res) => {
 
 // Update one comment
 // eslint-disable-next-line no-unused-vars
-router.put('/:id', async (req, res) => {
+router.put('/:id',,firebaseAuthMiddleware, async (req, res) => {
   try {
     if (req.body.commentBody != null) {
       await Comment.update({ _id: req.params.id }, { body: req.body.commentBody });
@@ -58,7 +56,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete one comment
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
   try {
     const comment = await Comment.findOne({
       _id: req.params.id,
