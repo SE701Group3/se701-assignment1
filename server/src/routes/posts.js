@@ -6,8 +6,6 @@ const Post = require('../db/models/post');
 const Comment = require('../db/models/comments');
 const SubThread = require('../db/models/subThreads');
 
-router.use(firebaseAuthMiddleware);
-
 // Get all posts
 router.get('/', async (req, res) => {
   try {
@@ -19,7 +17,7 @@ router.get('/', async (req, res) => {
 });
 
 // Create one post
-router.post('/', async (req, res) => {
+router.post('/', firebaseAuthMiddleware, async (req, res) => {
   const post = new Post({
     title: req.body.title,
     body: req.body.body,
@@ -35,7 +33,7 @@ router.post('/', async (req, res) => {
 
 // Update one post
 // eslint-disable-next-line no-unused-vars
-router.put('/:id', async (req, res) => {
+router.put('/:id', firebaseAuthMiddleware, async (req, res) => {
   try {
     if (req.body.title != null && req.body.body != null) {
       await Post.update({ _id: req.params.id }, { title: req.body.title, body: req.body.body });
@@ -48,6 +46,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Get nested comments
 const getNestedComments = async childrenIDs => {
   const comments = await Comment.find({ _id: { $in: childrenIDs } });
   for (let i = 0; i < comments.length; i += 1) {
@@ -80,7 +79,7 @@ router.get('/:id', async (req, res) => {
 
 // Deleting one post
 // eslint-disable-next-line no-unused-vars
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
   try {
     await Post.findOneAndDelete({
       _id: req.params.id,
@@ -92,7 +91,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Upvote a post
-router.put('/:id/upvote', async (req, res) => {
+router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
   const currentPost = await Post.findById(req.body.id);
 
   try {
