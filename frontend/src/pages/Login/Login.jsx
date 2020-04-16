@@ -7,10 +7,11 @@ const uiConfig = {
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
   callbacks: {
     signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-      console.log(authResult); // eslint-disable-line no-console
+      console.log(authResult.credential.idToken); // eslint-disable-line no-console
+      document.cookie = `threaderAuthToken=${authResult.credential.idToken}`;
       console.log(redirectUrl); // eslint-disable-line no-console
       console.log(firebase.auth().currentUser.getIdToken(false)); // eslint-disable-line no-console
-      return false;
+      return true;
     },
   },
 };
