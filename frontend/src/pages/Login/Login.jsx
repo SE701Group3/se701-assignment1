@@ -6,8 +6,12 @@ const uiConfig = {
   signInFlow: 'popup',
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
   callbacks: {
-    signInSuccessWithAuthResult: () => {
-      return false;
+    signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+      console.log(authResult.credential.idToken); // eslint-disable-line no-console
+      document.cookie = `threaderAuthToken=${authResult.credential.idToken}`;
+      console.log(redirectUrl); // eslint-disable-line no-console
+      console.log(firebase.auth().currentUser.getIdToken(false)); // eslint-disable-line no-console
+      return true;
     },
   },
 };
