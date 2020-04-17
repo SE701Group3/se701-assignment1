@@ -1,5 +1,7 @@
 const admin = require('firebase-admin');
 
+require('dotenv').config();
+
 const serviceAccountJson = JSON.parse(
   Buffer.from(process.env.SERVICE_ACCOUNT, 'base64').toString('binary'),
 );
