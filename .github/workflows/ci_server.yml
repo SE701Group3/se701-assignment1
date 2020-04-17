@@ -28,7 +28,7 @@ jobs:
         node-version: ${{ matrix.node-version }} 
     - run: npm --prefix ./server ci
     - run: npm --prefix ./server run build --if-present
-    - run: SERVICE_ACCOUNT = ${{ secrets.SERVICE_ACCOUNT }} && npm --prefix ./server test
+    - run: npm --prefix ./server test
       env:
         CI: true
         SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
