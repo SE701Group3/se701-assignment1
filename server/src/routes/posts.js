@@ -33,11 +33,13 @@ router.post('/', firebaseAuthMiddleware, async (req, res) => {
     title: req.body.title,
     body: req.body.body,
     author: foundUser._id,
+    sub_thread: req.body.subthread,
   });
 
   try {
     const newPost = await post.save();
     await User.update({ _id: foundUser._id }, { $push: { posts: newPost._id } });
+    await SubThread.update({ title: req.body.subthread }, { $push: { posts: newPost._id } });
     res.status(201).json(newPost);
   } catch (err) {
     res.status(400).json({ message: err.message });
