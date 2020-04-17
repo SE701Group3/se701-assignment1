@@ -69,7 +69,7 @@ router.put('/:id', firebaseAuthMiddleware, async (req, res) => {
     if (req.body.commentBody == null) {
       res.status(400).json({ message: 'Please include a body to update this comment' });
     } else if (user.email !== req.user.email) {
-      res.status(403).json({ message: 'This comment can only be updated by the original author.' });
+      res.status(403).json({ message: 'This comment can only be updated by its original author' });
     } else {
       await Comment.update({ _id: req.params.id }, { body: req.body.commentBody });
       res.status(200).send();
@@ -92,7 +92,7 @@ router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
     if (comment == null) {
       res.status(404).json({ message: 'Comment not found. Please provide a valid comment ID' });
     } else if (user.email !== req.user.email) {
-      res.status(403).json({ message: 'This comment can only be deleted by the original author.' });
+      res.status(403).json({ message: 'This comment can only be deleted by its original author' });
     } else {
       // Comment can be deleted entirely if it has no children.
       // If it has children, the comment should be kept so that nested structure remains,
