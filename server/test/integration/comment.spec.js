@@ -1,8 +1,6 @@
 // Environment variable used to set the in-memory database when the server is instantiated
 process.env.NODE_ENV = 'test';
 
-require('dotenv').config();
-
 const sinon = require('sinon');
 const supertest = require('supertest');
 const middleware = require('../../src/middleware/firebaseAuth');
