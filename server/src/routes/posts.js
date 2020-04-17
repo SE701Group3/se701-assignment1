@@ -22,7 +22,7 @@ router.post('/', firebaseAuthMiddleware, async (req, res) => {
   try {
     let user = await User.findOne({ email: req.user.email });
 
-    if (user == null) {
+    if (!user) {
       const user = new User({
         email: req.user.email,
       });
