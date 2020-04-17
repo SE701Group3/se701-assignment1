@@ -1,7 +1,5 @@
 const admin = require('firebase-admin');
 
-// eslint-disable-next-line no-console
-console.log(process.env.SERVICE_ACCOUNT);
 const serviceAccountJson = JSON.parse(Buffer.from(process.env.SERVICE_ACCOUNT, 'base64'));
 
 const firebaseApp = admin.initializeApp({
