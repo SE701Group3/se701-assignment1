@@ -15,9 +15,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-        CI: true
-        SERVICE_ACCOUNT: ${{secrets.SERVICE_ACCOUNT}}
 
     strategy:
       matrix:
@@ -29,9 +26,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }} 
+        SA: ${{ secrets.SERVICE_ACCOUNT }}
     - run: npm --prefix ./server ci
     - run: npm --prefix ./server run build --if-present
     - run: npm --prefix ./server test
       env:
         CI: true
-        SERVICE_ACCOUNT: ${{secrets.SERVICE_ACCOUNT}}
+        SERVICE_ACCOUNT: "${SA}"
