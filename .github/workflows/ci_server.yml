@@ -26,12 +26,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }} 
-    - run: npm --prefix ./server ci
-    - run: npm --prefix ./server run build --if-present
-    - run: npm --prefix ./server test
-    - run: echo ${secrets.TEST}
       env:
         CI: true
         SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
-        testvar: ${{ secrets.TEST }}
-        testvar2: 'test2'
+    - run: npm --prefix ./server ci
+    - run: npm --prefix ./server run build --if-present
+    - run: npm --prefix ./server test
