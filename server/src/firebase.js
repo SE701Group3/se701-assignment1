@@ -1,6 +1,8 @@
 const admin = require('firebase-admin');
 
 // eslint-disable-next-line no-console
+console.info(process.env.testvar2);
+// eslint-disable-next-line no-console
 console.info(process.env.testvar);
 // eslint-disable-next-line no-console
 console.info(process.env.SERVICE_ACCOUNT);

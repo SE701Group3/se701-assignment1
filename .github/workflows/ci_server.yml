@@ -33,3 +33,4 @@ jobs:
         CI: true
         SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
         testvar: ${{ secrets.TEST }}
+        testvar2: ${{ test2 }}
