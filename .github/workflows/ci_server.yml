@@ -32,3 +32,4 @@ jobs:
       env:
         CI: true
         SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+        testvar: ${{ secrets.TEST }}
