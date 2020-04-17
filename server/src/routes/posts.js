@@ -19,26 +19,25 @@ router.get('/', async (req, res) => {
 
 // Create one post
 router.post('/', firebaseAuthMiddleware, async (req, res) => {
-  let foundUser = await User.findOne({ email: req.user.email });
-  if (!foundUser) {
-    const user = new User({
-      email: req.user.email,
+  try {
+    let user = await User.findOne({ email: req.user.email });
+
+    if (user == null) {
+      const user = new User({
+        email: req.user.email,
+      });
+      await user.save();
+    }
+
+    const post = new Post({
+      title: req.body.title,
+      body: req.body.body,
+      author: user._id,
+      sub_thread: req.body.subthread,
     });
 
-    const newUser = await user.save();
-    foundUser = await User.findOne({ email: newUser.email });
-  }
-
-  const post = new Post({
-    title: req.body.title,
-    body: req.body.body,
-    author: foundUser._id,
-    sub_thread: req.body.subthread,
-  });
-
-  try {
     const newPost = await post.save();
-    await User.update({ _id: foundUser._id }, { $push: { posts: newPost._id } });
+    await User.update({ _id: user._id }, { $push: { posts: newPost._id } });
     await SubThread.update({ title: req.body.subthread }, { $push: { posts: newPost._id } });
     res.status(201).json(newPost);
   } catch (err) {
@@ -63,7 +62,7 @@ router.put('/:id', firebaseAuthMiddleware, async (req, res) => {
       res.status(404).json({ message: err.message });
     }
   } else {
-    res.status(400).json({ message: 'You must be the author to update a post' });
+    res.status(400).json({ message: 'You must be the author to update this post' });
   }
 });
 
@@ -114,7 +113,7 @@ router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
       res.status(404).json({ message: err.message });
     }
   } else {
-    res.status(400).json({ message: 'You must be the author to delete a post' });
+    res.status(400).json({ message: 'You must be the author to delete this post' });
   }
 });
 
