@@ -62,7 +62,7 @@ router.put('/:id', firebaseAuthMiddleware, async (req, res) => {
       res.status(404).json({ message: err.message });
     }
   } else {
-    res.status(400).json({ message: 'You must be the author to update this post' });
+    res.status(403).json({ message: 'You must be the author to update this post' });
   }
 });
 
@@ -113,7 +113,7 @@ router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
       res.status(404).json({ message: err.message });
     }
   } else {
-    res.status(400).json({ message: 'You must be the author to delete this post' });
+    res.status(403).json({ message: 'You must be the author to delete this post' });
   }
 });
 
