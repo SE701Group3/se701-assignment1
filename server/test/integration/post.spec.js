@@ -17,7 +17,10 @@ describe('Posts API', () => {
   });
 
   beforeEach(async done => {
-    middlewareStub.callsFake((req, res, next) => next());
+    middlewareStub.callsFake((req, res, next) => {
+      req.user = { email: 'test@test.com' };
+      next();
+    });
 
     // clear database after each test to remove any dependencies between tests
     db.drop()

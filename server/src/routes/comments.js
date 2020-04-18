@@ -66,7 +66,7 @@ router.put('/:id', firebaseAuthMiddleware, async (req, res) => {
     const user = await User.findOne({
       _id: comment.author,
     });
-    if (!req.body.commentBody) {
+    if (req.body.commentBody == null) {
       res.status(400).json({ message: 'Please include a body to update this comment' });
     } else if (user.email !== req.user.email) {
       res.status(403).json({ message: 'This comment can only be updated by its original author' });
