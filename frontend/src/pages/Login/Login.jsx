@@ -9,6 +9,7 @@ const uiConfig = {
     signInSuccessWithAuthResult: (authResult, redirectUrl) => {
       console.log(authResult.credential.idToken); // eslint-disable-line no-console
       document.cookie = `threaderAuthToken=${firebase.auth().currentUser.getIdToken(false)}`;
+
       console.log(redirectUrl); // eslint-disable-line no-console
       console.log(firebase.auth().currentUser.getIdToken(false)); // eslint-disable-line no-console
       return true;
