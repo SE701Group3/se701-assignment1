@@ -12,9 +12,10 @@ const uiConfig = {
 
       console.log(redirectUrl); // eslint-disable-line no-console
       console.log(firebase.auth().currentUser.getIdToken(false)); // eslint-disable-line no-console
-      return false;
+      return true;
     },
   },
+  signInSuccessUrl: '/',
 };
 
 const Login = () => {
