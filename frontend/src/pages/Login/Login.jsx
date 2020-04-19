@@ -8,18 +8,25 @@ const uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: (authResult, redirectUrl) => {
       console.log(authResult.credential.idToken); // eslint-disable-line no-console
-      document.cookie = `threaderAuthToken=${firebase.auth().currentUser.getIdToken(false)}`;
+      console.log(redirectUrl);
+      document.cookie = `threaderAuthToken=${authResult.user.xa}`;
 
-      console.log(redirectUrl); // eslint-disable-line no-console
-      console.log(firebase.auth().currentUser.getIdToken(false)); // eslint-disable-line no-console
       return true;
     },
   },
   signInSuccessUrl: '/',
 };
 
+const GetAuthToken = () => {
+  const cookieName = 'threaderAuthToken';
+  // Get name followed by anything except a semicolon
+  const cookieString = RegExp(`${cookieName}=[^;]+`).exec(document.cookie);
+  // Return everything after the equal sign, or an empty string if the cookie name not found
+  return decodeURIComponent(cookieString ? cookieString.toString().replace(/^[^=]+./, '') : '');
+};
+
 const Login = () => {
   return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />;
 };
 
-export default Login;
+export { Login, GetAuthToken };
