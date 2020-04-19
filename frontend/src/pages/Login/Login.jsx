@@ -25,7 +25,7 @@ const uiConfig = {
  * @returns {string} which is the auth token
  * @constructor
  */
-const GetAuthToken = () => {
+const getAuthToken = () => {
   const cookieName = 'threaderAuthToken';
   // Get name followed by anything except a semicolon
   const cookieString = RegExp(`${cookieName}=[^;]+`).exec(document.cookie);
@@ -37,4 +37,4 @@ const Login = () => {
   return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />;
 };
 
-export { Login, GetAuthToken };
+export { Login, getAuthToken };
