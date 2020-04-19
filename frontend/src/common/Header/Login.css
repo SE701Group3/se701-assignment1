@@ -1,0 +1,29 @@
+.rootLogin {
+    margin-left: auto;
+    margin-right: -15px;
+}
+
+.firebaseui-card-content {
+    padding: 0 !important;
+}
+
+.displayWrapper {
+    width: 150px;
+    margin: 10px 0;
+    float: left;
+}
+
+.displayName {
+    margin-top: 8px;
+    float: left;
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.displayImage {
+    float: left;
+    width: 25%;
+    border-radius: 50%;
+    margin-right: 7px;
+}

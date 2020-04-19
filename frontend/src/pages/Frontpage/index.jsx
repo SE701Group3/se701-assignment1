@@ -22,6 +22,8 @@ const Index = ({
   retrievedSubthreaders,
   changeSubThread,
   updateSubthreadersList,
+  displayProfile,
+  handleLogin,
 }) => {
   const [showModal, setModal] = useState(false);
   const { promiseInProgress } = usePromiseTracker();
@@ -33,6 +35,8 @@ const Index = ({
         retrievedSubthreaders={retrievedSubthreaders}
         changeSubthread={changeSubThread}
         updateSubthreadersList={updateSubthreadersList}
+        displayProfile={displayProfile}
+        handleLogin={handleLogin}
       />
       {promiseInProgress ? (
         <LoadingIndicator />
