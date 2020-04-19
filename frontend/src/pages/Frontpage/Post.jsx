@@ -4,6 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { CardActionArea } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -13,12 +14,13 @@ import SadImg from '../../common/icons/sad.png';
 
 import styles from './Post.module.css';
 
-// Uncomment when delete post button is implemented
-// import deletePostService from '../../services/deletePostService';
+import DeletePostModal from './DeletePost/DeletePostModal';
+import withDeletePostService from './DeletePost/withDeletePostService';
 import EditPostModal from './EditPost/EditPostModal';
 import withUpdatePostService from './EditPost/withUpdatePostService';
 
 const UpdatePostModalServiced = withUpdatePostService(EditPostModal);
+const DeletePostModalServiced = withDeletePostService(DeletePostModal);
 
 const Post = ({
   id,
@@ -38,6 +40,7 @@ const Post = ({
   const smileCount = upvotes + (upvoteLaugh ? 1 : 0);
   const sadCount = downvotes + (upvoteSad ? 1 : 0);
   const [showModal, setModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   // Call this method onClick of the delete button
   // const handleDelete = () => {
@@ -121,6 +124,18 @@ const Post = ({
               Edit
             </Button>
           </div>
+          <div className={styles['post-delete-button']}>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<DeleteIcon />}
+              onClick={() => {
+                setDeleteModal(true);
+              }}
+            >
+              Delete
+            </Button>
+          </div>
         </CardContent>
       </div>
       {title && (
@@ -130,6 +145,14 @@ const Post = ({
           id={id}
           oldTitle={title}
           oldBody={content}
+          loadPost={loadPost}
+        />
+      )}
+      {title && (
+        <DeletePostModalServiced
+          showModal={deleteModal}
+          setModal={setDeleteModal}
+          id={id}
           loadPost={loadPost}
         />
       )}

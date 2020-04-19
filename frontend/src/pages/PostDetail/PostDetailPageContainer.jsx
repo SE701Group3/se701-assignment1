@@ -13,7 +13,9 @@ const PostDetailPageContainer = ({ children }) => {
   const getPostInformationOnLoad = async () => {
     const response = await getPostInformation(id);
     // The database returns comments in oldest first, so reversed to see the lastest comments
-    setCommentsToDisplay(response.comments.reverse());
+    if (!(response.comments == null)) {
+      setCommentsToDisplay(response.comments.reverse());
+    }
     setPostToDisplay(response);
     setRetrievedComments(response.comments);
   };
