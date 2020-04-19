@@ -21,7 +21,6 @@ describe('Comments API', () => {
       req.user = { email: 'test@test.com' };
       next();
     });
-
     // clear database after each test to remove any dependencies between tests
     db.drop()
       .then(() => done())

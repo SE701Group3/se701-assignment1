@@ -21,7 +21,6 @@ describe('Posts API', () => {
       req.user = { email: 'test@test.com' };
       next();
     });
-
     // clear database after each test to remove any dependencies between tests
     db.drop()
       .then(() => done())
@@ -426,18 +425,17 @@ describe('Posts API', () => {
     const url = '/api/posts/';
 
     const response1 = await supertest(app).delete(url.concat(createdPost._id));
-
     expect(response1.status).toBe(200);
 
     const response3 = await supertest(app).get(url);
 
     expect(response3.body).toMatchObject([]);
 
-    // response for deleting a post that's already deleted is 200 because the
-    // delete method is idempotent
+    // response for deleting a post that's already deleted is 400 because there is no valid author
+    // for a non-existent post
     const response2 = await supertest(app).delete(url.concat(createdPost._id));
 
-    expect(response2.status).toBe(200);
+    expect(response2.status).toBe(400);
 
     // confirm post is still deleted
     const response4 = await supertest(app).get(url);
@@ -453,7 +451,7 @@ describe('Posts API', () => {
 
     const response = await supertest(app).delete(url.concat(postData));
 
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     done();
   });
 
@@ -472,7 +470,7 @@ describe('Posts API', () => {
 
     const response1 = await supertest(app).delete(url.concat(createdPost._id + 3));
 
-    expect(response1.status).toBe(404);
+    expect(response1.status).toBe(400);
     done();
   });
 

@@ -48,21 +48,21 @@ router.post('/', firebaseAuthMiddleware, async (req, res) => {
 // Update one post
 // eslint-disable-next-line no-unused-vars
 router.put('/:id', firebaseAuthMiddleware, async (req, res) => {
-  const currentPost = await Post.findById(req.params.id);
-  const user = await User.findById(currentPost.author);
-  if (user.email === req.user.email) {
-    try {
+  try {
+    const currentPost = await Post.findById(req.params.id);
+    const user = await User.findById(currentPost.author);
+    if (user.email === req.user.email) {
       if (req.body.title != null && req.body.body != null) {
         await Post.update({ _id: req.params.id }, { title: req.body.title, body: req.body.body });
         res.status(200).send();
       } else {
         res.status(400).json({ message: 'Please include a title and body' });
       }
-    } catch (err) {
-      res.status(404).json({ message: err.message });
+    } else {
+      res.status(403).json({ message: 'You must be the author to update this post' });
     }
-  } else {
-    res.status(403).json({ message: 'You must be the author to update this post' });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
   }
 });
 
@@ -100,20 +100,24 @@ router.get('/:id', async (req, res) => {
 // Deleting one post
 // eslint-disable-next-line no-unused-vars
 router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
-  const currentPost = await Post.findById(req.params.id);
-  const user = await User.findById(currentPost.author);
+  try {
+    const currentPost = await Post.findById(req.params.id);
+    const user = await User.findById(currentPost.author);
 
-  if (user.email === req.user.email) {
-    try {
-      await Post.findOneAndDelete({
-        _id: req.params.id,
-      });
-      res.status(200).send();
-    } catch (err) {
-      res.status(404).json({ message: err.message });
+    if (user.email === req.user.email) {
+      try {
+        await Post.findOneAndDelete({
+          _id: req.params.id,
+        });
+        res.status(200).send();
+      } catch (err) {
+        res.status(404).json({ message: err.message });
+      }
+    } else {
+      res.status(403).json({ message: 'You must be the author to delete this post' });
     }
-  } else {
-    res.status(403).json({ message: 'You must be the author to delete this post' });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 });
 
