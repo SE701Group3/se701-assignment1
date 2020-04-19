@@ -8,7 +8,7 @@ const uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: (authResult, redirectUrl) => {
       console.log(authResult.credential.idToken); // eslint-disable-line no-console
-      console.log(redirectUrl);
+      console.log(redirectUrl); // eslint-disable-line no-console
       document.cookie = `threaderAuthToken=${authResult.user.xa}`;
 
       return true;
@@ -17,6 +17,14 @@ const uiConfig = {
   signInSuccessUrl: '/',
 };
 
+/**
+ * This Method is for getting the authentication token for the current logged in user from the
+ * cookies within your browser. It returns the Authentication token if it exists, otherwise an empty
+ * string
+ *
+ * @returns {string} which is the auth token
+ * @constructor
+ */
 const GetAuthToken = () => {
   const cookieName = 'threaderAuthToken';
   // Get name followed by anything except a semicolon
