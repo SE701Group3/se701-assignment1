@@ -116,19 +116,4 @@ router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
   }
 });
 
-// Update one comment
-// eslint-disable-next-line no-unused-vars
-router.put('/:id', async (req, res) => {
-  try {
-    if (req.body.body != null) {
-      await Comment.update({ _id: req.params.id }, { body: req.body.body });
-      res.status(200).send();
-    } else {
-      res.status(400).json({ message: 'Please include a body to update this comment with' });
-    }
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-});
-
 module.exports = router;
