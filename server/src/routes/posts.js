@@ -159,12 +159,12 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
 
     if (!checkClap && !checkLaugh && !checkSad) {
       // If no current vote
-      if (req.body.upvote === 'true') {
+      if (req.body.upvote === true) {
         updateFlag = true;
       } else {
         updateFlag = false;
       }
-    } else if (req.body.upvote === 'false') {
+    } else if (req.body.upvote === false) {
       // Remove current vote, dont set update flag
       if (checkClap) {
         await Post.updateOne({ _id: req.params.id }, { upvotes_clap: claps - 1 });
@@ -210,14 +210,14 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
       );
     } else if (updateFlag && req.body.upvote_type === 'laugh') {
       // Laugh Upvote
-      await Post.update({ _id: req.params.id }, { upvotes_laugh: laughs + 1 });
+      await Post.updateOne({ _id: req.params.id }, { upvotes_laugh: laughs + 1 });
       await User.updateOne(
         { _id: currentUser._id },
         { $addToSet: { 'votes.laughs': req.params.id } },
       );
     } else if (updateFlag && req.body.upvote_type === 'sad') {
       // Sad Upvote
-      await Post.update({ _id: req.params.id }, { upvotes_sad: sads + 1 });
+      await Post.updateOne({ _id: req.params.id }, { upvotes_sad: sads + 1 });
       await User.updateOne(
         { _id: currentUser._id },
         { $addToSet: { 'votes.sads': req.params.id } },
