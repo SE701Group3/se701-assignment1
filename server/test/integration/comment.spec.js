@@ -33,7 +33,7 @@ describe('Comments API', () => {
       .catch(err => done(err));
   });
 
-   /* Tests for POST comment API */
+  /* Tests for POST comment API */
   it('tests creating a comment', async done => {
     const postData = {
       title: 'Test post',
@@ -87,7 +87,7 @@ describe('Comments API', () => {
     expect(response1.status).toBe(400);
     done();
   });
-  
+
   /* Tests for UPDATE comment API */
   it('tests creating and updating a comment', async done => {
     const postData = {
