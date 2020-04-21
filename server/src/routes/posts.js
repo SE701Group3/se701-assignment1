@@ -6,6 +6,7 @@ const User = require('../db/models/users');
 const Post = require('../db/models/post');
 const Comment = require('../db/models/comments');
 const SubThread = require('../db/models/subThreads');
+const User = require('../db/models/users');
 
 // Get all posts
 router.get('/', async (req, res) => {
@@ -124,9 +125,14 @@ router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
 // Upvote a post
 router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
   const currentPost = await Post.findById(req.params.id);
+  const user = await User.findById(req.body.user);
 
+  //Check body inputs are valid
   if (currentPost == null) {
     res.status(400).json({ message: 'Invalid post ID' });
+  }
+  if (user == null) {
+    res.status(400).json({ message: 'Invalid user ID' });
   }
 
   try {
