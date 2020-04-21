@@ -6,7 +6,6 @@ const User = require('../db/models/users');
 const Post = require('../db/models/post');
 const Comment = require('../db/models/comments');
 const SubThread = require('../db/models/subThreads');
-const User = require('../db/models/users');
 
 // Get all posts
 router.get('/', async (req, res) => {
