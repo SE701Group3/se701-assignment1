@@ -144,6 +144,9 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
     res.status(400).json({ message: 'Invalid vote type' });
     return;
   }
+  if (req.body.upvote_type != 'clap' && req.body.upvote_type != 'laugh' && req.body.upvote_type != 'sad') {
+    res.status(400).json({ message: 'Invalid vote type' });
+  }
 
   try {
     // Check if user has already voted on this post
