@@ -127,118 +127,106 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
   const currentPost = await Post.findById(req.params.id);
   const currentUser = await User.findOne({ email: req.user.email });
 
-  //Check body inputs are valid
+  // Check body inputs are valid
   if (currentPost == null) {
     res.status(400).json({ message: 'Invalid post ID' });
+    return;
   }
   if (currentUser == null) {
     res.status(400).json({ message: 'Invalid user ID' });
+    return;
   }
-  if (req.body.upvote_type != 'clap' && req.body.upvote_type != 'laugh' && req.body.upvote_type != 'sad') {
+  if (
+    req.body.upvote_type !== 'clap' &&
+    req.body.upvote_type !== 'laugh' &&
+    req.body.upvote_type !== 'sad'
+  ) {
     res.status(400).json({ message: 'Invalid vote type' });
+    return;
   }
 
   try {
-    //Check if user has already voted on this post
+    // Check if user has already voted on this post
     const checkClap = currentUser.votes.claps.includes(req.params.id);
     const checkLaugh = currentUser.votes.laughs.includes(req.params.id);
     const checkSad = currentUser.votes.sads.includes(req.params.id);
 
-    var updateFlag = false;
+    let updateFlag = false;
 
-    //Current vote values
+    // Current vote values
     const claps = currentPost.upvotes_clap;
     const laughs = currentPost.upvotes_laugh;
     const sads = currentPost.upvotes_sad;
 
-
-    if (!checkClap && !checkLaugh && !checkSad){
-    //If no current vote
-      updateFlag = true;
+    if (!checkClap && !checkLaugh && !checkSad) {
+      // If no current vote
+      if (req.body.upvote === 'true') {
+        updateFlag = true;
+      } else {
+        updateFlag = false;
+      }
+    } else if (req.body.upvote === 'false') {
+      if (checkClap) {
+        await Post.updateOne({ _id: req.params.id }, { upvotes_clap: claps - 1 });
+        await User.updateOne({ _id: currentUser._id }, { $pull: { 'votes.claps': req.params.id } });
+      } else if (checkLaugh) {
+        await Post.updateOne({ _id: req.params.id }, { upvotes_laugh: laughs - 1 });
+        await User.updateOne(
+          { _id: currentUser._id },
+          { $pull: { 'votes.laughs': req.params.id } },
+        );
+      } else if (checkSad) {
+        await Post.updateOne({ _id: req.params.id }, { upvotes_sad: sads - 1 });
+        await User.updateOne({ _id: currentUser._id }, { $pull: { 'votes.sads': req.params.id } });
+      }
     } else if (checkClap && req.body.upvote_type !== 'clap') {
-    //Remove clap & set update flag
-      await Post.updateOne(
-        { _id: req.params.id },
-        { upvotes_clap: claps - 1 },
-      );
-      await User.updateOne(
-        { _id: currentUser._id },
-        { $pull: { "votes.claps": req.params.id } }
-      );
+      // Remove clap & set update flag
+      await Post.updateOne({ _id: req.params.id }, { upvotes_clap: claps - 1 });
+      await User.updateOne({ _id: currentUser._id }, { $pull: { 'votes.claps': req.params.id } });
       updateFlag = true;
-
-    }  else if (checkLaugh && req.body.upvote_type !== 'laugh') {
-    //Remove laugh & set update flag
-      await Post.updateOne(
-        { _id: req.params.id },
-        { upvotes_laugh: laughs - 1 },
-      );
-      await User.updateOne(
-        { _id: currentUser._id },
-        { $pull: { "votes.laughs": req.params.id } }
-      )
+    } else if (checkLaugh && req.body.upvote_type !== 'laugh') {
+      // Remove laugh & set update flag
+      await Post.updateOne({ _id: req.params.id }, { upvotes_laugh: laughs - 1 });
+      await User.updateOne({ _id: currentUser._id }, { $pull: { 'votes.laughs': req.params.id } });
       updateFlag = true;
-
     } else if (checkSad && req.body.upvote_type !== 'sad') {
-    //Remove sad & set update flag
-      await Post.updateOne(
-        { _id: req.params.id },
-        { upvotes_sad: sads - 1 },
-      );
-      await User.updateOne(
-        { _id: currentUser._id },
-        { $pull: { "votes.sads": req.params.id } }
-      )
+      // Remove sad & set update flag
+      await Post.updateOne({ _id: req.params.id }, { upvotes_sad: sads - 1 });
+      await User.updateOne({ _id: currentUser._id }, { $pull: { 'votes.sads': req.params.id } });
       updateFlag = true;
-
     } else {
-    //No change needed
+      // No change needed
       const returnPost = await Post.findById(req.params.id);
       res.status(200).json(returnPost);
+      return;
     }
 
     if (updateFlag && req.body.upvote_type === 'clap') {
-      await Post.updateOne(
-        { _id: req.params.id },
-        { upvotes_clap: claps + (req.body.upvote == true ? 1 : -1) },
-      );
+      await Post.updateOne({ _id: req.params.id }, { upvotes_clap: claps + 1 });
 
       await User.updateOne(
         { _id: currentUser._id },
-        { $addToSet: { "votes.claps": req.params.id } }
-      )
-
-      const returnPost = await Post.findById(req.params.id);
-      res.status(200).json(returnPost);
-
+        { $addToSet: { 'votes.claps': req.params.id } },
+      );
     } else if (updateFlag && req.body.upvote_type === 'laugh') {
-      await Post.update(
-        { _id: req.params.id },
-        { upvotes_laugh: laughs + (req.body.upvote == true ? 1 : -1) },
-      );
+      await Post.update({ _id: req.params.id }, { upvotes_laugh: laughs + 1 });
 
       await User.updateOne(
         { _id: currentUser._id },
-        { $addToSet: { "votes.laughs": req.params.id } }
-      )
-
-      const returnPost = await Post.findById(req.params.id);
-      res.status(200).json(returnPost);
-
+        { $addToSet: { 'votes.laughs': req.params.id } },
+      );
     } else if (updateFlag && req.body.upvote_type === 'sad') {
-      await Post.update(
-        { _id: req.params.id },
-        { upvotes_sad: sads + (req.body.upvote == true ? 1 : -1) },
-      );
+      await Post.update({ _id: req.params.id }, { upvotes_sad: sads + 1 });
 
       await User.updateOne(
         { _id: currentUser._id },
-        { $addToSet: { "votes.sads": req.params.id } }
-      )
-
-      const returnPost = await Post.findById(req.params.id);
-      res.status(200).json(returnPost);
+        { $addToSet: { 'votes.sads': req.params.id } },
+      );
     }
+
+    const returnPost = await Post.findById(req.params.id);
+    res.status(200).json(returnPost);
+    return;
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
