@@ -123,38 +123,42 @@ router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
 
 // Upvote a post
 router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
-  const currentPost = await Post.findById(req.body.id);
+  const currentPost = await Post.findById(req.params.id);
+
+  if (currentPost == null) {
+    res.status(400).json({ message: 'Invalid post ID' });
+  }
 
   try {
     if (req.body.upvote_type === 'clap') {
       const claps = currentPost.upvotes_clap;
 
       await Post.updateOne(
-        { _id: req.body.id },
-        { upvotes_clap: claps + (req.body.upvote === true ? 1 : -1) },
+        { _id: req.params.id },
+        { upvotes_clap: claps + (req.body.upvote == true ? 1 : -1) },
       );
 
-      const returnPost = await Post.findById(req.body.id);
+      const returnPost = await Post.findById(req.params.id);
       res.status(200).json(returnPost);
     } else if (req.body.upvote_type === 'laugh') {
       const laughs = currentPost.upvotes_laugh;
 
       await Post.update(
-        { _id: req.body.id },
-        { upvotes_laugh: laughs + (req.body.upvote === true ? 1 : -1) },
+        { _id: req.params.id },
+        { upvotes_laugh: laughs + (req.body.upvote == true ? 1 : -1) },
       );
 
-      const returnPost = await Post.findById(req.body.id);
+      const returnPost = await Post.findById(req.params.id);
       res.status(200).json(returnPost);
     } else if (req.body.upvote_type === 'sad') {
       const sads = currentPost.upvotes_sad;
 
       await Post.update(
-        { _id: req.body.id },
-        { upvotes_sad: sads + (req.body.upvote === true ? 1 : -1) },
+        { _id: req.params.id },
+        { upvotes_sad: sads + (req.body.upvote == true ? 1 : -1) },
       );
 
-      const returnPost = await Post.findById(req.body.id);
+      const returnPost = await Post.findById(req.params.id);
       res.status(200).json(returnPost);
     } else res.status(400).json({ message: 'Invalid upvote type' });
   } catch (err) {
