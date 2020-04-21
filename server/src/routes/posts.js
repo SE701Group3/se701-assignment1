@@ -143,9 +143,6 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
     res.status(400).json({ message: 'Invalid vote type' });
     return;
   }
-  if (req.body.upvote_type != 'clap' && req.body.upvote_type != 'laugh' && req.body.upvote_type != 'sad') {
-    res.status(400).json({ message: 'Invalid vote type' });
-  }
 
   try {
     // Check if user has already voted on this post
@@ -168,7 +165,7 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
         updateFlag = false;
       }
     } else if (req.body.upvote === 'false') {
-      //Remove current vote, dont set update flag
+      // Remove current vote, dont set update flag
       if (checkClap) {
         await Post.updateOne({ _id: req.params.id }, { upvotes_clap: claps - 1 });
         await User.updateOne({ _id: currentUser._id }, { $pull: { 'votes.claps': req.params.id } });
@@ -204,25 +201,22 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
       return;
     }
 
-
     if (updateFlag && req.body.upvote_type === 'clap') {
-      //Clap upvote
+      // Clap upvote
       await Post.updateOne({ _id: req.params.id }, { upvotes_clap: claps + 1 });
       await User.updateOne(
         { _id: currentUser._id },
         { $addToSet: { 'votes.claps': req.params.id } },
       );
-
     } else if (updateFlag && req.body.upvote_type === 'laugh') {
-      //Laugh Upvote
+      // Laugh Upvote
       await Post.update({ _id: req.params.id }, { upvotes_laugh: laughs + 1 });
       await User.updateOne(
         { _id: currentUser._id },
         { $addToSet: { 'votes.laughs': req.params.id } },
       );
-
     } else if (updateFlag && req.body.upvote_type === 'sad') {
-      //Sad Upvote
+      // Sad Upvote
       await Post.update({ _id: req.params.id }, { upvotes_sad: sads + 1 });
       await User.updateOne(
         { _id: currentUser._id },
