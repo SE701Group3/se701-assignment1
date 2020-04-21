@@ -125,48 +125,74 @@ router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
 // Upvote a post
 router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
   const currentPost = await Post.findById(req.params.id);
-  const user = await User.findById(req.body.user);
+  const currentUser = await User.findById(req.body.user);
 
   //Check body inputs are valid
   if (currentPost == null) {
     res.status(400).json({ message: 'Invalid post ID' });
   }
-  if (user == null) {
+  if (currentUser == null) {
     res.status(400).json({ message: 'Invalid user ID' });
   }
 
   try {
-    if (req.body.upvote_type === 'clap') {
-      const claps = currentPost.upvotes_clap;
+    //Check if user has already voted on this post
+    const checkClap = currentUser.votes.claps.includes(req.params.id);
+    const checkLaugh = currentUser.votes.laughs.includes(req.params.id);
+    const checkSad = currentUser.votes.sads.includes(req.params.id);
 
-      await Post.updateOne(
-        { _id: req.params.id },
-        { upvotes_clap: claps + (req.body.upvote == true ? 1 : -1) },
-      );
+    if (checkClap || checkLaugh || checkSad) {
+      res.status(400).json({ message: 'User already voted' });
+    } else {
 
-      const returnPost = await Post.findById(req.params.id);
-      res.status(200).json(returnPost);
-    } else if (req.body.upvote_type === 'laugh') {
-      const laughs = currentPost.upvotes_laugh;
+      if (req.body.upvote_type === 'clap') {
 
-      await Post.update(
-        { _id: req.params.id },
-        { upvotes_laugh: laughs + (req.body.upvote == true ? 1 : -1) },
-      );
+        const claps = currentPost.upvotes_clap;
 
-      const returnPost = await Post.findById(req.params.id);
-      res.status(200).json(returnPost);
-    } else if (req.body.upvote_type === 'sad') {
-      const sads = currentPost.upvotes_sad;
+        await Post.updateOne(
+          { _id: req.params.id },
+          { upvotes_clap: claps + (req.body.upvote == true ? 1 : -1) },
+        );
 
-      await Post.update(
-        { _id: req.params.id },
-        { upvotes_sad: sads + (req.body.upvote == true ? 1 : -1) },
-      );
+        await User.updateOne(
+          { _id: req.body.user },
+          { $addToSet: { "votes.claps": req.params.id } }
+        )
 
-      const returnPost = await Post.findById(req.params.id);
-      res.status(200).json(returnPost);
-    } else res.status(400).json({ message: 'Invalid upvote type' });
+        const returnPost = await Post.findById(req.params.id);
+        res.status(200).json(returnPost);
+      } else if (req.body.upvote_type === 'laugh') {
+        const laughs = currentPost.upvotes_laugh;
+
+        await Post.update(
+          { _id: req.params.id },
+          { upvotes_laugh: laughs + (req.body.upvote == true ? 1 : -1) },
+        );
+
+        await User.updateOne(
+          { _id: req.body.user },
+          { $addToSet: { "votes.laughs": req.params.id } }
+        )
+
+        const returnPost = await Post.findById(req.params.id);
+        res.status(200).json(returnPost);
+      } else if (req.body.upvote_type === 'sad') {
+        const sads = currentPost.upvotes_sad;
+
+        await Post.update(
+          { _id: req.params.id },
+          { upvotes_sad: sads + (req.body.upvote == true ? 1 : -1) },
+        );
+
+        await User.updateOne(
+          { _id: req.body.user },
+          { $addToSet: { "votes.sads": req.params.id } }
+        )
+
+        const returnPost = await Post.findById(req.params.id);
+        res.status(200).json(returnPost);
+      } else res.status(400).json({ message: 'Invalid upvote type' });
+    }
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
