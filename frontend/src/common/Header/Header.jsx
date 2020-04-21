@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import LogoImage from '../icons/logo.png';
 import SubthreaderDropdown from './SubthreaderDropdown';
-import Login from './Login';
+import { Login } from './Login';
 
 import styles from './Header.module.css';
 
