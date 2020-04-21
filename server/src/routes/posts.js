@@ -125,7 +125,7 @@ router.delete('/:id', firebaseAuthMiddleware, async (req, res) => {
 // Upvote a post
 router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
   const currentPost = await Post.findById(req.params.id);
-  const currentUser = await User.findById(req.body.user);
+  const currentUser = await User.findOne({ email: req.user.email });
 
   //Check body inputs are valid
   if (currentPost == null) {
@@ -162,7 +162,7 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
         { upvotes_clap: claps - 1 },
       );
       await User.updateOne(
-        { _id: req.body.user },
+        { _id: currentUser._id },
         { $pull: { "votes.claps": req.params.id } }
       );
       updateFlag = true;
@@ -174,7 +174,7 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
         { upvotes_laugh: laughs - 1 },
       );
       await User.updateOne(
-        { _id: req.body.user },
+        { _id: currentUser._id },
         { $pull: { "votes.laughs": req.params.id } }
       )
       updateFlag = true;
@@ -186,7 +186,7 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
         { upvotes_sad: sads - 1 },
       );
       await User.updateOne(
-        { _id: req.body.user },
+        { _id: currentUser._id },
         { $pull: { "votes.sads": req.params.id } }
       )
       updateFlag = true;
@@ -204,7 +204,7 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
       );
 
       await User.updateOne(
-        { _id: req.body.user },
+        { _id: currentUser._id },
         { $addToSet: { "votes.claps": req.params.id } }
       )
 
@@ -218,7 +218,7 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
       );
 
       await User.updateOne(
-        { _id: req.body.user },
+        { _id: currentUser._id },
         { $addToSet: { "votes.laughs": req.params.id } }
       )
 
@@ -232,7 +232,7 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
       );
 
       await User.updateOne(
-        { _id: req.body.user },
+        { _id: currentUser._id },
         { $addToSet: { "votes.sads": req.params.id } }
       )
 
