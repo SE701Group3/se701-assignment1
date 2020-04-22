@@ -43,4 +43,18 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Get a user details with ID.
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user) {
+      res.status(404).json({ message: 'This user does not exist' });
+      return;
+    }
+    res.status(201).send(user);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 module.exports = router;
