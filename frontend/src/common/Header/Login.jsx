@@ -26,11 +26,12 @@ const Login = ({ handleLogin, displayProfile }) => {
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
       signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-        console.log(authResult); // eslint-disable-line no-console
+        console.log(authResult.credential.idToken); // eslint-disable-line no-console
         console.log(redirectUrl); // eslint-disable-line no-console
-        console.log(firebase.auth().currentUser.getIdToken(false)); // eslint-disable-line no-console
+        document.cookie = `threaderAuthToken=${authResult.user.xa}`;
         handleLogin(true, authResult.user.displayName, authResult.user.photoURL);
-        return false;
+
+        return true;
       },
     },
   };

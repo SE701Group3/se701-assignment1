@@ -79,6 +79,8 @@ const PostDetailPage = ({
   handleSearch,
   handleVote,
   getPostInformationOnLoad,
+  displayProfile,
+  handleLogin,
 }) => {
   const [showModal, setModal] = useState(false);
   const [parentID, setParentID] = useState(-1);
@@ -86,7 +88,11 @@ const PostDetailPage = ({
 
   return (
     <div>
-      <Header handleSearch={handleSearch} />
+      <Header
+        handleSearch={handleSearch}
+        displayProfile={displayProfile}
+        handleLogin={handleLogin}
+      />
       <PostDetail
         postToDisplay={postToDisplay}
         handleVote={handleVote}

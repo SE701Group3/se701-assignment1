@@ -7,6 +7,11 @@ const PostDetailPageContainer = ({ children }) => {
   const [commentsToDisplay, setCommentsToDisplay] = useState([]);
   const [postToDisplay, setPostToDisplay] = useState([]);
   const [retrievedComments, setRetrievedComments] = useState([]);
+  const [displayProfile, setDisplayProfile] = useState({
+    isLoggedIn: false,
+    displayName: '',
+    displayImage: '',
+  });
 
   const { id } = useParams();
 
@@ -24,6 +29,11 @@ const PostDetailPageContainer = ({ children }) => {
   useEffect(() => {
     getPostInformationOnLoad();
   }, []);
+
+  const handleLogin = (isLogged, dispName, dispImage) => {
+    const dispProfile = { isLoggedIn: isLogged, displayName: dispName, displayImage: dispImage };
+    setDisplayProfile(dispProfile);
+  };
 
   // This displays comments whose content match what the user typed in
   // to the search bar. This is not case sensitive.
@@ -43,6 +53,8 @@ const PostDetailPageContainer = ({ children }) => {
     handleSearch,
     handleVote,
     getPostInformationOnLoad,
+    displayProfile,
+    handleLogin,
   };
 
   return React.cloneElement(children, { ...newProps });

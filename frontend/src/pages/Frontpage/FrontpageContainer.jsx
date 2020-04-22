@@ -10,7 +10,11 @@ const FrontpageContainer = ({ children }) => {
   const [retrievedPosts, setRetrievedPosts] = useState([]);
   const [postsToDisplay, setPostsToDisplay] = useState([]);
   const [retrievedSubthreaders, setSubthreaders] = useState([]);
-  const [displayProfile, setDisplayProfile] = useState({});
+  const [displayProfile, setDisplayProfile] = useState({
+    isLoggedIn: false,
+    displayName: '',
+    displayImage: '',
+  });
 
   const getPostsOnLoad = async () => {
     const response = await getPosts();
