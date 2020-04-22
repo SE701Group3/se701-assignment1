@@ -25,6 +25,7 @@ router.post('/', firebaseAuthMiddleware, async (req, res) => {
     if (!user) {
       user = new User({
         email: req.user.email,
+        name: req.user.name,
       });
       await user.save();
     }
@@ -144,6 +145,7 @@ router.put('/:id/upvote', firebaseAuthMiddleware, async (req, res) => {
   if (currentUser == null) {
     currentUser = new User({
       email: req.user.email,
+      name: req.user.name,
     });
     await currentUser.save();
   }
