@@ -17,6 +17,7 @@ router.post('/', firebaseAuthMiddleware, async (req, res) => {
     if (!user) {
       user = new User({
         email: req.user.email,
+        name: req.user.name,
       });
       await user.save();
     }
