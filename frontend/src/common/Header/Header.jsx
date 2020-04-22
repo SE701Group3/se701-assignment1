@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import LogoImage from '../icons/logo.png';
 import SubthreaderDropdown from './SubthreaderDropdown';
+import { Login } from './Login';
 
 import styles from './Header.module.css';
 
@@ -12,6 +13,8 @@ const Header = ({
   retrievedSubthreaders,
   changeSubthread,
   updateSubthreadersList,
+  displayProfile,
+  handleLogin,
 }) => {
   return (
     <AppBar position="static" classes={{ root: styles.appBar }}>
@@ -19,6 +22,11 @@ const Header = ({
         <Link to="/">
           <img src={LogoImage} alt="logo-img" className={styles.logo} />
         </Link>
+        <SubthreaderDropdown
+          retrievedSubthreaders={retrievedSubthreaders}
+          changeSubthread={changeSubthread}
+          updateSubthreadersList={updateSubthreadersList}
+        />
         <TextField
           classes={{ root: styles.searchBar }}
           onChange={handleSearch}
@@ -31,10 +39,10 @@ const Header = ({
             },
           }}
         />
-        <SubthreaderDropdown
-          retrievedSubthreaders={retrievedSubthreaders}
-          changeSubthread={changeSubthread}
-          updateSubthreadersList={updateSubthreadersList}
+        <Login
+          displayProfile={displayProfile}
+          handleLogin={handleLogin}
+          classes={{ root: styles.login }}
         />
       </Toolbar>
     </AppBar>

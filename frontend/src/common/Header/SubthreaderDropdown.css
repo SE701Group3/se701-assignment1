@@ -1,15 +1,21 @@
 .dropbox-parent {
     display: flex;
     align-items: center;
+    margin-left: 40px;
+    margin-right: 30px;
+    margin-top: 5px;
 }
-.child-elements{
+
+.child-elements {
     align-items: center;
 }
 
-#label{
-    padding-right: 15px;
+#label {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #add-button {
     color: #007ad7;
+    margin: -10px;
 }

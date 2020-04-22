@@ -10,11 +10,21 @@ const FrontpageContainer = ({ children }) => {
   const [retrievedPosts, setRetrievedPosts] = useState([]);
   const [postsToDisplay, setPostsToDisplay] = useState([]);
   const [retrievedSubthreaders, setSubthreaders] = useState([]);
+  const [displayProfile, setDisplayProfile] = useState({
+    isLoggedIn: false,
+    displayName: '',
+    displayImage: '',
+  });
 
   const getPostsOnLoad = async () => {
     const response = await getPosts();
     setRetrievedPosts(response);
     setPostsToDisplay(response.reverse()); // As the database returns the posts in oldest first, the array is reversed to show newest posts first
+  };
+
+  const handleLogin = (isLogged, dispName, dispImage) => {
+    const dispProfile = { isLoggedIn: isLogged, displayName: dispName, displayImage: dispImage };
+    setDisplayProfile(dispProfile);
   };
 
   const updateSubthreadersList = async () => {
@@ -60,6 +70,8 @@ const FrontpageContainer = ({ children }) => {
     retrievedSubthreaders,
     changeSubThread,
     updateSubthreadersList,
+    displayProfile,
+    handleLogin,
   };
 
   return React.cloneElement(children, { ...newProps });
