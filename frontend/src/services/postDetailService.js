@@ -22,6 +22,7 @@ export default async (body, parentID) => {
 
   const response = await fetch(createCommentRoute(), {
     headers: {
+      Authorization: document.cookie,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
