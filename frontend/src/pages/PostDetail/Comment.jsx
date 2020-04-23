@@ -16,18 +16,14 @@ const Comment = ({ body, dateCreated, setModal, authorId }) => {
   const getUsernameForComment = async () => {
     if (authorId !== undefined) {
       const user = await getUsername(authorId);
-      if (!(user == null)) {
+      if (user !== null) {
         setUsername(user.name);
-      } else {
-        setUsername('');
       }
-    } else {
-      setUsername('');
     }
   };
   useEffect(() => {
     getUsernameForComment();
-  }, []);
+  });
   return (
     <Card className={styles.root}>
       <div className={styles['comment-box']}>

@@ -82,6 +82,7 @@ router.get('/:id', async (req, res) => {
   try {
     const foundPost = await Post.findOne({ _id: req.params.id });
     const postData = {
+      author: foundPost.author,
       _id: foundPost._id,
       title: foundPost.title,
       body: foundPost.body,

@@ -48,18 +48,14 @@ const Post = ({
   const getUsernameForComment = async () => {
     if (authorId !== undefined) {
       const user = await getUsername(authorId);
-      if (!(user == null)) {
+      if (user !== null) {
         setUsername(user.name);
-      } else {
-        setUsername('');
       }
-    } else {
-      setUsername('');
     }
   };
   useEffect(() => {
     getUsernameForComment();
-  }, []);
+  });
   // Call this method onClick of the delete button
   // const handleDelete = () => {
   //   deletePostService(id);
