@@ -18,6 +18,7 @@ import DeletePostModal from './DeletePost/DeletePostModal';
 import withDeletePostService from './DeletePost/withDeletePostService';
 import EditPostModal from './EditPost/EditPostModal';
 import withUpdatePostService from './EditPost/withUpdatePostService';
+import { getUsername } from '../../services/postDetailService';
 
 const UpdatePostModalServiced = withUpdatePostService(EditPostModal);
 const DeletePostModalServiced = withDeletePostService(DeletePostModal);
@@ -26,6 +27,7 @@ const Post = ({
   id,
   title,
   content,
+  authorId,
   upvotes,
   downvotes,
   claps,
@@ -41,6 +43,16 @@ const Post = ({
   const sadCount = downvotes + (upvoteSad ? 1 : 0);
   const [showModal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [username, setUsername] = useState([]);
+
+  const getUsernameForComment = async () => {
+    const response = await getUsername(authorId);
+    if (!(response.user == null)) {
+      setUsername(response.user);
+    }
+    setUsername('');
+  };
+  getUsernameForComment();
 
   // Call this method onClick of the delete button
   // const handleDelete = () => {
@@ -108,6 +120,9 @@ const Post = ({
             ) : (
               <Typography variant="h2">{title}</Typography>
             )}
+            <Typography variant="body1" color="textSecondary">
+              {`by ${username}`}
+            </Typography>
             <Typography variant="body2" color="textSecondary">
               {content}
             </Typography>

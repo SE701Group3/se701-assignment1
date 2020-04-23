@@ -47,6 +47,7 @@ const Index = ({
               id={post._id}
               title={post.title}
               content={post.body}
+              authorId={post.author}
               key={`${post._id}-key`}
               upvotes={post.upvotes_laugh}
               downvotes={post.upvotes_sad}
