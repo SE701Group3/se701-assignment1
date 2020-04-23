@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -20,7 +20,11 @@ const Comment = ({ body, dateCreated, setModal, authorId }) => {
     }
     setUsername('');
   };
-  getUsernameForComment();
+  if (authorId !== undefined) {
+    useEffect(() => {
+      getUsernameForComment();
+    }, []);
+  }
   return (
     <Card className={styles.root}>
       <div className={styles['comment-box']}>
