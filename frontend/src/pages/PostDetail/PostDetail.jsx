@@ -9,6 +9,7 @@ const PostDetail = ({ postToDisplay, handleVote, getPostInformationOnLoad }) => 
         id={postToDisplay._id}
         title={postToDisplay.title}
         content={postToDisplay.body}
+        authorId={postToDisplay.author}
         key={`${postToDisplay.id}-key`}
         upvotes={postToDisplay.upvotes_laugh}
         downvotes={postToDisplay.upvotes_sad}

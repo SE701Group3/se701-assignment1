@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -18,6 +18,7 @@ import DeletePostModal from './DeletePost/DeletePostModal';
 import withDeletePostService from './DeletePost/withDeletePostService';
 import EditPostModal from './EditPost/EditPostModal';
 import withUpdatePostService from './EditPost/withUpdatePostService';
+import { getUsername } from '../../services/postDetailService';
 
 const UpdatePostModalServiced = withUpdatePostService(EditPostModal);
 const DeletePostModalServiced = withDeletePostService(DeletePostModal);
@@ -26,6 +27,7 @@ const Post = ({
   id,
   title,
   content,
+  authorId,
   upvotes,
   downvotes,
   claps,
@@ -41,7 +43,23 @@ const Post = ({
   const sadCount = downvotes + (upvoteSad ? 1 : 0);
   const [showModal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [username, setUsername] = useState([]);
 
+  const getUsernameForComment = async () => {
+    if (authorId !== undefined) {
+      const user = await getUsername(authorId);
+      if (user !== null) {
+        if (user.name === '') {
+          setUsername(user.email);
+        } else {
+          setUsername(user.name);
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    getUsernameForComment();
+  });
   // Call this method onClick of the delete button
   // const handleDelete = () => {
   //   deletePostService(id);
@@ -108,6 +126,9 @@ const Post = ({
             ) : (
               <Typography variant="h2">{title}</Typography>
             )}
+            <Typography variant="body1" color="textSecondary">
+              {`by ${username}`}
+            </Typography>
             <Typography variant="body2" color="textSecondary">
               {content}
             </Typography>

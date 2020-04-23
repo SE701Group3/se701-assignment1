@@ -43,6 +43,7 @@ const nestComments = (commentList, setModal, setParentID) => {
                   setModal(true);
                   setParentID(comment._id);
                 }}
+                authorId={comment.author}
                 key={`${Math.floor(Math.random() * 100)}`}
               />
             </ExpansionPanelSummary>
@@ -60,6 +61,7 @@ const nestComments = (commentList, setModal, setParentID) => {
                   setModal(true);
                   setParentID(comment._id);
                 }}
+                authorId={comment.author}
                 key={`${Math.floor(Math.random() * 100)}`}
               />
             </ExpansionPanelSummary>
@@ -85,7 +87,6 @@ const PostDetailPage = ({
   const [showModal, setModal] = useState(false);
   const [parentID, setParentID] = useState(-1);
   const { promiseInProgress } = usePromiseTracker();
-
   return (
     <div>
       <Header
@@ -119,6 +120,7 @@ const PostDetailPage = ({
                         setModal(true);
                         setParentID(comment._id);
                       }}
+                      authorId={comment.author}
                       key={`${Math.floor(Math.random() * 100)}`}
                     />
                   </ExpansionPanelSummary>
@@ -136,6 +138,7 @@ const PostDetailPage = ({
                         setModal(true);
                         setParentID(comment._id);
                       }}
+                      authorId={comment.author}
                       key={`${Math.floor(Math.random() * 100)}`}
                     />
                   </ExpansionPanelSummary>
