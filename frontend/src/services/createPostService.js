@@ -9,10 +9,10 @@ export default async (title, body, subthread) => {
     body,
     subthread,
   };
-
   const requestBody = JSON.stringify(parameters);
   const response = await fetch(getPostsRoute, {
     headers: {
+      Authorization: document.cookie,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },

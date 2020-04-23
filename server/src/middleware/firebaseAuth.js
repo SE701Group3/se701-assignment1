@@ -3,7 +3,14 @@ const firebaseApp = require('../firebase');
 function firebaseAuthMiddleware(req, res, next) {
   const authorization = req.header('Authorization');
   if (authorization) {
-    const token = authorization.split(' ');
+    // using postman to check authorization
+    const postman = authorization.indexOf('Bearer');
+    let token = '';
+    if (postman > -1) {
+      token = authorization.split(' ');
+    } else {
+      token = authorization.split('=');
+    }
     firebaseApp
       .auth()
       .verifyIdToken(token[1])

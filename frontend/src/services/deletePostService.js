@@ -12,6 +12,7 @@ export default async id => {
 
   const response = await fetch(getPostRoute(id), {
     headers: {
+      Authorization: document.cookie,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },

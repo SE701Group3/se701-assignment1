@@ -11,6 +11,7 @@ export default async title => {
   const requestBody = JSON.stringify(parameters);
   const response = await fetch(createSubthread, {
     headers: {
+      Authorization: document.cookie,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
