@@ -8,6 +8,7 @@ const db = require('../../src/db');
 
 const middlewareStub = sinon.stub(middleware, 'firebaseAuthMiddleware');
 const app = require('../../app');
+const User = require('../../src/db/models/users');
 
 describe('Comments API', () => {
   beforeAll(async done => {
@@ -58,6 +59,56 @@ describe('Comments API', () => {
       .send(commentData);
 
     expect(response1.status).toBe(201);
+    done();
+  });
+
+  it('tests creating a comment associates it with the correct user', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const user = await User.findOne({
+      email: 'test314@test.com',
+    });
+    // validate the user has not yet been created
+    expect(user).toBeNull();
+
+    // create a new user when the comment is posted
+    middlewareStub.callsFake((req, res, next) => {
+      req.user = { email: 'test314@test.com' };
+      next();
+    });
+
+    const createdPost = response.body;
+    const commentUrl = '/api/comments';
+    const commentData = {
+      body: 'This is the body for a test comment',
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+
+    expect(response1.status).toBe(201);
+
+    // Grab the comment ID with another GET request
+    const response2 = await supertest(app).get('/api/posts/'.concat(createdPost._id));
+
+    // find the user again as 'user' variable is const(?) and therefore null
+    const user1 = await User.findOne({
+      email: 'test314@test.com',
+    });
+    // validate the comment author id matches the user id
+    // stringify due to 'serialized to the same string' error
+    expect(JSON.stringify(response2.body.comments[0].author)).toBe(JSON.stringify(user1._id));
     done();
   });
 
@@ -133,6 +184,54 @@ describe('Comments API', () => {
     expect(response4.body.comments[0].body).toBe(updatedComment.commentBody);
     expect(response4.body.comments[0].parentID).toBe(updatedComment.parentID);
 
+    done();
+  });
+
+  it('tests updating a comment from a different user to be unsuccessful', async done => {
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const postUrl = '/api/posts/';
+    const response = await supertest(app)
+      .post(postUrl)
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    const createdPost = response.body;
+    const commentUrl = '/api/comments/';
+    const commentData = {
+      body: 'This is the body for a test comment',
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+    expect(response1.status).toBe(201);
+
+    // Grab the comment ID with another GET request
+    const response2 = await supertest(app).get(postUrl.concat(createdPost._id));
+
+    // create a new user to update the comment
+    middlewareStub.callsFake((req, res, next) => {
+      req.user = { email: 'test314@test.com' };
+      next();
+    });
+
+    // update the comment
+    const updatedComment = {
+      commentBody: 'Second Body',
+      parentID: createdPost._id,
+    };
+
+    const response3 = await supertest(app)
+      .put(commentUrl.concat(response2.body.comments[0]._id))
+      .send(updatedComment);
+    // validate comment status is 403 due to changing user
+    expect(response3.status).toBe(403);
     done();
   });
 
@@ -245,6 +344,51 @@ describe('Comments API', () => {
       commentUrl.concat(detailedPost.body.comments[0]._id),
     );
     expect(response2.status).toBe(200);
+
+    done();
+  });
+
+  it('tests deleting a comment from a different user to be unsuccessful', async done => {
+    // Creating a post
+    const postData = {
+      title: 'Test post',
+      body: 'This is the body for a test post',
+    };
+
+    const response = await supertest(app)
+      .post('/api/posts')
+      .send(postData);
+
+    expect(response.status).toBe(201);
+
+    // Creating a comment
+    const createdPost = response.body;
+    const commentUrl = '/api/comments/';
+    const commentData = {
+      body: 'This is the body for a test comment',
+      parentID: createdPost._id,
+    };
+
+    const response1 = await supertest(app)
+      .post(commentUrl)
+      .send(commentData);
+    expect(response1.status).toBe(201);
+
+    // create a new user when the comment is posted
+    middlewareStub.callsFake((req, res, next) => {
+      req.user = { email: 'test314@test.com' };
+      next();
+    });
+
+    // Get the post in detail
+    const detailedPost = await supertest(app).get(`/api/posts/${createdPost._id}`);
+
+    // Delete the comment on the post
+    const response2 = await supertest(app).delete(
+      commentUrl.concat(detailedPost.body.comments[0]._id),
+    );
+    // validate comment status is 403 due to changing user before deleting
+    expect(response2.status).toBe(403);
 
     done();
   });
