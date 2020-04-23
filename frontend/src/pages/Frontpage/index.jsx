@@ -27,7 +27,6 @@ const Index = ({
 }) => {
   const [showModal, setModal] = useState(false);
   const { promiseInProgress } = usePromiseTracker();
-
   return (
     <>
       <Header

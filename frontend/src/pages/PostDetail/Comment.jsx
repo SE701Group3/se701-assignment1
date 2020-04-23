@@ -14,17 +14,20 @@ const splitTextToParagraph = text => {
 const Comment = ({ body, dateCreated, setModal, authorId }) => {
   const [username, setUsername] = useState([]);
   const getUsernameForComment = async () => {
-    const response = await getUsername(authorId);
-    if (!(response.user == null)) {
-      setUsername(response.user);
+    if (authorId !== undefined) {
+      const user = await getUsername(authorId);
+      if (!(user == null)) {
+        setUsername(user.name);
+      } else {
+        setUsername('');
+      }
+    } else {
+      setUsername('');
     }
-    setUsername('');
   };
-  if (authorId !== undefined) {
-    useEffect(() => {
-      getUsernameForComment();
-    }, []);
-  }
+  useEffect(() => {
+    getUsernameForComment();
+  }, []);
   return (
     <Card className={styles.root}>
       <div className={styles['comment-box']}>

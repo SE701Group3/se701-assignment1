@@ -9,7 +9,7 @@ export const getPostInformation = async postId => {
 };
 
 export const getUsername = async authorId => {
-  return trackPromise(fetch(getUsernameRoute(authorId)).then(response => response.json()));
+  return fetch(getUsernameRoute(authorId)).then(response => response.json());
 };
 
 /*
