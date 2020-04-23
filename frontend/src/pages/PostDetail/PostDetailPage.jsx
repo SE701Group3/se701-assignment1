@@ -60,6 +60,7 @@ const nestComments = (commentList, setModal, setParentID) => {
                   setModal(true);
                   setParentID(comment._id);
                 }}
+                author={comment.author}
                 key={`${Math.floor(Math.random() * 100)}`}
               />
             </ExpansionPanelSummary>
@@ -119,6 +120,7 @@ const PostDetailPage = ({
                         setModal(true);
                         setParentID(comment._id);
                       }}
+                      author={comment.author}
                       key={`${Math.floor(Math.random() * 100)}`}
                     />
                   </ExpansionPanelSummary>

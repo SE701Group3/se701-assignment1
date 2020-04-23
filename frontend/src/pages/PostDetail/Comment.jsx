@@ -11,7 +11,8 @@ const splitTextToParagraph = text => {
   return text.split('\n').map(i => <p key={`${Math.floor(Math.random() * 100)}`}>{i}</p>);
 };
 
-const Comment = ({ body, dateCreated, setModal }) => {
+const Comment = ({ body, dateCreated, setModal, author }) => {
+  console.log('hi');
   return (
     <Card className={styles.root}>
       <div className={styles['comment-box']}>
@@ -20,7 +21,7 @@ const Comment = ({ body, dateCreated, setModal }) => {
         </Button>
         <CardContent>
           <div className={styles['comment-content']}>
-            <Typography variant="body1">AnonUser</Typography>
+            <Typography variant="body1">{author}</Typography>
             <Typography variant="caption" color="textSecondary">
               {dateCreated}
             </Typography>
