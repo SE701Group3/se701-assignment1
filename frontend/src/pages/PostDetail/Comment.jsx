@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ReplyImage from '../../common/icons/reply.png';
-
 import styles from './Comment.module.css';
+import { getUsername } from '../../services/postDetailService';
 
 const splitTextToParagraph = text => {
   return text.split('\n').map(i => <p key={`${Math.floor(Math.random() * 100)}`}>{i}</p>);
 };
 
-const Comment = ({ body, dateCreated, setModal, author }) => {
-  console.log('hi');
+const Comment = ({ body, dateCreated, setModal, authorId }) => {
+  const [username, setUsername] = useState([]);
+  const getUsernameForComment = async () => {
+    const response = await getUsername(authorId);
+    if (!(response.user == null)) {
+      setUsername(response.user);
+    }
+    setUsername('');
+  };
+  getUsernameForComment();
   return (
     <Card className={styles.root}>
       <div className={styles['comment-box']}>
@@ -21,7 +29,7 @@ const Comment = ({ body, dateCreated, setModal, author }) => {
         </Button>
         <CardContent>
           <div className={styles['comment-content']}>
-            <Typography variant="body1">{author}</Typography>
+            <Typography variant="body1">{username}</Typography>
             <Typography variant="caption" color="textSecondary">
               {dateCreated}
             </Typography>
