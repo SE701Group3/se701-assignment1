@@ -49,7 +49,11 @@ const Post = ({
     if (authorId !== undefined) {
       const user = await getUsername(authorId);
       if (user !== null) {
-        setUsername(user.name);
+        if (user.name === '') {
+          setUsername(user.email);
+        } else {
+          setUsername(user.name);
+        }
       }
     }
   };
