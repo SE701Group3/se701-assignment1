@@ -3,11 +3,11 @@ const firebaseApp = require('../firebase');
 function firebaseAuthMiddleware(req, res, next) {
   const authorization = req.header('Authorization');
   if (authorization) {
-    const token = '';
+    var token = '';
     // using postman to check authorization
     const postman = authorization.indexOf('Bearer');
     if (postman > -1) {
-      token = authorization.split(' ');  
+      token = authorization.split(' ');
     // not using postman
     } else {
       token = authorization.split('=');
