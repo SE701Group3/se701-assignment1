@@ -30,15 +30,15 @@ router.post('/', firebaseAuthMiddleware, async (req, res) => {
 
     const newComment = await comment.save();
 
-    if (user.email == null){
-      res.status(403).json({ message: 'You have to be logged in to post a comment'});
-    } else{
+    if (user.email == null) {
+      res.status(403).json({ message: 'You have to be logged in to post a comment' });
+    } else {
       // update post and comment to include child
       await Post.update({ _id: req.body.parentID }, { $push: { children: newComment._id } });
       await Comment.update({ _id: req.body.parentID }, { $push: { children: newComment._id } });
       // update user to include comment
       await User.update({ _id: user._id }, { $push: { comments: comment._id } });
-      res.status(201).send();      
+      res.status(201).send();
     }
   } catch (err) {
     res.status(400).json({ message: err.message });
