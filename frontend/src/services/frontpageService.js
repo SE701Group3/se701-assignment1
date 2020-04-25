@@ -49,20 +49,22 @@ export const handleVote = async (id, upvote_type, upvote) => {
     if (response.message) {
       // eslint-disable-next-line no-console
       console.log(response.message);
-      return -1;
+      return 'already upvoted';
     }
+
+    let newValue = -1;
+    // eslint-disable-next-line camelcase
+    if (upvote_type === 'clap') {
+      newValue = response.upvotes_clap;
+      // eslint-disable-next-line camelcase
+    } else if (upvote_type === 'laugh') {
+      newValue = response.upvotes_laugh;
+      // eslint-disable-next-line camelcase
+    } else if (upvote_type === 'sad') {
+      newValue = response.upvotes_sad;
+    }
+    return newValue;
   }
 
-  let newValue = -1;
-  // eslint-disable-next-line camelcase
-  if (upvote_type === 'clap') {
-    newValue = response.upvotes_clap;
-    // eslint-disable-next-line camelcase
-  } else if (upvote_type === 'laugh') {
-    newValue = response.upvotes_laugh;
-    // eslint-disable-next-line camelcase
-  } else if (upvote_type === 'sad') {
-    newValue = response.upvotes_sad;
-  }
-  return newValue;
+  return 'error';
 };

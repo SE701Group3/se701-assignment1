@@ -68,26 +68,28 @@ const Post = ({
   });
 
   const internalHandleVote = async (upvoteType, upvote) => {
-    if (upvoteType === 'clap') {
-      highlightClap(!upvoteClap);
-    } else if (upvoteType === 'laugh') {
-      highlightLaugh(!upvoteLaugh);
-    } else if (upvoteType === 'sad') {
-      highlightSad(!upvoteSad);
-    }
-
     const updatedValue = await handleVote(id, upvoteType, upvote);
 
-    if (updatedValue !== -1) {
+    if (updatedValue !== 'error') {
       if (upvoteType === 'clap') {
-        setClapCountUpdated(true);
-        setUpdatedClapCount(updatedValue);
+        highlightClap(!upvoteClap);
       } else if (upvoteType === 'laugh') {
-        setSmileCountUpdated(true);
-        setUpdatedSmileCount(updatedValue);
+        highlightLaugh(!upvoteLaugh);
       } else if (upvoteType === 'sad') {
-        setSadCountUpdated(true);
-        setUpdatedSadCount(updatedValue);
+        highlightSad(!upvoteSad);
+      }
+
+      if (updatedValue !== 'already upvoted') {
+        if (upvoteType === 'clap') {
+          setClapCountUpdated(true);
+          setUpdatedClapCount(updatedValue);
+        } else if (upvoteType === 'laugh') {
+          setSmileCountUpdated(true);
+          setUpdatedSmileCount(updatedValue);
+        } else if (upvoteType === 'sad') {
+          setSadCountUpdated(true);
+          setUpdatedSadCount(updatedValue);
+        }
       }
     }
   };
