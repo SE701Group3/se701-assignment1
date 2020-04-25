@@ -36,6 +36,20 @@ const Login = ({ handleLogin, displayProfile }) => {
     },
   };
 
+  const handleButtonShow = () => {
+    if (document.cookie) {
+      return null;
+    }
+
+    return (
+      <StyledFirebaseAuth
+        className="styledFirebaseAuth"
+        uiConfig={uiConfig}
+        firebaseAuth={firebase.auth()}
+      />
+    );
+  };
+
   return (
     <div className="rootLogin">
       {displayProfile.isLoggedIn ? (
@@ -44,11 +58,7 @@ const Login = ({ handleLogin, displayProfile }) => {
           <div className="displayName">{displayProfile.displayName}</div>
         </div>
       ) : (
-        <StyledFirebaseAuth
-          className="styledFirebaseAuth"
-          uiConfig={uiConfig}
-          firebaseAuth={firebase.auth()}
-        />
+        handleButtonShow()
       )}
     </div>
   );
