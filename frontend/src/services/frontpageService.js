@@ -31,10 +31,6 @@ export const handleVote = async (id, upvote_type, upvote) => {
   };
 
   const requestBody = JSON.stringify(params);
-  console.log(document.cookie);
-  console.log(id);
-  console.log(upvote_type);
-  console.log(upvote);
 
   const response = await fetch(upvotePostRoute(id), {
     headers: {
