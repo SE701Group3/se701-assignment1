@@ -35,12 +35,18 @@ const Post = ({
   frontpage,
   loadPost,
 }) => {
-  const [upvoteClap, setUpvoteClap] = useState(false);
-  const [upvoteLaugh, setUpvoteLaugh] = useState(false);
-  const [upvoteSad, setUpvoteSad] = useState(false);
-  const clapCount = claps + (upvoteClap ? 1 : 0);
-  const smileCount = upvotes + (upvoteLaugh ? 1 : 0);
-  const sadCount = downvotes + (upvoteSad ? 1 : 0);
+  const [upvoteClap, highlightClap] = useState(false);
+  const [upvoteLaugh, highlightLaugh] = useState(false);
+  const [upvoteSad, highlightSad] = useState(false);
+  const [clapCountUpdated, setClapCountUpdated] = useState(false);
+  const [updatedClapCount, setUpdatedClapCount] = useState(0);
+  const [smileCountUpdated, setSmileCountUpdated] = useState(false);
+  const [updatedSmileCount, setUpdatedSmileCount] = useState(0);
+  const [sadCountUpdated, setSadCountUpdated] = useState(false);
+  const [updatedSadCount, setUpdatedSadCount] = useState(0);
+  const clapCount = clapCountUpdated ? updatedClapCount : claps;
+  const smileCount = smileCountUpdated ? updatedSmileCount : upvotes;
+  const sadCount = sadCountUpdated ? updatedSadCount : downvotes;
   const [showModal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [username, setUsername] = useState([]);
@@ -60,6 +66,31 @@ const Post = ({
   useEffect(() => {
     getUsernameForComment();
   });
+
+  const internalHandleVote = async (upvoteType, upvote) => {
+    if (upvoteType === 'clap') {
+      highlightClap(!upvoteClap);
+    } else if (upvoteType === 'laugh') {
+      highlightLaugh(!upvoteLaugh);
+    } else if (upvoteType === 'sad') {
+      highlightSad(!upvoteSad);
+    }
+
+    const updatedValue = await handleVote(id, upvoteType, upvote);
+
+    if (updatedValue !== -1) {
+      if (upvoteType === 'clap') {
+        setClapCountUpdated(true);
+        setUpdatedClapCount(updatedValue);
+      } else if (upvoteType === 'laugh') {
+        setSmileCountUpdated(true);
+        setUpdatedSmileCount(updatedValue);
+      } else if (upvoteType === 'sad') {
+        setSadCountUpdated(true);
+        setUpdatedSadCount(updatedValue);
+      }
+    }
+  };
   // Call this method onClick of the delete button
   // const handleDelete = () => {
   //   deletePostService(id);
@@ -74,8 +105,7 @@ const Post = ({
             <Button
               className={styles['post-button']}
               onClick={() => {
-                handleVote({ id, upvote_type: 'clap', upvote: !upvoteClap });
-                setUpvoteClap(!upvoteClap);
+                internalHandleVote('clap', !upvoteClap);
               }}
             >
               <img src={ClapImg} alt="clap-img" className={styles['post-icon']} />
@@ -88,8 +118,7 @@ const Post = ({
             <Button
               className={styles['post-button']}
               onClick={() => {
-                handleVote({ id, upvote_type: 'laugh', upvote: !upvoteLaugh });
-                setUpvoteLaugh(!upvoteLaugh);
+                internalHandleVote('laugh', !upvoteLaugh);
               }}
             >
               <img src={SmileImg} alt="smile-img" className={styles['post-icon']} />{' '}
@@ -102,8 +131,7 @@ const Post = ({
             <Button
               className={styles['post-button']}
               onClick={() => {
-                handleVote({ id, upvote_type: 'sad', upvote: !upvoteSad });
-                setUpvoteSad(!upvoteSad);
+                internalHandleVote('sad', !upvoteSad);
               }}
             >
               <img src={SadImg} alt="sad-img" className={styles['post-icon']} />{' '}
