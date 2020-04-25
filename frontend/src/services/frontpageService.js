@@ -23,7 +23,7 @@ export const getPostsForSubthread = async thread => {
   return response;
 };
 // eslint-disable-next-line camelcase
-export const handleVote = async ({ id, upvote_type, upvote }) => {
+export const handleVote = async (id, upvote_type, upvote) => {
   const params = {
     id,
     upvote_type,
@@ -34,6 +34,7 @@ export const handleVote = async ({ id, upvote_type, upvote }) => {
 
   const response = await fetch(upvotePostRoute(id), {
     headers: {
+      Authorization: document.cookie,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -48,6 +49,22 @@ export const handleVote = async ({ id, upvote_type, upvote }) => {
     if (response.message) {
       // eslint-disable-next-line no-console
       console.log(response.message);
+      return 'already upvoted';
     }
+
+    let newValue = -1;
+    // eslint-disable-next-line camelcase
+    if (upvote_type === 'clap') {
+      newValue = response.upvotes_clap;
+      // eslint-disable-next-line camelcase
+    } else if (upvote_type === 'laugh') {
+      newValue = response.upvotes_laugh;
+      // eslint-disable-next-line camelcase
+    } else if (upvote_type === 'sad') {
+      newValue = response.upvotes_sad;
+    }
+    return newValue;
   }
+
+  return 'error';
 };
