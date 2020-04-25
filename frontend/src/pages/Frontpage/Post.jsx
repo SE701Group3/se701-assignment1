@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import { CardActionArea } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -47,6 +48,7 @@ const Post = ({
   const clapCount = clapCountUpdated ? updatedClapCount : claps;
   const smileCount = smileCountUpdated ? updatedSmileCount : upvotes;
   const sadCount = sadCountUpdated ? updatedSadCount : downvotes;
+  const [votingErrorOpen, changeVotingError] = useState(false);
   const [showModal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [username, setUsername] = useState([]);
@@ -91,6 +93,8 @@ const Post = ({
           setUpdatedSadCount(updatedValue);
         }
       }
+    } else {
+      changeVotingError(true);
     }
   };
   // Call this method onClick of the delete button
@@ -207,6 +211,14 @@ const Post = ({
           loadPost={loadPost}
         />
       )}
+      <Snackbar
+        open={votingErrorOpen}
+        onClose={() => {
+          changeVotingError(false);
+        }}
+        message="Please log in to vote on posts."
+        autoHideDuration={3000}
+      />
     </Card>
   );
 };
