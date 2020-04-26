@@ -38,6 +38,10 @@ const Login = ({ handleLogin, displayProfile }) => {
 
   const handleButtonShow = () => {
     if (document.cookie) {
+      const storedPostTypes = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
+      if (storedPostTypes) {
+        handleLogin(true, storedPostTypes[0].displayName, storedPostTypes[0].photoUrl);
+      }
       return null;
     }
 
