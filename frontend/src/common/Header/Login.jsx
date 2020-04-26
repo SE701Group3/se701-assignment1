@@ -29,6 +29,8 @@ const Login = ({ handleLogin, displayProfile }) => {
         console.log(authResult.credential.idToken); // eslint-disable-line no-console
         console.log(redirectUrl); // eslint-disable-line no-console
         document.cookie = `threaderAuthToken=${authResult.user.xa}`;
+        const storedPostTypes = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
+        console.log(storedPostTypes);
         handleLogin(true, authResult.user.displayName, authResult.user.photoURL);
 
         return true;
@@ -38,6 +40,9 @@ const Login = ({ handleLogin, displayProfile }) => {
 
   const handleButtonShow = () => {
     if (document.cookie) {
+      const storedPostTypes = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
+      console.log(storedPostTypes);
+      handleLogin(true, storedPostTypes[0].displayName, storedPostTypes[0].photoUrl);
       return null;
     }
 
