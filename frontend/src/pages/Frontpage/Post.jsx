@@ -103,6 +103,41 @@ const Post = ({
   //   window.location.reload();
   // };
 
+  const handleButtonsShow = () => {
+    if (!document.cookie) return null;
+    const storedPostTypes = JSON.parse(localStorage.getItem('firebaseui::rememberedAccounts'));
+    if (!storedPostTypes) return null;
+
+    return (
+      <>
+        <div className={styles['post-edit-button']}>
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<EditIcon />}
+            onClick={() => {
+              setModal(true);
+            }}
+          >
+            Edit
+          </Button>
+        </div>
+        <div className={styles['post-delete-button']}>
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<DeleteIcon />}
+            onClick={() => {
+              setDeleteModal(true);
+            }}
+          >
+            Delete
+          </Button>
+        </div>
+      </>
+    );
+  };
+
   return (
     <Card className={styles.root}>
       <div className={styles['post-box']}>
@@ -167,30 +202,7 @@ const Post = ({
               {content}
             </Typography>
           </div>
-          <div className={styles['post-edit-button']}>
-            <Button
-              variant="contained"
-              size="small"
-              startIcon={<EditIcon />}
-              onClick={() => {
-                setModal(true);
-              }}
-            >
-              Edit
-            </Button>
-          </div>
-          <div className={styles['post-delete-button']}>
-            <Button
-              variant="contained"
-              size="small"
-              startIcon={<DeleteIcon />}
-              onClick={() => {
-                setDeleteModal(true);
-              }}
-            >
-              Delete
-            </Button>
-          </div>
+          {handleButtonsShow()}
         </CardContent>
       </div>
       {title && (
